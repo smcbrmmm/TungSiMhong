@@ -34,7 +34,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('order.index');
     }
 
     /**

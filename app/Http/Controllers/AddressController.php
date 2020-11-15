@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
+use App\Models\TechPost;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AddressController extends Controller
 {
@@ -23,7 +26,7 @@ class AddressController extends Controller
      */
     public function create()
     {
-        //
+        return view('address.create');
     }
 
     /**
@@ -34,7 +37,18 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        $img = $request->file('img_path');
+//        $input = time().'-'.$img->getClientOriginalExtension();
+//        $des = public_path('/images/');
+//        $img->move($des,$input);
+
+        $address = new Address();
+        $address->user_id = Auth::user()->id;
+        $address->place_name = 'home';
+        $address->save();
+
+        return redirect()->route('home.index' );
+
     }
 
     /**
