@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->string('product_quantity');
             $table->string('product_weight');
             $table->string('product_detail');
+            $table->string('img')->nullable(true);
             $table->timestamps();
         });
     }

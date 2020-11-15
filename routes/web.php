@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddressController;
-use App\Http\Controllers\HomeConroller;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,7 +24,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia\Inertia::render('Dashboard');
 })->name('dashboard');
 
-Route::resource('/home' , HomeConroller::class);
+Route::resource('/home' , HomeController::class);
 
 Route::resource('/order' , OrderController::class);
 
