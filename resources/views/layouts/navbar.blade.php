@@ -11,13 +11,25 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a href="{{ url('/') }}" class="nav-link">Nav </a>
+                    <a href="{{ url('/') }}" class="nav-link">
+                        Nav
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('product.index') }}" class="nav-link">
+                        Product
+                    </a>
                 </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 @auth()
+                    <li class="nav-item">
+                        <a href="{{ route('order-detail.show', ['order_detail' => 0]) }}" class="nav-link">
+                            <i class="fa fa-shopping-cart"></i>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="{{ route('profile.show') }}" class="nav-link" style="color: black">
                             {{ Auth::user()->name }}
