@@ -17,13 +17,24 @@
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
+                @auth()
+                    <li class="nav-item">
+                        <a href="{{ route('profile.show') }}" class="nav-link" style="color: black">
+                            {{ Auth::user()->name }}
+                        </a>
+                    </li>
+                @endauth
+
+
+                @guest()
                 <!-- Authentication Links -->
                 <li class="nav-item">
-                    <a href="{{ url('/') }}" class="nav-link">Login </a>
+                    <a href="{{ url('login') }}" class="nav-link">Login </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('/') }}" class="nav-link">Sign in </a>
+                    <a href="{{ url('register') }}" class="nav-link">Sign in </a>
                 </li>
+                @endguest
             </ul>
         </div>
     </div>
