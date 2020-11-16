@@ -88,6 +88,8 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|min:5',
+            'email'=>'required|email',
+            'tel' => 'required|min:12|max:12',
         ]);
 
 
