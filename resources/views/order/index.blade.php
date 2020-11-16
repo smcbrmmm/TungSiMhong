@@ -8,18 +8,10 @@
             height: 100px;
             max-width: 100px;
         }
-        .sidenav {
-
-            /*height: 100%; !* Full-height: remove this if you want "auto" height *!*/
-            width: 160px; /* Set the width of the sidebar */
-            /*position: fixed; !* Fixed Sidebar (stay in place on scroll) *!*/
-            /*z-index: 1; !* Stay on top *!*/
-            /*top: 0; !* Stay at the top *!*/
-            /*right: 0;*/
-            background-color: #111; /* Black */
-            overflow-x: hidden; /* Disable horizontal scroll */
+        .sidebar {
             padding-top: 20px;
-            float: right;
+            text-align: center;
+            background-color: red;
         }
     </style>
 @endsection
@@ -65,12 +57,9 @@
 
 
             </div>
-            <div class="col-4 bg-danger">
-                <div class="sidenav">
-                    <a href="#about">About</a>
-                    <a href="#services">Services</a>
-                    <a href="#clients">Clients</a>
-                    <a href="#contact">Contact</a>
+            <div class="col-4">
+                <div class="sidebar">
+                    <div>name</div>
                 </div>
             </div>
         </div>
@@ -88,6 +77,5 @@
             amountPrice += parseInt(amounts[i].innerHTML);
         }
         document.getElementById("amountPrice").innerHTML = amountPrice;
-
     }
 </script>
