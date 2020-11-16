@@ -6,6 +6,7 @@ use App\Models\Address;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -85,14 +86,26 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|min:5',
+        ]);
+
+
         $user = User::findOrFail($id);
         $user->name = $request->input('name');
         $user->tel = $request->input('tel');
         $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('password'));
+
         $user->save();
 
         return redirect()->route('user.index' );
+
+//        if(Hash::check($request->input('accept_password'),$user->password)){
+//            return redirect()->route('user.index' );
+//        }
+
+
+
 
     }
 

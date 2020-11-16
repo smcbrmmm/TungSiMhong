@@ -8,9 +8,6 @@
 
     <div class="container">
 
-        <div>รูปภาพประจำตัว</div>
-        <img src="storage/{{ $user[0]->profile_photo_path }}" class="rounded" style="width: 200px ; height: 200px" alt="">
-
 
         @if($user)
             <div> ชื่อ : {{ $user[0]->name }}</div>

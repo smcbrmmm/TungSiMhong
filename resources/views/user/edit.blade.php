@@ -13,13 +13,6 @@
         @method('PUT')
         @csrf
 
-            <div class="form-group">
-                <label for="profile_photo_path">ไฟล์รูปภาพของคุณ</label>
-                <input type="file" class="form-control-file" id="profile_photo_path" name="profile_photo_path"
-                    >
-            </div>
-
-
         <div class="form-group">
             <label for="name">ชื่อ-นามสกุล</label>
             <input type="text" class="form-control" id="name"
@@ -51,18 +44,26 @@
             </div>
 
             <div class="form-group">
-                <label for="password">พาสเวิร์ดใหม่</label>
-                <input type="password" class="form-control " id="password"
-                       name="password"
-                       aria-describedby="passwordHelp">
-            </div>
-
-            <div class="form-group">
-                <label for="accpet_password">ยืนยันพาสเวิร์ดใหม่</label>
-                <input type="accpet_password" class="form-control " id="accpet_password"
-                       name="accpet_password"
+                <label for="accept_password">ยืนยันพาสเวิร์ด</label>
+                <input type="password" class="form-control " id="accept_password"
+                       name="accept_password"
                        aria-describedby="accpet_passwordHelp">
             </div>
+
+{{--            <div class="form-group">--}}
+{{--                <label for="password">พาสเวิร์ดใหม่</label>--}}
+{{--                <input type="password" class="form-control " id="password"--}}
+{{--                       name="password"--}}
+{{--                       aria-describedby="passwordHelp">--}}
+{{--            </div>--}}
+
+{{--            <div class="form-group">--}}
+{{--                <label for="password">ยืนยันพาสเวิร์ดใหม่</label>--}}
+{{--                <input type="password" class="form-control " id="password"--}}
+{{--                       name="password"--}}
+{{--                       aria-describedby="passwordHelp">--}}
+{{--            </div>--}}
+
 
         <button type="submit" class="btn btn-primary">แก้ไข</button>
         </form>
