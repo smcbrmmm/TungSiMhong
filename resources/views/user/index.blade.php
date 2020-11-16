@@ -27,6 +27,9 @@
             <div style="margin-left: 1rem">
                 <span> ชื่อผู้รับสินค้า : {{ $address->receiver_name }}</span>
             </div>
+            <div style="margin-left: 1rem">
+                <span> เบอร์โทรศัพท์ผู้รับสินค้า : {{ $address->receiver_tel }}</span>
+            </div>
             <div style="margin-left: 1rem"> ที่อยู่ผู้รับสินค้า : {{ $address->house_no }} {{ $address->Address }} {{ $address->province }} {{ $address->postal }}</div>
         </div>
         @endforeach

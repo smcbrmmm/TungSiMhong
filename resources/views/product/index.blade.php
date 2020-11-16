@@ -14,6 +14,15 @@
 @section('content')
 
     <div class="container">
+
+
+        <div>
+            <a href="{{ route('product.create') }}">
+            <i class="fas fa-plus-circle fa-1x"></i> <span> เพิ่มสินค้า</span>
+            </a>
+        </div>
+
+
         <table class="table table-hover">
             <caption>List of product</caption>
             <thead class="thead-dark">

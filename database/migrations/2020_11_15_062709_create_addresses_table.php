@@ -18,6 +18,7 @@ class CreateAddressesTable extends Migration
             $table->string('receiver_name')->nullable(true);
             $table->string('place_name')->nullable(true);
             $table->string('postal')->nullable(true);
+            $table->string('receiver_tel')->nullable(true);
             $table->string('province')->nullable(true);
             $table->string('Address')->nullable(true);
             $table->string('house_no')->nullable(true);

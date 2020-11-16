@@ -18,6 +18,7 @@ class AddressSeeder extends Seeder
         $address->user_id = 1;
         $address->receiver_name = 'Janjira Aekpatcha';
         $address->place_name = 'Home';
+        $address->receiver_tel = '0955938259';
         $address->postal = '10900';
         $address->province = 'Bangkok';
         $address->house_no = '54/10';
@@ -28,6 +29,7 @@ class AddressSeeder extends Seeder
         $address->user_id = 1;
         $address->receiver_name = 'Naomi Shabu';
         $address->place_name = 'Home2';
+        $address->receiver_tel = '0955938259';
         $address->postal = '10700';
         $address->province = 'Bangkok';
         $address->house_no = '22/10';
