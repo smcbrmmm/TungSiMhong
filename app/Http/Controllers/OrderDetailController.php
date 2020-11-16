@@ -46,7 +46,6 @@ class OrderDetailController extends Controller
     public function show($id)
     {
 
-        return view('orderDetail.show');
     }
 
     /**
