@@ -41,7 +41,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '50';
         $product->product_weight = '420gram';
         $product->product_detail ='กระถางธูปไฟฟ้าสีทอง ลายหงส์มังกร';
-        $product->img ='/imgProduct/กระถางไฟฟ้า.jfif';
+        $product->img ='/imgProduct/กระถางไฟฟ้า.jpg';
         $product->save();
 
         $product = new Product();
@@ -61,7 +61,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '100';
         $product->product_weight = '150gram';
         $product->product_detail ='ปฏิทินไทย-ปี2564จากสำนักโหราศาสตร์น่ำเอี๊ยง ของแท้ได้มาตรฐาน เก็บดูวันธงชัย วันเปิดร้าน วันดี วันชงต่างๆ';
-        $product->img ='/imgProduct/cal.jfif';
+        $product->img ='/imgProduct/cal.jpg';
         $product->save();
 
         $product = new Product();
@@ -71,7 +71,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '200';
         $product->product_weight = '20gram';
         $product->product_detail ='สร้อยมุก ถวายเจ้าแม่กวนอิม หรือ สามารถนำมาใส่คู่กับชุดไทย';
-        $product->img ='/imgProduct/muk.jfif';
+        $product->img ='/imgProduct/muk.jpg';
         $product->save();
 
         $product = new Product();
@@ -81,7 +81,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '45';
         $product->product_weight = '20gram';
         $product->product_detail ='ผ้าดิบ หน้ากว้าง 90ซม. แบ่งขายเป็นเมตร ';
-        $product->img ='/imgProduct/dib.jfif';
+        $product->img ='/imgProduct/dib.jpg';
         $product->save();
 
         $product = new Product();

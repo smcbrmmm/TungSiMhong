@@ -1,5 +1,16 @@
 @extends('layouts.app')
 
+@section('style')
+    <style>
+        .productImg {
+            object-fit: cover;
+            width: 100px;
+            height: 100px;
+            max-width: 100px;
+        }
+    </style>
+@endsection
+
 @section('content')
 
     <div class="container">
@@ -12,7 +23,6 @@
                 <th scope="col">product code</th>
                 <th scope="col">name</th>
                 <th scope="col">quantity</th>
-                <th scope="col">weight</th>
                 <th scope="col">detail</th>
                 <th scope="col">จำนวน</th>
                 <th scope="col">ราคา</th>
@@ -23,16 +33,15 @@
             @foreach($products as $product)
                 <tr>
                     <th scope="row">{{ $product->id }}</th>
-                    <td><img src="{{ $product->product_img }}" alt="{{ $product->product_code }}"></td>
+                    <td><img src="/storage/{{ $product->img }}" alt="{{ $product->product_code }}" class="productImg"></td>
                     <td>{{ $product->product_code }}</td>
                     <td>{{ $product->product_name }}</td>
                     <td id="td{{ $product->id }}Qty">{{ $product->product_quantity }}</td>
-                    <td>{{ $product->product_weight }}</td>
                     <td>{{ $product->product_detail }}</td>
                     <td>
-                        <input onchange="inputOnChange(this)" class="inputQty" type="number" id="{{ $product->id . "qty" }}" name="{{ $product->id }}" min="1" max="{{ $product->product_quantity }}" value="1">
+                        <input onchange="inputOnChange(this, {{ $product->id }}, {{ $product->product_price }})" class="inputQty" type="number" id="{{ $product->id . "qty" }}" min="1" max="{{ $product->product_quantity }}" value="1">
                     </td>
-                    <td id="product{{ $product->id }}">{{ $product->product_price }}</td>
+                    <td id="product{{ $product->id }}" >{{ $product->product_price }}</td>
                     <td>
                         <button type="button" class="btn btn-secondary basketBtn" id="{{ $product->id }}">
                             Add to basket
@@ -48,9 +57,9 @@
 
 @section('script')
     <script>
-        function inputOnChange(input) {
-            let price = document.getElementById("product" + input.name);
-            price.innerHTML = {{ $product->product_price }} * input.value;
+        function inputOnChange(input, id, price) {
+            let amount = document.getElementById("product" + id);
+            amount.innerHTML = price * input.value;
         }
     </script>
     <script>
