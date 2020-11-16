@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,6 +14,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+//        $order = Order::where('order_status', 'อยู่ในตระกล้า')->where('user_id', Auth::user->)
         return view('home.index');
     }
 

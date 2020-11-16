@@ -21,8 +21,11 @@
             <ul class="navbar-nav ml-auto">
                 @auth()
                     <li class="nav-item">
-                        <a href="{{ route('order-detail.show', ['order_detail' => 0]) }}" class="nav-link">
-                            <i class="fa fa-shopping-cart"></i>
+                        <a href="{{ route('order.show', ['order' => 1]) }}" class="nav-link">
+                            <i class="fa fa-shopping-basket"></i>
+                            @if(!empty($basketQty))
+                                <span class="badge badge-pill badge-danger">{{ $basketQty }}</span>
+                            @endif
                         </a>
                     </li>
                     <li class="nav-item" >

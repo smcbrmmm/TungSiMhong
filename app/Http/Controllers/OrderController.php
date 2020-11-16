@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -34,6 +35,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+
         return view('order.index');
     }
 
@@ -45,7 +47,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $orderDetails = $order->orderDetails;
+        return view('order.show', ['order' => $order, 'orderDetails' => $orderDetails]);
     }
 
     /**
