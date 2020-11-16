@@ -28,11 +28,12 @@
                             @endif
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{route('user.index')}}">
-                            <img src="storage/{{Auth::user()->profile_photo_path}}" style="max-width: 40px ; max-height: 40px ; margin-top: 1rem" class="rounded" alt="">
+                    <li class="nav-item" >
+                        <a href="{{route('user.index')}}" class="nav-link">
+                                <i class="fas fa-user"></i>
                         </a>
                     </li>
+
                 @endauth
 
 
