@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home.index');
+    redirect('/home');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -30,6 +30,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::resource('/home' , HomeController::class);
 
 Route::resource('/order' , OrderController::class);
+Route::get('/order/basket', [OrderController::class, 'basketQty'])->name('order.basketQty');
 
 Route::resource('/product', ProductController::class);
 

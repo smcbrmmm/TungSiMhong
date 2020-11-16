@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderDetailController extends Controller
 {
@@ -34,7 +38,20 @@ class OrderDetailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $order = Order::where('order_status', '=', 'ตะกร้า')->where('user_id','=', Auth::user()->id)->first();
+        $product = Product::where('id', '=', $request->product_id)->first();
+        $orderDetail = new OrderDetail();
+        $orderDetail->product_id = $product->id;
+        $orderDetail->order_id = $order->id;
+        $orderDetail->orderdetail_quantity = $request->qty;
+        $orderDetail->orderdetail_price = $product->product_price;
+        $orderDetail->save();
+
+        $product->product_quantity = $product->product_quantity - $orderDetail->orderdetail_quantity;
+        $product->save();
+
+        return $product;
     }
 
     /**

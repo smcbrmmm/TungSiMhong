@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -14,7 +15,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-//        $order = Order::where('order_status', 'อยู่ในตระกล้า')->where('user_id', Auth::user->)
+        $order = Order::where('order_status', '=', 'ตะกร้า')->where('user_id','=', Auth::user()->id)->get();
+        if (count($order) == 0) {
+            $order = new Order();
+            $order->user_id = Auth::user()->id;
+            $order->save();
+        }
         return view('home.index');
     }
 

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
+        <a class="navbar-brand" href="{{ route('home.index') }}">
             <i class="fa fa-home"></i> TungSiMhong
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -21,11 +21,9 @@
             <ul class="navbar-nav ml-auto">
                 @auth()
                     <li class="nav-item">
-                        <a href="{{ route('order.show', ['order' => 1]) }}" class="nav-link">
+                        <a href="{{ route('order.index') }}" class="nav-link">
                             <i class="fa fa-shopping-basket"></i>
-                            @if(!empty($basketQty))
-                                <span class="badge badge-pill badge-danger">{{ $basketQty }}</span>
-                            @endif
+                            <span class="badge badge-pill badge-danger" id="basketQty"></span>
                         </a>
                     </li>
                     <li class="nav-item" >
