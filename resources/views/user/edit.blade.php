@@ -35,7 +35,7 @@
                     เบอร์โทรศัพท์ is required
                 </small>
                 @error('tel')
-                <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger"> เบอร์โทรศัพท์ไม่ถูกต้อง </div>
                 @enderror
             </div>
 
@@ -52,13 +52,6 @@
                 @enderror
             </div>
 
-            <div class="form-group">
-                <label for="accept_password">ยืนยันพาสเวิร์ด</label>
-                <input type="password" class="form-control " id="accept_password"
-                       name="accept_password"
-                       aria-describedby="accpet_passwordHelp">
-            </div>
-
 {{--            <div class="form-group">--}}
 {{--                <label for="password">พาสเวิร์ดใหม่</label>--}}
 {{--                <input type="password" class="form-control " id="password"--}}
@@ -73,6 +66,48 @@
 {{--                       aria-describedby="passwordHelp">--}}
 {{--            </div>--}}
 
+            <div class="form-group">
+                <label for="accept_password">ยืนยันรหัสผ่าน</label>
+                <input type="password" class="form-control @error('accept_password') is-invalid @enderror " id="accept_password"
+                       name="accept_password"
+                       aria-describedby="accpet_passwordHelp">
+
+                @error('accept_password')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+
+            <div>
+            <a id="more" href="#" onclick="$('.details').slideToggle(function(){$('#more').html($('.details').is(':visible')?'ไม่อยากเปลี่ยนรหัสผ่านแล้ว':'เปลี่ยนรหัสผ่าน');});
+            $('#new_password').val('') ; $('#confirm_password').val('')">
+                เปลี่ยนรหัสผ่าน</a>
+            </div>
+            <div class="details" style="display:none">
+
+                <div class="form-group">
+                    <label for="new_password">รหัสผ่านใหม่</label>
+                    <input type="password" class="form-control @error('new_password') is-invalid @enderror" id="new_password"
+                           name="new_password"
+                           aria-describedby="new_passwordHelp">
+                </div>
+
+                @error('new_password')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+
+                <div class="form-group">
+                    <label for="confirm_password" @error('confirm_password') is-invalid @enderror>ยืนยันรหัสผ่านใหม่</label>
+                    <input type="password" class="form-control " id="confirm_password"
+                           name="confirm_password"
+                           aria-describedby="confirm_passwordHelp">
+                </div>
+
+
+                @error('confirm_password')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
 
         <button type="submit" class="btn btn-primary">แก้ไข</button>
         </form>

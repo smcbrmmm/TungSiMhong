@@ -41,10 +41,10 @@ class AddressController extends Controller
     public function store(Request $request)
     {
 
-        $img = $request->file('img_path');
-        $input = time().'-'.$img->getClientOriginalExtension();
-        $des = public_path('/images/');
-        $img->move($des,$input);
+//        $img = $request->file('img_path');
+//        $input = time().'-'.$img->getClientOriginalExtension();
+//        $des = public_path('/imgProduct/');
+//        $img->move($des,$input);
 
         $address = new Address();
         $address->user_id = Auth::user()->id;

@@ -21,7 +21,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '100';
         $product->product_weight = '50gram';
         $product->product_detail ='กระดาษเงินกระดาษทองสำหรับเผาให้บรรพบุรุษในวันเทศกาลไหว้บรรพบุรุษ';
-        $product->img ='/imgProduct/กระดาษเงินกระดาษทอง.jpg';
+        $product->img ='/imgProduct/1.jpg';
         $product->save();
 
         $product = new Product();
@@ -31,7 +31,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '120';
         $product->product_weight = '30gram';
         $product->product_detail ='ธูปมังกร ธูปอักษร ธูปอวยพร ใส่กล่องไม้  สำหรับไหว้เจ้าขอพร  ตามเทศกาลต่างๆ ใช้ได้ทั้ง ไหว้ในบ้าน และไหว้ที่ศาลเจ้า  ไหว้ไฉ่ซิ้งเอี้ย';
-        $product->img ='/imgProduct/ธูปมังกร.jpg';
+        $product->img ='/imgProduct/1.jpg';
         $product->save();
 
         $product = new Product();
@@ -41,7 +41,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '50';
         $product->product_weight = '420gram';
         $product->product_detail ='กระถางธูปไฟฟ้าสีทอง ลายหงส์มังกร';
-        $product->img ='/imgProduct/กระถางไฟฟ้า.jfif';
+        $product->img ='/imgProduct/1.jpg';
         $product->save();
 
         $product = new Product();
@@ -51,7 +51,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '75';
         $product->product_weight = '200gram';
         $product->product_detail ='กระถางธูป มีที่ปักเทียนขาไม้ 2ข้าง เหมาะสำหรับใช้นอกบ้าน หรือนอกสถานที่ สะดวก เคลื่ินย้ายง่าย ตกไม่แตก รูปลายสวยงาม อย่างเช่น ไหม้เทพเจ้าไฉ่ซิ้งเอี้ย หรือเทพเจ้าฟ้าดิน หรือการไหว้เจ้าที่กลางแจ้ง';
-        $product->img ='/imgProduct/tang.jpg';
+        $product->img ='/imgProduct/1.jpg';
         $product->save();
 
         $product = new Product();
@@ -61,7 +61,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '100';
         $product->product_weight = '150gram';
         $product->product_detail ='ปฏิทินไทย-ปี2564จากสำนักโหราศาสตร์น่ำเอี๊ยง ของแท้ได้มาตรฐาน เก็บดูวันธงชัย วันเปิดร้าน วันดี วันชงต่างๆ';
-        $product->img ='/imgProduct/cal.jfif';
+        $product->img ='/imgProduct/1.jpg';
         $product->save();
 
         $product = new Product();
@@ -71,7 +71,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '200';
         $product->product_weight = '20gram';
         $product->product_detail ='สร้อยมุก ถวายเจ้าแม่กวนอิม หรือ สามารถนำมาใส่คู่กับชุดไทย';
-        $product->img ='/imgProduct/muk.jfif';
+        $product->img ='/imgProduct/1.jpg';
         $product->save();
 
         $product = new Product();
@@ -81,7 +81,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '45';
         $product->product_weight = '20gram';
         $product->product_detail ='ผ้าดิบ หน้ากว้าง 90ซม. แบ่งขายเป็นเมตร ';
-        $product->img ='/imgProduct/dib.jfif';
+        $product->img ='/imgProduct/1.jpg';
         $product->save();
 
         $product = new Product();
@@ -91,7 +91,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '100';
         $product->product_weight = '20gram';
         $product->product_detail ='รถกระดาษทำด้วยมือสำหรับเผาในวันไหว้บรรพบุรษ';
-        $product->img ='/imgProduct/fo.jpg';
+        $product->img ='/imgProduct/1.jpg';
         $product->save();
 
         $product = new Product();
@@ -101,7 +101,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '100';
         $product->product_weight = '30gram';
         $product->product_detail ='บ้านกระดาษทำด้วยมือสำหรับเผาในวันไหว้บรรพบุรษ';
-        $product->img ='/imgProduct/z1.jpg';
+        $product->img ='/imgProduct/1.jpg';
         $product->save();
 
         $product = new Product();
@@ -111,7 +111,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '120';
         $product->product_weight = '30gram';
         $product->product_detail ='รองเท้า GUCCI กระดาษทำมือทำด้วยมือสำหรับเผาในวันไหว้บรรพบุรษให้ท่านๆบรรพบุรุษได้ใส่เดินเก๋ๆ';
-        $product->img ='/imgProduct/br.jpg';
+        $product->img ='/imgProduct/1.jpg';
         $product->save();
 
         $product = new Product();
@@ -121,7 +121,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '100';
         $product->product_weight = '25gram';
         $product->product_detail ='กระทงดอกบัวกระดาษทำด้วยมือสำหรับเผาในวันไหว้บรรพบุรษ';
-        $product->img ='/imgProduct/36.jpg';
+        $product->img ='/imgProduct/1.jpg';
         $product->save();
 
         $product = new Product();
@@ -131,7 +131,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '50';
         $product->product_weight = '400gram';
         $product->product_detail ='ชุดไหว้บรรพบุรุษแบบจบในชุดเดียว ไม่จำเป็นต้องไปซื้ออย่างอื่นแยก';
-        $product->img ='/imgProduct/i4.jpg';
+        $product->img ='/imgProduct/1.jpg';
         $product->save();
 
         $product = new Product();
@@ -141,7 +141,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '200';
         $product->product_weight = '120gram';
         $product->product_detail ='แบงค์กระดาษสำหรับการไหว้บรรพบุรุษ ให้ท่านๆบรรพบุรุษบนสวรรค์ทั้งหลายได้มีเงินใช้ไม่ขาดมือ';
-        $product->img ='/imgProduct/yz.jpg';
+        $product->img ='/imgProduct/1.jpg';
         $product->save();
 
         $product = new Product();
@@ -151,7 +151,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '200';
         $product->product_weight = '140gram';
         $product->product_detail ='ทองคำแท่งกระดาษสำหรับการไหว้บรรพบุรุษ ให้ท่านๆบรรพบุรุษบนสวรรค์ทั้งหลายได้มีเงินใช้ไม่ขาดมือ';
-        $product->img ='/imgProduct/rr.jpg';
+        $product->img ='/imgProduct/1.jpg';
         $product->save();
 
         $product = new Product();
@@ -161,7 +161,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '200';
         $product->product_weight = '130gram';
         $product->product_detail ='เหรียญเงินเหรียญทองกระดาษสำหรับการไหว้บรรพบุรุษ ให้ท่านๆบรรพบุรุษบนสวรรค์ทั้งหลายได้มีเงินใช้ไม่ขาดมือ';
-        $product->img ='/imgProduct/8b.jpg';
+        $product->img ='/imgProduct/1.jpg';
         $product->save();
 
         $product = new Product();
@@ -171,7 +171,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '75';
         $product->product_weight = '420gram';
         $product->product_detail ='ชุดไหว้บรรพบุรุษแบบจบในชุดเดียว ไม่จำเป็นต้องไปซื้ออย่างอื่นแยก';
-        $product->img ='/imgProduct/2v.jpg';
+        $product->img ='/imgProduct/1.jpg';
         $product->save();
 
         $product = new Product();
@@ -181,7 +181,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '40';
         $product->product_weight = '550gram';
         $product->product_detail ='ชุดไหว้ไฉ่ซิงเอี้ยแบบจบในชุดเดียว ไม่จำเป็นต้องไปซื้ออย่างอื่นแยก';
-        $product->img ='/imgProduct/6r.jpg';
+        $product->img ='/imgProduct/1.jpg';
         $product->save();
 
         $product = new Product();
@@ -191,7 +191,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '50';
         $product->product_weight = '400gram';
         $product->product_detail ='ชุดไหว้เจ้าที่แบบจบในชุดเดียว ไม่จำเป็นต้องไปซื้ออย่างอื่นแยก';
-        $product->img ='/imgProduct/5j.jpg';
+        $product->img ='/imgProduct/1.jpg';
         $product->save();
     }
 }

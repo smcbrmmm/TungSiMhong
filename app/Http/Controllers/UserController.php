@@ -89,7 +89,14 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|min:5',
             'email'=>'required|email',
-            'tel' => 'required|min:12|max:12',
+            'tel' => 'required|regex:/[0][0-9]{9}/',
+            'new_password' => 'nullable|min:8',
+            'confirm_password' => ['same:new_password'],
+            'accept_password' => ['required', function ($attribute, $value, $fail) {
+                if (!\Hash::check($value, Auth::user()->password)) {
+                    return $fail(__('The current password is incorrect.'));
+                }
+            }],
         ]);
 
 
@@ -100,7 +107,11 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('user.index' );
+        if($request->input('new_password')==null && Hash::check($request->input('accept_password'),Auth::user()->password)){
+            return redirect()->route('user.index');
+        }else{
+            return 'neuy';
+        }
 
 //        if(Hash::check($request->input('accept_password'),$user->password)){
 //            return redirect()->route('user.index' );
