@@ -15,8 +15,8 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->date('Order_datetime');
-            $table->string('Order_status');
+            $table->date('order_datetime');
+            $table->enum('order_status',['อยู่ในตระกล้า','รอการยืนยัน','ได้รับการชำระเงินแล้ว'])->default('อยู่ในตระกล้า');
             $table->timestamps();
         });
     }
