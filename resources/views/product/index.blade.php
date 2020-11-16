@@ -11,11 +11,11 @@
                 <th scope="col">image</th>
                 <th scope="col">product code</th>
                 <th scope="col">name</th>
-                <th scope="col">price</th>
                 <th scope="col">quantity</th>
                 <th scope="col">weight</th>
                 <th scope="col">detail</th>
                 <th scope="col">จำนวน</th>
+                <th scope="col">ราคา</th>
                 <th scope="col">เพิ่มลงตระกล้า</th>
             </tr>
             </thead>
@@ -26,13 +26,13 @@
                     <td><img src="{{ $product->product_img }}" alt="{{ $product->product_code }}"></td>
                     <td>{{ $product->product_code }}</td>
                     <td>{{ $product->product_name }}</td>
-                    <td>{{ $product->product_price }}</td>
-                    <td>{{ $product->product_quantity }}</td>
+                    <td id="td{{ $product->id }}Qty">{{ $product->product_quantity }}</td>
                     <td>{{ $product->product_weight }}</td>
                     <td>{{ $product->product_detail }}</td>
                     <td>
-                        <input type="number" id="{{ $product->id . "qty" }}" name="quantity" min="1" max="{{ $product->product_quantity }}" value="1">
+                        <input onchange="inputOnChange(this)" class="inputQty" type="number" id="{{ $product->id . "qty" }}" name="{{ $product->id }}" min="1" max="{{ $product->product_quantity }}" value="1">
                     </td>
+                    <td id="product{{ $product->id }}">{{ $product->product_price }}</td>
                     <td>
                         <button type="button" class="btn btn-secondary basketBtn" id="{{ $product->id }}">
                             Add to basket
@@ -48,28 +48,36 @@
 
 @section('script')
     <script>
+        function inputOnChange(input) {
+            let price = document.getElementById("product" + input.name);
+            price.innerHTML = {{ $product->product_price }} * input.value;
+        }
+    </script>
+    <script>
         $(document).ready(function(){
+
            $(".basketBtn").click(function (event) {
-           @guest()
-               window.location.href = "../login";
-           @endguest
+               let tdQty = $("#td" + this.id + "Qty");
+               let inputQty = $("#" + this.id + "qty");
+               @guest()
+                   window.location.href = "../login";
+               @endguest
 
-           @auth()
-               let qty = $("#" + this.id + "qty").val();
-               $.ajax({
-                   url: "../order/store",
-                   type:"POST",
-                   data:{
-                       user_id:{{ Auth::user()->name }},
-                       mobile_number:mobile_number,
-                       message:message,
-                   },
-                   success:function(response){
-                       console.log(response);
-
-                   },
-               });
-           @endauth
+               @auth()
+                   $.ajax({
+                       url: "../order_detail",
+                       type:"POST",
+                       data:{
+                           _token: "{{ csrf_token() }}",
+                           product_id: this.id,
+                           qty: inputQty.val()
+                       },
+                       success:function(response){
+                           tdQty.text(response.product_quantity)
+                           console.log(response);
+                       },
+                   });
+               @endauth
            })
         });
     </script>

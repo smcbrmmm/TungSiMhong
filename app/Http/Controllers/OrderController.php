@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -14,7 +15,19 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $order = Order::where('order_status', '=', 'ตะกร้า')->where('user_id','=', Auth::user()->id)->first();
+        $orderDetails = $order->orderDetails;
+        $amount = 0;
+        foreach ($orderDetails as $orderDetail) {
+            $amount += $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price;
+        }
+        return view('order.index', [ 'orderDetails' => $orderDetails, 'amount' => $amount ]);
+    }
+
+    public function basketQty() {
+        $order = Order::where('order_status', '=', 'ตะกร้า')->where('user_id','=', Auth::user()->id)->first();
+
+        return count($order->orderDetails);
     }
 
     /**
@@ -47,9 +60,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::findOrFail($id);
-        $orderDetails = $order->orderDetails;
-        return view('order.show', ['order' => $order, 'orderDetails' => $orderDetails]);
+
     }
 
     /**

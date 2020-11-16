@@ -40,5 +40,20 @@
 </div>
 
 @yield('script')
+<script>
+    $(document).ready(function(){
+        @auth()
+            let basketQty = $("#basketQty");
+
+            $.ajax({
+                url: "/order/basket",
+                type:"GET",
+                success:function(response){
+                    console.log(response);
+                },
+            });
+        @endauth
+    });
+</script>
 </body>
 </html>
