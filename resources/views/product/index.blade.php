@@ -39,7 +39,7 @@
                     <td id="td{{ $product->id }}Qty">{{ $product->product_quantity }}</td>
                     <td>{{ $product->product_detail }}</td>
                     <td>
-                        <input onchange="inputOnChange(this, {{ $product->id }}, {{ $product->product_price }})" class="inputQty" type="number" id="{{ $product->id . "qty" }}" min="1" max="{{ $product->product_quantity }}" value="1">
+                        <input onchange="inputOnChange(this, {{ $product->id }}, {{ $product->product_price }}, {{ $product->product_quantity }})" class="inputQty" type="number" id="{{ $product->id . "qty" }}" min="1" max="{{ $product->product_quantity }}" value="1">
                     </td>
                     <td id="product{{ $product->id }}" >{{ $product->product_price }}</td>
                     <td>
@@ -57,7 +57,11 @@
 
 @section('script')
     <script>
-        function inputOnChange(input, id, price) {
+        function inputOnChange(input, id, price, max) {
+            if (input.value > max) {
+                alert("Invalid qty.");
+                input.value = max;
+            }
             let amount = document.getElementById("product" + id);
             amount.innerHTML = price * input.value;
         }
