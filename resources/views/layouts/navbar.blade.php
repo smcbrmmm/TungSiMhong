@@ -11,10 +11,9 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a href="{{ url('/') }}" class="nav-link">Nav </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('order_detail.index')}}" class="nav-link">Kart </a>
+                    <a href="{{ route('product.index') }}" class="nav-link">
+                        Product
+                    </a>
                 </li>
             </ul>
 
@@ -22,11 +21,15 @@
             <ul class="navbar-nav ml-auto">
                 @auth()
                     <li class="nav-item">
-                        <img src="storage/{{Auth::user()->profile_photo_path}}" style="max-width: 50px ; max-height: 50px" class="rounded" alt="">
+                        <a href="{{ route('user.index') }}" class="nav-link" style="color: black">
+                        </a>
+                        <a href="{{ route('order-detail.show', ['order_detail' => 0]) }}" class="nav-link">
+                            <i class="fa fa-shopping-cart"></i>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('user.index') }}" class="nav-link" style="color: black">
-                            {{ Auth::user()->name }}
+                        <a href="{{route('user.index')}}">
+                            <img src="storage/{{Auth::user()->profile_photo_path}}" style="max-width: 40px ; max-height: 40px ; margin-top: 1rem" class="rounded" alt="">
                         </a>
                     </li>
                 @endauth

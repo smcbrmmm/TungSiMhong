@@ -13,7 +13,7 @@ class OrderDetailController extends Controller
      */
     public function index()
     {
-        return view('order_detail.index');
+        return "order detail";
     }
 
     /**
@@ -45,7 +45,8 @@ class OrderDetailController extends Controller
      */
     public function show($id)
     {
-        //
+
+        return view('orderDetail.show');
     }
 
     /**
