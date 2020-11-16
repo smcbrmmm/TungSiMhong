@@ -16,7 +16,10 @@ class AddressController extends Controller
      */
     public function index()
     {
-        //
+        $addresses = Address::where('user_id','LIKE',Auth::user()->id)->get();
+        return view('address.index',[
+            'addresses' => $addresses
+        ]);
     }
 
     /**
@@ -44,10 +47,15 @@ class AddressController extends Controller
 
         $address = new Address();
         $address->user_id = Auth::user()->id;
-        $address->place_name = 'home';
+        $address->place_name = $request->input('place_name');
+        $address->receiver_name = $request->input('receiver_name');
+        $address->house_no = $request->input('house_no');
+        $address->address = $request->input('address');
+        $address->province = $request->input('province');
+        $address->postal = $request->input('postal');
         $address->save();
 
-        return redirect()->route('home.index' );
+        return redirect()->route('user.index' );
 
     }
 
@@ -70,7 +78,10 @@ class AddressController extends Controller
      */
     public function edit($id)
     {
-        //
+        $address = Address::findOrFail($id);
+        return view('address.edit', [
+            'address' => $address
+        ]);
     }
 
     /**

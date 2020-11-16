@@ -13,13 +13,19 @@
                 <li class="nav-item">
                     <a href="{{ url('/') }}" class="nav-link">Nav </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('order_detail.index')}}" class="nav-link">Kart </a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 @auth()
                     <li class="nav-item">
-                        <a href="{{ route('profile.show') }}" class="nav-link" style="color: black">
+                        <img src="storage/{{Auth::user()->profile_photo_path}}" style="max-width: 50px ; max-height: 50px" class="rounded" alt="">
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('user.index') }}" class="nav-link" style="color: black">
                             {{ Auth::user()->name }}
                         </a>
                     </li>
@@ -34,6 +40,7 @@
                 <li class="nav-item">
                     <a href="{{ url('register') }}" class="nav-link">Sign in </a>
                 </li>
+
                 @endguest
             </ul>
         </div>

@@ -13,7 +13,7 @@ class OrderDetailController extends Controller
      */
     public function index()
     {
-        //
+        return view('order_detail.index');
     }
 
     /**

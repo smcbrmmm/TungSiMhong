@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -13,7 +17,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::where('id','=',Auth::user()->id)->get();
+        $addresses = Address::where('user_id','=',Auth::user()->id)->get();
+        return view('user.index' , [
+            'user'  => $user,
+            'addresses' => $addresses
+        ]);
     }
 
     /**
@@ -56,7 +65,16 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $click_add = false;
+        return view('user.edit',[
+            'user' => $user ,
+            'click_add' => $click_add
+        ]);
+    }
+
+    public function click(){
+        return ['click_add'=> true];
     }
 
     /**
