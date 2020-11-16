@@ -31,6 +31,18 @@
                                 <i class="fas fa-user"></i>
                         </a>
                     </li>
+                    <li class="nav-item" >
+                        <a href="{{route('user.index')}}" class="nav-link">
+                            {{ Auth::user()->name }}
+                        </a>
+                    </li>
+
+                    <li>
+                    <form action="{{ url('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-primary" style="background-color: white ; color: #718096 ; border-color: white">Log out</button>
+                    </form>
+                    </li>
 
                 @endauth
 
@@ -41,7 +53,7 @@
                     <a href="{{ url('login') }}" class="nav-link">Login </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('register') }}" class="nav-link">Sign in </a>
+                    <a href="{{ url('register') }}" class="nav-link">Register</a>
                 </li>
 
                 @endguest

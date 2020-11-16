@@ -8,9 +8,6 @@
 
     <div class="container">
 
-        <div>รูปภาพประจำตัว</div>
-        <img src="storage/{{ $user[0]->profile_photo_path }}" class="rounded" style="width: 200px ; height: 200px" alt="">
-
 
         @if($user)
             <div> ชื่อ : {{ $user[0]->name }}</div>
@@ -21,7 +18,7 @@
         <br>
         <div> ที่อยู่ของคุณทั้งหมด </div>
         @foreach($addresses as $address)
-        <div class="mb-2" style="border-width: 1px ; width: 20rem">
+        <div class="mb-2" style="border-width: 1px ; width: 23rem">
             <a href="{{ route('address.edit',['address' => $address->id]) }}">
             <div style="margin-left: 1rem">
                 <i class="fas fa-map-marker"></i><span>  {{ $address->place_name }}</span>
@@ -30,6 +27,7 @@
             <div style="margin-left: 1rem">
                 <span> ชื่อผู้รับสินค้า : {{ $address->receiver_name }}</span>
             </div>
+            <div style="margin-left: 1rem"> ที่อยู่ผู้รับสินค้า : {{ $address->house_no }} {{ $address->Address }} {{ $address->province }} {{ $address->postal }}</div>
         </div>
         @endforeach
 

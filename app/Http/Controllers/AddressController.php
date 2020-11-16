@@ -40,9 +40,10 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
+
 //        $img = $request->file('img_path');
 //        $input = time().'-'.$img->getClientOriginalExtension();
-//        $des = public_path('/images/');
+//        $des = public_path('/imgProduct/');
 //        $img->move($des,$input);
 
         $address = new Address();
@@ -93,7 +94,17 @@ class AddressController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $address = Address::findOrFail($id);
+        $address->place_name = $request->input('place_name');
+        $address->receiver_name = $request->input('receiver_name');
+        $address->house_no = $request->input('house_no');
+        $address->address = $request->input('address');
+        $address->province = $request->input('province');
+        $address->postal = $request->input('postal');
+
+        $address->save();
+        return redirect()->route('user.index' );
+
     }
 
     /**
