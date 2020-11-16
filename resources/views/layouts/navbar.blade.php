@@ -21,17 +21,16 @@
             <ul class="navbar-nav ml-auto">
                 @auth()
                     <li class="nav-item">
-                        <a href="{{ route('user.index') }}" class="nav-link" style="color: black">
-                        </a>
                         <a href="{{ route('order-detail.show', ['order_detail' => 0]) }}" class="nav-link">
                             <i class="fa fa-shopping-cart"></i>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{route('user.index')}}">
-                            <img src="storage/{{Auth::user()->profile_photo_path}}" style="max-width: 40px ; max-height: 40px ; margin-top: 1rem" class="rounded" alt="">
+                    <li class="nav-item" >
+                        <a href="{{route('user.index')}}" class="nav-link">
+                                <i class="fas fa-user"></i>
                         </a>
                     </li>
+
                 @endauth
 
 
