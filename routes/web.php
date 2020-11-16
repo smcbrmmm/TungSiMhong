@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    redirect('/home');
+    return redirect('/home');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
