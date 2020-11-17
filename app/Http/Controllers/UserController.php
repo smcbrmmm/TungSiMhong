@@ -105,12 +105,14 @@ class UserController extends Controller
         $user->tel = $request->input('tel');
         $user->email = $request->input('email');
 
-        $user->save();
 
         if($request->input('new_password')==null && Hash::check($request->input('accept_password'),Auth::user()->password)){
+            $user->save();
             return redirect()->route('user.index');
         }else{
-            return 'neuy';
+            $user->password = Hash::make($request->input('new_password'));
+            $user->save();
+            return redirect()->route('user.index');
         }
 
 //        if(Hash::check($request->input('accept_password'),$user->password)){

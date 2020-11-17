@@ -15,9 +15,9 @@ class CreatePaymentInformationTable extends Migration
     {
         Schema::create('payment_information', function (Blueprint $table) {
             $table->id();
-            $table->date('Payment_datetime');
-            $table->integer('Payment_amount');
-            $table->string('Img_slip');
+            $table->dateTime('payment_datetime');
+            $table->integer('payment_amount');
+            $table->string('img_slip');
             $table->timestamps();
         });
     }

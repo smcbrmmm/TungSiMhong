@@ -117,12 +117,4 @@
 
     </script>
 
-    <script>
-        // $(document).ready(function(){
-        //     $('#img').on('change', function (e){
-        //        console.log('samut');
-        //        $('.productImg').attr('src',"http://localhost:8000/storage/imgProduct/3.jpg");
-        //     });
-        // });
-    </script>
 @endsection

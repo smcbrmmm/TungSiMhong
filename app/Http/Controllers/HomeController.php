@@ -23,6 +23,7 @@ class HomeController extends Controller
                 $order->save();
             }
         }
+
         return view('home.index');
     }
 

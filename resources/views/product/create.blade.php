@@ -1,5 +1,16 @@
 @extends('layouts.app')
 
+@section('style')
+    <style>
+        .productImg {
+            object-fit: cover;
+            width: 100px;
+            height: 100px;
+            max-width: 100px;
+        }
+    </style>
+@endsection
+
 @section('content')
 
     <div class="container container-page">
@@ -65,11 +76,18 @@
                           name="product_detail"></textarea>
             </div>
 
+            <div>
+                <img src="" alt=""
+                     class="productImg">
+            </div>
+
+
             <div class="form-group">
                 <label for="img">รูปภาพของสินค้า</label>
                 <input type="file" class="form-control-file"
-                       id="img" name="img">
+                       id="img" name="img" onchange="readURL(this)">
             </div>
+
 
             <button type="submit" class="btn btn-primary">เพิ่มสินค้า</button>
 
@@ -77,5 +95,26 @@
 
     </div>
 
+
+@endsection
+
+@section('script')
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('.productImg')
+                        .attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+    </script>
 
 @endsection
