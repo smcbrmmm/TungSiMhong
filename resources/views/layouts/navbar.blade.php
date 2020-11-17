@@ -15,6 +15,11 @@
                         Product
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('order.index') }}" class="nav-link">
+                        ประวัติการสั่งซื้อ
+                    </a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
