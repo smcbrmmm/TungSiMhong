@@ -53,7 +53,7 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function submitOrder(Request $request, $id) {
-//        $address = Address::where('id', $request->userAddress)->first();
+        $address = Address::where('id', $request->userAddress)->first();
         return $request;
         $order = Order::where('id', $id)->first();
         $order->order_datetime = new \DateTime();
