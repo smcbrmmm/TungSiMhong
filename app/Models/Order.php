@@ -24,4 +24,8 @@ class Order extends Model
     public function orderDetails(){
         return $this->hasMany(OrderDetail::class);
     }
+
+    public function address(){
+        return $this->belongsTo(Address::class);
+    }
 }
