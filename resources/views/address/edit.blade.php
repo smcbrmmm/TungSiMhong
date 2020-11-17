@@ -35,6 +35,16 @@
             </div>
 
             <div class="form-group">
+                <label for="receiver_tel">เบอร์โทรศัพท์ผู้รับสินค้า</label>
+                <input type="text" class="form-control" id="title"
+                       name="receiver_tel" value="{{ old('receiver_tel',$address->receiver_tel) }}"
+                       aria-describedby="receiver_telHelp">
+                <small id="receiver_telHelp" class="form-text text-muted">
+                    เบอร์โทรศัพท์ผู้รับสินค้า is required .
+                </small>
+            </div>
+
+            <div class="form-group">
                 <label for="house_no">เลขที่บ้าน</label>
                 <input type="text" class="form-control " id="house_no"
                        name="house_no" value="{{old('house_no', $address->house_no) }}"

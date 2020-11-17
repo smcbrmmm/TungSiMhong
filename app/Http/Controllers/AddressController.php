@@ -50,6 +50,7 @@ class AddressController extends Controller
         $address->user_id = Auth::user()->id;
         $address->place_name = $request->input('place_name');
         $address->receiver_name = $request->input('receiver_name');
+        $address->receiver_tel = $request->input('receiver_tel');
         $address->house_no = $request->input('house_no');
         $address->address = $request->input('address');
         $address->province = $request->input('province');
@@ -97,6 +98,7 @@ class AddressController extends Controller
         $address = Address::findOrFail($id);
         $address->place_name = $request->input('place_name');
         $address->receiver_name = $request->input('receiver_name');
+        $address->receiver_tel = $request->input('receiver_tel');
         $address->house_no = $request->input('house_no');
         $address->address = $request->input('address');
         $address->province = $request->input('province');

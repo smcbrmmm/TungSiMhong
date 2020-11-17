@@ -37,7 +37,23 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $img = $request->file('img');
+        $input = time().'.'.$img->getClientOriginalExtension();
+        $des = public_path('storage/imgProduct/');
+        $img->move($des,$input);
+
+        $product = new Product();
+        $product->product_name = $request->input('product_name');
+        $product->product_code = $request->input('product_code');
+        $product->product_price = $request->input('product_price');
+        $product->product_quantity =  $request->input('product_quantity');
+        $product->product_weight = $request->input('product_weight');
+        $product->product_detail = $request->input('product_detail');
+        $product->img = '/imgProduct/'.$input;;
+        $product->save();
+
+        return redirect()->route('product.index');
     }
 
     /**
@@ -59,7 +75,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('product.edit', [
+            'product' => $product
+        ]);
     }
 
     /**
@@ -71,7 +90,26 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if($request->file('img')!=null) {
+            $img = $request->file('img');
+            $input = time() . '.' . $img->getClientOriginalExtension();
+            $des = public_path('storage/imgProduct/');
+            $img->move($des, $input);
+        }
+
+        $product = Product::findOrFail($id);
+        $product->product_name = $request->input('product_name');
+        $product->product_code = $request->input('product_code');
+        $product->product_price = $request->input('product_price');
+        $product->product_quantity =  $request->input('product_quantity');
+        $product->product_weight = $request->input('product_weight');
+        $product->product_detail = $request->input('product_detail');
+        if ($request->file('img')!=null){
+            $product->img = '/imgProduct/'.$input;;
+        }
+        $product->save();
+
+        return redirect()->route('product.index');
     }
 
     /**

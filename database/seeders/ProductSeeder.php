@@ -35,7 +35,7 @@ class ProductSeeder extends Seeder
         $product->save();
 
         $product = new Product();
-        $product->product_code = "TSG1896333";
+        $product->product_code = "TSG1896334";
         $product->product_name = 'ธกระถางธูปไฟฟ้า 3ดอก';
         $product->product_price = "290";
         $product->product_quantity = '50';

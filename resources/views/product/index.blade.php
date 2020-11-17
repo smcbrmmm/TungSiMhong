@@ -36,13 +36,14 @@
                 <th scope="col">จำนวน</th>
                 <th scope="col">ราคา</th>
                 <th scope="col">เพิ่มลงตระกล้า</th>
+                <th scope="col">แก้ไขข้อมูล</th>
             </tr>
             </thead>
             <tbody>
             @foreach($products as $product)
                 <tr>
                     <th scope="row">{{ $product->id }}</th>
-                    <td><img src="/storage/{{ $product->img }}" alt="{{ $product->product_code }}" class="productImg"></td>
+                    <td><img src="storage{{ $product->img }}" alt="{{ $product->product_code }}" class="productImg"></td>
                     <td>{{ $product->product_code }}</td>
                     <td>{{ $product->product_name }}</td>
                     <td id="td{{ $product->id }}Qty">{{ $product->product_quantity }}</td>
@@ -55,6 +56,9 @@
                         <button type="button" class="btn btn-secondary basketBtn" id="{{ $product->id }}">
                             Add to basket
                         </button>
+                    </td>
+                    <td>
+                        <div class="btn btn-success"><a href="{{route('product.edit',['product' => $product->id])}}">แก้ไขข้อมูลสินค้า</a></div>
                     </td>
                 </tr>
             @endforeach
