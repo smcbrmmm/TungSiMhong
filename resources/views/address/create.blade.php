@@ -20,7 +20,7 @@
 
         <div class="form-group">
             <label for="receiver_name">ชื่อผู้รับสินค้า</label>
-            <input type="text" class="form-control" id="title"
+            <input type="text" class="form-control" id="receiver_name"
                    name="receiver_name" value="{{ old('receiver_name') }}"
                    aria-describedby="receiver_nameHelp">
             <small id="receiver_nameHelp" class="form-text text-muted">
@@ -30,7 +30,7 @@
 
         <div class="form-group">
             <label for="receiver_tel">เบอร์โทรศัพท์ผู้รับสินค้า</label>
-            <input type="text" class="form-control" id="title"
+            <input type="text" class="form-control" id="receiver_tel"
                    name="receiver_tel" value="{{ old('receiver_tel') }}"
                    aria-describedby="receiver_telHelp">
             <small id="receiver_telHelp" class="form-text text-muted">

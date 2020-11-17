@@ -49,8 +49,10 @@
                 url: "/order/basket",
                 type:"GET",
                 success:function(response){
-                    console.log(response);
-                },
+                    if (response > 0) {
+                        basketQty.text(response)
+                    }
+                }
             });
         @endauth
     });

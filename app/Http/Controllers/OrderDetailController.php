@@ -41,17 +41,24 @@ class OrderDetailController extends Controller
 
         $order = Order::where('order_status', '=', 'ตะกร้า')->where('user_id','=', Auth::user()->id)->first();
         $product = Product::where('id', '=', $request->product_id)->first();
-        $orderDetail = new OrderDetail();
-        $orderDetail->product_id = $product->id;
-        $orderDetail->order_id = $order->id;
-        $orderDetail->orderdetail_quantity = $request->qty;
-        $orderDetail->orderdetail_price = $product->product_price;
-        $orderDetail->save();
 
-        $product->product_quantity = $product->product_quantity - $orderDetail->orderdetail_quantity;
+        $orderDetail = OrderDetail::where('order_id', $order->id)->where('product_id', $product->id)->first();
+        if ($orderDetail) {
+            $orderDetail->orderdetail_quantity = $orderDetail->orderdetail_quantity + $request->qty;
+            $orderDetail->save();
+        } else {
+            $orderDetail = new OrderDetail();
+            $orderDetail->product_id = $product->id;
+            $orderDetail->order_id = $order->id;
+            $orderDetail->orderdetail_quantity = $request->qty;
+            $orderDetail->orderdetail_price = $product->product_price;
+            $orderDetail->save();
+        }
+
+        $product->product_quantity = $product->product_quantity - $request->qty;
         $product->save();
 
-        return $product;
+        return $orderDetail;
     }
 
     /**

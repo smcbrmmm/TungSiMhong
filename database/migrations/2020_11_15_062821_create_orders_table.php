@@ -15,7 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->date('order_datetime')->nullable();
+            $table->dateTime('order_datetime')->nullable();
             $table->enum('order_status',['ตะกร้า', 'รอยืนยันการชำระเงิน', 'รอจัดส่งสินค้า', 'รอรับสินค้า', 'สำเร็จ', 'ยกเลิก'])->default('ตะกร้า');
             $table->timestamps();
         });

@@ -30,8 +30,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::resource('/home' , HomeController::class);
 
-Route::resource('/order' , OrderController::class);
+Route::put('/order/submit/{id}', [OrderController::class, 'submitOrder'])->name('order.submit');
+Route::get('/order/show/basket', [OrderController::class, 'showBasket'])->name('order.basket');
 Route::get('/order/basket', [OrderController::class, 'basketQty'])->name('order.basketQty');
+Route::resource('/order' , OrderController::class);
 
 Route::resource('/product', ProductController::class);
 

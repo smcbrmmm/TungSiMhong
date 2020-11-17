@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,13 +16,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = Order::where('order_status', '=', 'ตะกร้า')->where('user_id','=', Auth::user()->id)->first();
-        $orderDetails = $order->orderDetails;
-        $amount = 0;
-        foreach ($orderDetails as $orderDetail) {
-            $amount += $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price;
-        }
-        return view('order.index', [ 'orderDetails' => $orderDetails, 'amount' => $amount ]);
+        $orders = Order::where("user_id", Auth::user()->id)->get();
+
+        return view('order.index', ['orders' => $orders]);
     }
 
     public function basketQty() {
@@ -49,8 +46,34 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
-        return view('order.index');
     }
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function submitOrder(Request $request, $id) {
+//        $address = Address::where('id', $request->userAddress)->first();
+        return $request;
+        $order = Order::where('id', $id)->first();
+        $order->order_datetime = new \DateTime();
+        $order->order_status = 'รอยืนยันการชำระเงิน';
+        $order->address_id = $request->userAddress;
+        $order->save();
+
+        if (Auth::user()) {
+            $order = Order::where('order_status', '=', 'ตะกร้า')->where('user_id', '=', Auth::user()->id)->get();
+            if (count($order) == 0) {
+                $order = new Order();
+                $order->user_id = Auth::user()->id;
+                $order->save();
+
+            }
+        }
+
+        return redirect()->route('order.index');
+    }
+
 
     /**
      * Display the specified resource.
@@ -61,6 +84,24 @@ class OrderController extends Controller
     public function show($id)
     {
 
+    }
+
+    public function showBasket() {
+        $order = Order::where('order_status', '=', 'ตะกร้า')->where('user_id','=', Auth::user()->id)->first();
+        $orderDetails = $order->orderDetails;
+        $amount = 0;
+        foreach ($orderDetails as $orderDetail) {
+            $amount += $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price;
+        }
+
+        $addresses = Address::where('user_id', Auth::user()->id)->get();
+
+        return view('order.basket', [
+            'orderId' => $order->id,
+            'orderDetails' => $orderDetails,
+            'amount' => $amount,
+            'addresses' => $addresses
+        ]);
     }
 
     /**
