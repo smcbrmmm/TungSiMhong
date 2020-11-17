@@ -15,13 +15,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = Order::where('order_status', '=', 'ตะกร้า')->where('user_id','=', Auth::user()->id)->first();
-        $orderDetails = $order->orderDetails;
-        $amount = 0;
-        foreach ($orderDetails as $orderDetail) {
-            $amount += $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price;
-        }
-        return view('order.index', [ 'orderDetails' => $orderDetails, 'amount' => $amount ]);
+
     }
 
     public function basketQty() {
@@ -61,6 +55,16 @@ class OrderController extends Controller
     public function show($id)
     {
 
+    }
+
+    public function showBasket() {
+        $order = Order::where('order_status', '=', 'ตะกร้า')->where('user_id','=', Auth::user()->id)->first();
+        $orderDetails = $order->orderDetails;
+        $amount = 0;
+        foreach ($orderDetails as $orderDetail) {
+            $amount += $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price;
+        }
+        return view('order.basket', [ 'orderDetails' => $orderDetails, 'amount' => $amount ]);
     }
 
     /**

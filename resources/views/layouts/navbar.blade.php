@@ -21,7 +21,7 @@
             <ul class="navbar-nav ml-auto">
                 @auth()
                     <li class="nav-item">
-                        <a href="{{ route('order.index') }}" class="nav-link">
+                        <a href="{{ route('order.basket') }}" class="nav-link">
                             <i class="fa fa-shopping-basket"></i>
                             <span class="badge badge-pill badge-danger" id="basketQty"></span>
                         </a>
