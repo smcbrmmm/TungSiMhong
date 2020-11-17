@@ -46,7 +46,7 @@
                             <td>{{ $orderDetail->product->product_name }}</td>
                             <td>{{ $orderDetail->orderdetail_price }}</td>
                             <td>
-                                <input onchange="inputOnChange(this, {{ $orderDetail->id }}, {{ $orderDetail->product->product_price }})" class="inputQty" type="number" id="{{ $orderDetail->product->id . "qty" }}"
+                                <input onchange="inputOnChange(this, {{ $orderDetail->id }}, {{ $orderDetail->product }})" class="inputQty" type="number" id="{{ $orderDetail->product->id . "qty" }}"
                                        min="1" max="{{ $orderDetail->product->product_quantity }}" value="{{ $orderDetail->orderdetail_quantity }}">
                             </td>
                             <td id="product{{ $orderDetail->id }}" class="amountPrice">{{ $orderDetail->product->product_price }}</td>
@@ -83,7 +83,7 @@
                                 <select name="userAddress" id="userAddress" onchange="addressSelect(this, {{ $addresses }})">
                                     <option disabled selected value> -- เลือกสถานที่ของคุณ -- </option>
                                     @for ($i = 0; $i < $addresses->count(); $i++)
-                                        <option value="{{ $i }}">{{ $addresses[$i]->place_name }}</option>
+                                        <option value="{{ $addresses[$i]->id }}">{{ $addresses[$i]->place_name }}</option>
                                     @endfor
 
                                 </select>
@@ -166,10 +166,7 @@
 @endsection
 
 <script>
-    document.getElementById("address").innerHTML = "";
-
     function addressSelect(select, addresses) {
-        console.log(addresses)
         let receiver_name = document.getElementById("receiver_name");
         let receiver_tel = document.getElementById("receiver_tel");
         let house_no = document.getElementById("house_no");
@@ -177,18 +174,27 @@
         let province = document.getElementById("province");
         let postal = document.getElementById("postal");
 
-
-        receiver_name.value = addresses[select.value].receiver_name
-        receiver_tel.value = addresses[select.value].receiver_tel
-        house_no.value = addresses[select.value].house_no
-        address.value = addresses[select.value].address
-        province.value = addresses[select.value].province
-        postal.value = addresses[select.value].postal
+        for (ad of addresses)  {
+            if (ad.id == select.value) {
+                receiver_name.value = ad.receiver_name
+                receiver_tel.value = ad.receiver_tel
+                house_no.value = ad.house_no
+                address.value = ad.address
+                province.value = ad.province
+                postal.value = ad.postal
+            }
+        }
     }
 
-    function inputOnChange(input, id, price) {
+    function inputOnChange(input, id, product) {
+        if (parseInt(input.value) > product.product_quantity) {
+            alert("invalid qty.");
+            input.value = 1;
+            return ;
+        }
+
         let amountTag = document.getElementById("product" + id);
-        amountTag.innerHTML = price * input.value;
+        amountTag.innerHTML = product.product_price * parseInt(input.value);
 
         let amountPrice = 0;
         let amounts = document.getElementsByClassName("amountPrice");
