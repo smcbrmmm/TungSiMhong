@@ -8,6 +8,9 @@
             height: 100px;
             max-width: 100px;
         }
+        td, th {
+            text-align: center;
+        }
     </style>
 @endsection
 

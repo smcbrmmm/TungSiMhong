@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,9 @@ class OrderController extends Controller
      */
     public function index()
     {
+        $orders = Order::where("user_id", Auth::user()->id)->get();
 
+        return view('order.index', ['orders' => $orders]);
     }
 
     public function basketQty() {
@@ -43,8 +46,22 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
-        return view('order.index');
     }
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function submitOrder(Request $request, $id) {
+        $address = Address::where('id', $request->userAddress)->first();
+        $order = Order::where('id', $id)->first();
+        $order->order_datetime = new \DateTime();
+        $order->order_status = 'รอยืนยันการชำระเงิน';
+        $order->save();
+
+        return redirect()->route('order.index');
+    }
+
 
     /**
      * Display the specified resource.
@@ -64,7 +81,15 @@ class OrderController extends Controller
         foreach ($orderDetails as $orderDetail) {
             $amount += $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price;
         }
-        return view('order.basket', [ 'orderDetails' => $orderDetails, 'amount' => $amount ]);
+
+        $addresses = Address::where('user_id', Auth::user()->id)->get();
+
+        return view('order.basket', [
+            'orderId' => $order->id,
+            'orderDetails' => $orderDetails,
+            'amount' => $amount,
+            'addresses' => $addresses
+        ]);
     }
 
     /**

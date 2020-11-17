@@ -13,7 +13,7 @@
             <div> ชื่อ : {{ $user[0]->name }}</div>
             <div> เบอร์โทรศัพท์ : {{ $user[0]->tel }}</div>
             <div> อีเมลล์ : {{ $user[0]->email }}</div>
-            @endif
+        @endif
         <a href="{{ route('user.edit' , [ 'user' => $user[0]->id]) }}"> <div> แก้ไขข้อมูลส่วนตัว </div></a>
         <br>
         <div> ที่อยู่ของคุณทั้งหมด </div>

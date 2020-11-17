@@ -49,7 +49,9 @@
                 url: "/order/basket",
                 type:"GET",
                 success:function(response){
-                    basketQty.text(response)
+                    if (response > 0) {
+                        basketQty.text(response)
+                    }
                 }
             });
         @endauth
