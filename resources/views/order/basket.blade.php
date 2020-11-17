@@ -176,7 +176,7 @@
         let address = document.getElementById("address");
         let province = document.getElementById("province");
         let postal = document.getElementById("postal");
-        
+
 
         receiver_name.value = addresses[select.value].receiver_name
         receiver_tel.value = addresses[select.value].receiver_tel
