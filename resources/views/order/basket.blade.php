@@ -193,14 +193,26 @@
             return ;
         }
 
-        let amountTag = document.getElementById("product" + id);
-        amountTag.innerHTML = product.product_price * parseInt(input.value);
+        $.ajax({
+            url: "/order_detail/" + id,
+            type:"PUT",
+            data:{
+                _token: "{{ csrf_token() }}",
+                qty: input.value
+            },
+            success:function(response){
+                console.log(response)
 
-        let amountPrice = 0;
-        let amounts = document.getElementsByClassName("amountPrice");
-        for (let i=0; i<amounts.length; i++) {
-            amountPrice += parseInt(amounts[i].innerHTML);
-        }
-        document.getElementById("amountPrice").innerHTML = amountPrice;
+                let amountTag = document.getElementById("product" + id);
+                amountTag.innerHTML = product.product_price * parseInt(input.value);
+
+                let amountPrice = 0;
+                let amounts = document.getElementsByClassName("amountPrice");
+                for (let i=0; i<amounts.length; i++) {
+                    amountPrice += parseInt(amounts[i].innerHTML);
+                }
+                document.getElementById("amountPrice").innerHTML = amountPrice;
+            }
+        });
     }
 </script>

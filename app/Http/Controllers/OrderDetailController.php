@@ -61,6 +61,13 @@ class OrderDetailController extends Controller
         return $orderDetail;
     }
 
+    public function setQtyDetail(Request $request, $id) {
+        $orderDetail = OrderDetail::where("id", $id)->first();
+        $orderDetail->orderdetail_quantity = $request->qty;
+        $orderDetail->save();
+        return $orderDetail;
+    }
+
     /**
      * Display the specified resource.
      *

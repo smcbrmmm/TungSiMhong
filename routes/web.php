@@ -37,6 +37,7 @@ Route::resource('/order' , OrderController::class);
 
 Route::resource('/product', ProductController::class);
 
+Route::put('/order_detail/{id}', [OrderDetailController::class, 'setQtyDetail'])->name('order-detail.setQty');
 Route::resource('/order-detail', OrderDetailController::class);
 
 Route::resource('/address', AddressController::class);
