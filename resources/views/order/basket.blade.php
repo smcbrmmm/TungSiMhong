@@ -53,8 +53,12 @@
                         </tr>
                     @endfor
                     <tr>
-                        <th colspan="6" style="text-align: left">รวม</th>
-                        <th id="amountPrice" style="text-align: center">{{ $amount }}</th>
+                        <th colspan="6" style="text-align: left">ราคาสินค้าทั้งหมด</th>
+                        <th id="amountPrice" style="text-align: center">{{ $amountPrice }}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="6" style="text-align: left">ค่าจัดส่ง</th>
+                        <th id="amountPrice" style="text-align: center">{{ $amountWeight }}</th>
                     </tr>
                     </tbody>
                 </table>
