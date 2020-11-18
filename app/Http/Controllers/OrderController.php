@@ -18,7 +18,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::where("user_id", Auth::user()->id)->get();
+        $orders = Order::where("user_id", Auth::user()->id)->where('order_status', '!=', 'ตะกร้า')->get();
+        if(count($orders) == 0) {
+            return view('order.index');
+        }
+
         $orderDetails = $orders[0]->orderDetails;
         $amount = 0;
         foreach ($orderDetails as $orderDetail) {
@@ -65,7 +69,7 @@ class OrderController extends Controller
      */
     public function submitOrder(Request $request, $id) {
 
-        
+
         $order = Order::where('id', $id)->first();
         $order->order_datetime = Carbon::now();
         $order->order_datetime = $order->order_datetime->toDayDateTimeString();
@@ -74,15 +78,20 @@ class OrderController extends Controller
         $order->order_code = rand(000000000,999999999);
         $order->save();
 
+        foreach ($order->orderDetails as $orderDetail) {
+            $product = $orderDetail->product;
+            $product->product_quantity = $product->product_quantity - $orderDetail->orderdetail_quantity;
+            $product->save();
+        }
+
         if (Auth::user()) {
             $order = Order::where('order_status', '=', 'ตะกร้า')->where('user_id', '=', Auth::user()->id)->get();
             if (count($order) == 0) {
                 $order = new Order();
                 $order->user_id = Auth::user()->id;
-                $order->order_code = rand(000000000,999999999);;
-                $order->order_status='ตะกร้า';
+                $order->order_status = 'ตะกร้า';
+                $order->order_code = rand(000000000,999999999);
                 $order->save();
-
             }
         }
 

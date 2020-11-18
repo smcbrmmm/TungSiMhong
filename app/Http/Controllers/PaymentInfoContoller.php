@@ -64,7 +64,7 @@ class PaymentInfoContoller extends Controller
 
     public function submitPayment(Request $request,$id){
         $order = Order::where('id',$id)->first();
-        $order->order_status = 'กำลังตรวจสอบหลักฐานการชำระเงิน';
+        $order->order_status = 'กำลังตรวจสอบการชำระเงิน';
         $order->save();
 
         if($request->file('img_slip')!=null) {

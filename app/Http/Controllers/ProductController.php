@@ -21,7 +21,6 @@ class ProductController extends Controller
 
     public function getProduct($id) {
         $product = Product::where('id', $id)->first();
-//        return $product;
         return response()->json([
             'product' => $product
         ]);

@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('order_datetime')->nullable();
             $table->string('order_code')->unique();
-            $table->enum('order_status',['ตะกร้า', 'รอการชำระเงิน', 'รอจัดส่งสินค้า','กำลังตรวจสอบหลักฐานการชำระเงิน', 'รอรับสินค้า', 'สำเร็จ', 'ยกเลิก'])->default('ตะกร้า');
+            $table->enum('order_status',['ตะกร้า', 'รอการชำระเงิน','กำลังตรวจสอบการชำระเงิน','กรุณาตรวจสอบการชำระเงิน', 'รอจัดส่งสินค้า', 'รอรับสินค้า', 'สำเร็จ', 'ยกเลิก'])->default('ตะกร้า');
             $table->timestamps();
         });
     }
