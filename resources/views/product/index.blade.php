@@ -69,32 +69,6 @@
             @endforeach
             </tbody>
         </table>
-
-        <div class="card-columns">
-
-            @foreach($products as $product)
-                <div class="card">
-                    <img class="card-img-top  productImg" src="storage{{ $product->img }}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">ชื่อสินค้า : {{ $product->product_name }}</h5>
-                        <p class="card-text">รหัสสินค้า : {{ $product->product_code }}</p>
-                        <p class="card-text">ราคา : {{ $product->product_price }} บาท</p>
-                        <input onchange="inputOnChange(this, {{ $product->id }}, {{ $product->product_price }}, {{ $product->product_quantity }})" class="inputQty" type="number" id="{{ $product->id . "qty" }}" min="1" max="{{ $product->product_quantity }}" value="1">
-                        <div>
-                            <button type="button" class="btn btn-secondary basketBtn" id="{{ $product->id }}">
-                                Add to basket
-                            </button>
-
-                            <i class="fas fa-shopping-basket basketBtn" id="{{ $product->id }}"></i>
-                        </div>
-                    </div>
-                </div>
-
-
-
-            @endforeach
-
-        </div>
     </div>
 
 @endsection

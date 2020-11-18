@@ -20,7 +20,7 @@ class HomeController extends Controller
             if (count($order) == 0) {
                 $order = new Order();
                 $order->user_id = Auth::user()->id;
-                $order->order_code = rand(000000000,999999999);;
+                $order->order_code = rand(000000000,999999999);
                 $order->save();
             }
         }

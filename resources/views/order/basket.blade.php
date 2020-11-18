@@ -38,20 +38,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($orderDetails as $orderDetail)
+                    @for($i = 0; $i < $orderDetails->count() ; $i++)
                         <tr>
-                            <th scope="row">{{ $orderDetail->id }}</th>
-                            <td><img src="/storage/{{ $orderDetail->product->img }}" alt="{{ $orderDetail->product->product_code }}" class="productImg"></td>
-                            <td>{{ $orderDetail->product->product_code }}</td>
-                            <td>{{ $orderDetail->product->product_name }}</td>
-                            <td>{{ $orderDetail->orderdetail_price }}</td>
+                            <th scope="row">{{ $i+1 }}</th>
+                            <td><img src="/storage/{{ $orderDetails[$i]->product->img }}" alt="{{ $orderDetails[$i]->product->product_code }}" class="productImg"></td>
+                            <td>{{ $orderDetails[$i]->product->product_code }}</td>
+                            <td>{{ $orderDetails[$i]->product->product_name }}</td>
+                            <td>{{ $orderDetails[$i]->orderdetail_price }}</td>
                             <td>
-                                <input onchange="inputOnChange(this, {{ $orderDetail->id }}, {{ $orderDetail->product }})" class="inputQty" type="number" id="{{ $orderDetail->product->id . "qty" }}"
-                                       min="1" max="{{ $orderDetail->product->product_quantity }}" value="{{ $orderDetail->orderdetail_quantity }}">
+                                <input onchange="inputOnChange(this, {{ $orderDetails[$i]->id }}, {{ $orderDetails[$i]->product }})" class="inputQty" type="number" id="{{ $orderDetails[$i]->product->id . "qty" }}"
+                                       min="1" max="{{ $orderDetails[$i]->product->product_quantity }}" value="{{ $orderDetails[$i]->orderdetail_quantity }}">
                             </td>
-                            <td id="product{{ $orderDetail->id }}" class="amountPrice">{{ $orderDetail->product->product_price }}</td>
+                            <td id="product{{ $orderDetails[$i]->id }}" class="amountPrice">{{ $orderDetails[$i]->product->product_price * $orderDetails[$i]->orderdetail_quantity }}</td>
                         </tr>
-                    @endforeach
+                    @endfor
                     <tr>
                         <th colspan="6" style="text-align: left">รวม</th>
                         <th id="amountPrice" style="text-align: center">{{ $amount }}</th>
@@ -80,7 +80,7 @@
                                 ชื่อสถานที่
                             </th>
                             <td class="form-group">
-                                <select name="userAddress" id="userAddress" onchange="addressSelect(this, {{ $addresses }})">
+                                <select name="userAddress" id="userAddress" onchange="addressSelect(this, {{ $addresses }})" required>
                                     <option disabled selected value> -- เลือกสถานที่ของคุณ -- </option>
                                     @for ($i = 0; $i < $addresses->count(); $i++)
                                         <option value="{{ $addresses[$i]->id }}">{{ $addresses[$i]->place_name }}</option>
@@ -94,7 +94,7 @@
                                 <label for="receiver_name">ชื่อผู้รับสินค้า :</label>
                             </th>
                             <td>
-                                <input disabled type="text" class="form-control" id="receiver_name"
+                                <input disabled type="text" class="form-control" id="receiver_name" required
                                        name="receiver_name" value="{{ old('receiver_name') }}"
                                        aria-describedby="receiver_nameHelp">
                             </td>
@@ -104,7 +104,7 @@
                                 <label for="receiver_tel">เบอร์โทรผู้รับสินค้า :</label>
                             </th>
                             <td>
-                                <input disabled type="text" class="form-control" id="receiver_tel"
+                                <input disabled type="text" class="form-control" id="receiver_tel" required
                                        name="receiver_tel" value="{{ old('receiver_tel') }}"
                                        aria-describedby="receiver_telHelp">
                             </td>
@@ -114,7 +114,7 @@
                                 <label for="house_no">บ้านเลขที่ :</label>
                             </th>
                             <td>
-                                <input disabled type="text" class="form-control" id="house_no"
+                                <input disabled type="text" class="form-control" id="house_no" required
                                        name="house_no" value="{{ old('house_no') }}"
                                        aria-describedby="house_noHelp">
                             </td>
@@ -124,7 +124,7 @@
                                 <label for="address">ที่อยู่ :</label>
                             </th>
                             <td>
-                                <textarea type="text" class="form-control" id="address" name="address" aria-describedby="addressHelp"
+                                <textarea type="text" class="form-control" id="address" name="address" aria-describedby="addressHelp" required
                                           rows="2" disabled >
                                     {{ old('address') }}
                                     </textarea>
@@ -135,7 +135,7 @@
                                 <label for="province">จังหวัด :</label>
                             </th>
                             <td>
-                                <input disabled type="text" class="form-control" id="province"
+                                <input disabled type="text" class="form-control" id="province" required
                                        name="province" value="{{ old('province') }}"
                                        aria-describedby="provinceHelp">
                             </td>
@@ -145,16 +145,18 @@
                                 <label for="postal">รหัสไปรษณีย์ :</label>
                             </th>
                             <td>
-                                <input disabled type="text" class="form-control" id="postal"
+                                <input disabled type="text" class="form-control" id="postal" required
                                        name="postal" value="{{ old('postal') }}"
                                        aria-describedby="postalHelp">
                             </td>
                         </tr>
                         <tr class="form-group">
                             <th colspan="2" style="text-align: center">
-                                <button type="submit" class="btn btn-success">
-                                    ยืนยันคำสั่งซื้อ
-                                </button>
+                                @if($orderDetails->count()>0)
+                                    <button type="submit" class="btn btn-success">
+                                        ยืนยันคำสั่งซื้อ
+                                    </button>
+                                @endif
                             </th>
                         </tr>
                     </form>
