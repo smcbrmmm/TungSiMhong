@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="font-family: 'Mitr', sans-serif;">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home.index') }}">
             <i class="fa fa-home"></i> TungSiMhong
@@ -12,7 +12,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a href="{{ route('product.index') }}" class="nav-link">
-                        Product
+                        สินค้า
                     </a>
                 </li>
                 @auth()
@@ -47,7 +47,8 @@
                     <li>
                     <form action="{{ url('logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn btn-primary" style="background-color: white ; color: #718096 ; border-color: white">Log out</button>
+                        <button type="submit" class="btn btn-primary" style="background-color: white ; color: indianred ; border-color: white ; margin-top: 2px" ;
+                        >Log out</button>
                     </form>
                     </li>
 

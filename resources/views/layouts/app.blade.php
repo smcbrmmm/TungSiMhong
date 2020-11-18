@@ -19,6 +19,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Mitr&display=swap" rel="stylesheet">
 
     <!-- Fonts -->
     <script src="https://kit.fontawesome.com/56e49317d8.js" crossorigin="anonymous"></script>
@@ -34,7 +36,7 @@
 <div id="app">
     @include('layouts.navbar')
 
-    <main class="py-4">
+    <main class="py-4 " style="font-family: 'Mitr', sans-serif;">
         @yield('content')
     </main>
 </div>

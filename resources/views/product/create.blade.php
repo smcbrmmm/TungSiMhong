@@ -41,7 +41,7 @@
             </div>
 
             <div class="form-group">
-                <label for="product_price">ราคาสินค้า</label>
+                <label for="product_price">ราคาสินค้า(บาท)</label>
                 <input type="text" class="form-control" id="product_price"
                        name="product_price"
                        aria-describedby="product_priceHelp">
@@ -51,7 +51,7 @@
             </div>
 
             <div class="form-group">
-                <label for="product_quantity">จำนวนสินค้าที่มี</label>
+                <label for="product_quantity">จำนวนสินค้าที่มี(ชิ้น)</label>
                 <input type="text" class="form-control" id="product_quantity"
                        name="product_quantity"
                        aria-describedby="product_quantityHelp">
@@ -61,7 +61,7 @@
             </div>
 
             <div class="form-group">
-                <label for="product_weight">น้ำหนักสินค้า/ต่อชิ้น</label>
+                <label for="product_weight">น้ำหนักสินค้า/ต่อชิ้น(กรัม)</label>
                 <input type="text" class="form-control" id="product_weight"
                        name="product_weight"
                        aria-describedby="product_weightHelp">

@@ -29,9 +29,9 @@
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col" class="thCenter">#</th>
-                        <th scope="col" class="thCenter">image</th>
-                        <th scope="col" class="thCenter">product code</th>
-                        <th scope="col" class="thCenter">name</th>
+                        <th scope="col" class="thCenter">รูปภาพสินค้า</th>
+                        <th scope="col" class="thCenter">รหัสสินค้า</th>
+                        <th scope="col" class="thCenter">ชื่อสินค้า</th>
                         <th scope="col" class="thCenter">ราคาต่อชิ้น</th>
                         <th scope="col" class="thCenter">จำนวน</th>
                         <th scope="col" class="thCenter">รวม(บาท)</th>
@@ -65,7 +65,7 @@
                 <table class="table table-hover">
                     <thead class="thead-dark">
                     <tr>
-                        <th class="align-middle">ที่อยู่ในการจัดส่ง</th>
+                        <th class="align-left" >ที่อยู่ในการจัดส่ง</th>
                         <th style="text-align: right">
                             <a class="btn btn-secondary" href="{{ route('address.create') }}">เพิ่มที่อยู่ใหม่</a>
                         </th>
