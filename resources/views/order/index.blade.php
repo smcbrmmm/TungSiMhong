@@ -29,7 +29,6 @@
         <div class="row">
             <div class="col-5">
                 <table class="table">
-                    <caption>List of product</caption>
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">Order_code</th>
@@ -38,8 +37,8 @@
                     </tr>
                     </thead>
                     <tbody>
+                    @isset($orders)
                     @foreach($orders as $order)
-                        @if($order->order_status!='ตะกร้า')
                         @if($order == $orders[0])
                             <tr class="orderSelected trOder" onclick="orderOnClick(this, {{ $order->orderDetails }})">
                         @else
@@ -49,15 +48,14 @@
                                 <td>{{ $order->order_datetime }}</td>
                                 <td>{{ $order->order_status }}</td>
                             </tr>
-                        @endif
                     @endforeach
+                    @endisset
                     </tbody>
                 </table>
 
             </div>
             <div class="col-7">
                 <table class="table" id="detailTable">
-                    <caption>List of product in basket</caption>
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col" class="thCenter">#</th>
@@ -70,6 +68,7 @@
                     </tr>
                     </thead>
                     <tbody id="detailBody">
+                    @isset($orderDetails)
                     @for($i = 0; $i < $orderDetails->count() ; $i++)
                         <tr>
                             <th scope="row">{{ $i+1 }}</th>
@@ -78,13 +77,14 @@
                             <td>{{ $orderDetails[$i]->product->product_name }}</td>
                             <td>{{ $orderDetails[$i]->orderdetail_price }}</td>
                             <td>{{ $orderDetails[$i]->orderdetail_quantity }}</td>
-                            <td id="product{{ $orderDetails[$i]->id }}" class="amountPrice">{{ $orderDetails[$i]->product->product_price }}</td>
+                            <td>{{ $orderDetails[$i]->product->product_price }}</td>
                         </tr>
                     @endfor
                     <tr>
                         <th colspan="6" style="text-align: left">รวม</th>
                         <th id="amountPrice" style="text-align: center">{{ $amount }}</th>
                     </tr>
+                    @endisset
                     </tbody>
                 </table>
 
@@ -95,12 +95,13 @@
 
 @section('script')
     <script>
-        async function orderOnClick(tr, orderDetails) {
+         function orderOnClick(tr, orderDetails) {
             let trSelected = document.getElementsByClassName("orderSelected")[0];
             trSelected.classList.remove("orderSelected");
             tr.classList.add("orderSelected");
 
             let detailBody = document.getElementById("detailBody");
+            detailBody.style.textAlign = "center";
 
             let new_tbody = document.createElement('tbody');
             new_tbody.id = "detailBody";
@@ -108,7 +109,7 @@
 
             let amountAll = 0;
             for (let i=0; i<orderDetails.length; i++) {
-                await fetch(
+                fetch(
                     '/product/' + orderDetails[i].product_id,
                     {
                         method: 'GET',
@@ -128,14 +129,13 @@
                         let qty = row.insertCell(5);
                         let amount = row.insertCell(6);
 
-                        num.innerHTML = '<th scope="row">' + (i+1) + '</th>';
-                        img.innerHTML = '<td><img src="/storage/' + product.img +'" alt="' + product.product_code + '" class="productImg"></td>\n';
+                        num.innerHTML = '<th scope="row"><b>' + (i+1) + '</b></th>';
+                        img.innerHTML = '<td><img src="/storage/' + product.img +'" alt="' + product.product_code + '" class="productImg"></td>';
                         pc.innerHTML = '<td>' + product.product_code + '</td>';
                         name.innerHTML = '<td>' + product.product_name + '</td>';
                         price.innerHTML = '<td>' + orderDetails[i].orderdetail_price + '</td>';
                         qty.innerHTML = '<td>' + orderDetails[i].orderdetail_quantity + '</td>';
-                        amount.innerHTML = '<td id="product' + orderDetails[i].id + '" class="amountPrice">' +
-                            product.product_price * orderDetails[i].orderdetail_quantity + '</td>';
+                        amount.innerHTML = '<td>' + product.product_price * orderDetails[i].orderdetail_quantity + '</td>';
 
                         amountAll += product.product_price * orderDetails[i].orderdetail_quantity;
                     }).then( function () {
@@ -145,8 +145,11 @@
                             let allText = row.insertCell(0);
                             let amountCell = row.insertCell(1);
 
-                            allText.innerHTML = '<th colspan="6" style="text-align: left">รวม</th>';
-                            amountCell.innerHTML = '<th id="amountPrice" style="text-align: center">' + amountAll + '</th>'
+                            allText.innerHTML = '<th><b>รวม</b></th>';
+                            allText.setAttribute('colspan', '6');
+                            allText.style.textAlign = "left";
+                            amountCell.innerHTML = '<th id="amountPrice"><b>' + amountAll + '</b></th>'
+                            amountCell.style.textAlign = "center";
                         }
                     })
                 });

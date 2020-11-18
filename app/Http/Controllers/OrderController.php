@@ -16,7 +16,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::where("user_id", Auth::user()->id)->get();
+        $orders = Order::where("user_id", Auth::user()->id)->where('order_status', '!=', 'ตะกร้า')->get();
+        if(count($orders) == 0) {
+            return view('order.index');
+        }
+
         $orderDetails = $orders[0]->orderDetails;
         $amount = 0;
         foreach ($orderDetails as $orderDetail) {

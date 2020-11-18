@@ -65,7 +65,7 @@
                 <table class="table table-hover">
                     <thead class="thead-dark">
                     <tr>
-                        <th class="align-middle">ที่อยู่ที่ต้องการจัดส่ง</th>
+                        <th class="align-middle">ที่อยู่ในการจัดส่ง</th>
                         <th style="text-align: right">
                             <a class="btn btn-secondary" href="{{ route('address.create') }}">เพิ่มที่อยู่ใหม่</a>
                         </th>
@@ -80,12 +80,14 @@
                                 ชื่อสถานที่
                             </th>
                             <td class="form-group">
-                                <select name="userAddress" id="userAddress" onchange="addressSelect(this, {{ $addresses }})">
-                                    <option disabled selected value> -- เลือกสถานที่ของคุณ -- </option>
-                                    @for ($i = 0; $i < $addresses->count(); $i++)
-                                        <option value="{{ $addresses[$i]->id }}">{{ $addresses[$i]->place_name }}</option>
-                                    @endfor
-
+                                <select class="form-control " name="userAddress" id="userAddress" onchange="addressSelect(this, {{ $addresses }})">
+                                    <option disabled selected value> -- เลือกที่อยู่ของคุณ -- </option>
+                                    @if($addresses->count() == 0)
+                                    @else
+                                        @for ($i = 0; $i < $addresses->count(); $i++)
+                                            <option value="{{ $addresses[$i]->id }}">{{ $addresses[$i]->place_name }}</option>
+                                        @endfor
+                                    @endif
                                 </select>
                             </td>
                         </tr>
@@ -101,7 +103,7 @@
                         </tr>
                         <tr class="form-group">
                             <th class="align-middle">
-                                <label for="receiver_tel">เบอร์โทรผู้รับสินค้า :</label>
+                                <label for="receiver_tel">เบอร์ผู้รับสินค้า :</label>
                             </th>
                             <td>
                                 <input disabled type="text" class="form-control" id="receiver_tel"
