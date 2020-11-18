@@ -22,18 +22,20 @@
 
     <div class="container">
 
-        <div>
+        <div style="font-size: 24px">
             ประวัติการสั่งซื้อสินค้า
         </div>
+        <br>
 
         <div class="row">
-            <div class="col-5">
+            <div class="col-6">
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Order_code</th>
-                        <th scope="col">Datetime</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">รหัสการสั่งซื้อ</th>
+                        <th scope="col">วันและเวลาในการสั่งซื้อ</th>
+                        <th scope="col">สถานะ</th>
+                        <th scope="col">แจ้งหลักฐาน</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -47,6 +49,11 @@
                                 <td>{{ $order->order_code }}</td>
                                 <td>{{ $order->order_datetime }}</td>
                                 <td>{{ $order->order_status }}</td>
+                                <td>
+                                    <a href="{{route('payment.createPayment',['id'=>$order->id])}}">
+                                        <span class="btn btn-success" >แจ้งหลักฐาน </span>
+                                    </a>
+                                </td>
                             </tr>
                     @endforeach
                     @endisset
@@ -54,14 +61,14 @@
                 </table>
 
             </div>
-            <div class="col-7">
+            <div class="col-6">
                 <table class="table" id="detailTable">
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col" class="thCenter">#</th>
-                        <th scope="col" class="thCenter">image</th>
-                        <th scope="col" class="thCenter">product code</th>
-                        <th scope="col" class="thCenter">name</th>
+                        <th scope="col" class="thCenter">รูปภาพสินค้า</th>
+                        <th scope="col" class="thCenter">รหัสสินค้า</th>
+                        <th scope="col" class="thCenter">ชื่อสินค้า</th>
                         <th scope="col" class="thCenter">ราคาต่อชิ้น</th>
                         <th scope="col" class="thCenter">จำนวน</th>
                         <th scope="col" class="thCenter">รวม(บาท)</th>

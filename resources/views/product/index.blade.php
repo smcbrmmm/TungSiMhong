@@ -17,11 +17,17 @@
 
     <div class="container">
 
-        <div class="row">
-            <a href="{{ route('product.create') }}">
+        <div></div>
+
+        @auth()
+        <div class="row" style="font-size: 20px">
+            <a href="{{ route('product.productCreate') }}">
             <i class="fas fa-plus-circle fa-1x"></i> <span> เพิ่มสินค้า</span>
             </a>
         </div>
+        @endauth
+
+            <br>
 
         <div class="row">
             <table class="table table-hover">
@@ -29,13 +35,12 @@
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">image</th>
-                    <th scope="col">product code</th>
-                    <th scope="col">name</th>
-                    <th scope="col">quantity</th>
-                    <th scope="col">detail</th>
+                    <th scope="col">รูปภาพสินค้า</th>
+                    <th scope="col">รหัสสินค้า</th>
+                    <th scope="col">ชื่อสินค้า</th>
+                    <th scope="col">จำนวนสินค้า</th>
+                    <th scope="col">ข้อมูลสินค้า</th>
                     <th scope="col">ราคา</th>
-                    <th scope="col">เพิ่มลงตระกล้า</th>
                     <th scope="col">แก้ไขข้อมูล</th>
                 </tr>
                 </thead>
@@ -50,11 +55,6 @@
                         <td>{{ $product->product_detail }}</td>
                         <td id="product{{ $product->id }}" >{{ $product->product_price }}</td>
                         <td>
-                            <button type="button" class="btn btn-secondary basketBtn" id="{{ $product->id }}">
-                                Add to basket
-                            </button>
-                        </td>
-                        <td>
                             <div class="btn btn-success"><a href="{{route('product.edit',['product' => $product->id])}}">แก้ไขข้อมูลสินค้า</a></div>
                         </td>
                     </tr>
@@ -63,28 +63,28 @@
             </table>
         </div>
 
-        <div class="row">
-            <div class="card-columns">
-                @foreach($products as $product)
-                    <div class="card">
-                        <img class="card-img-top  productImg" src="storage{{ $product->img }}" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">ชื่อสินค้า : {{ $product->product_name }}</h5>
-                            <p class="card-text">รหัสสินค้า : {{ $product->product_code }}</p>
-                            <p class="card-text">ราคา : {{ $product->product_price }} บาท</p>
-                            <input onchange="inputOnChange(this, {{ $product->id }}, {{ $product->product_price }}, {{ $product->product_quantity }})" class="inputQty" type="number" id="{{ $product->id . "qty" }}" min="1" max="{{ $product->product_quantity }}" value="1">
-                            <div>
-                                <button type="button" class="btn btn-secondary basketBtn" id="{{ $product->id }}">
-                                    Add to basket
-                                </button>
+{{--        <div class="row">--}}
+{{--            <div class="card-columns">--}}
+{{--                @foreach($products as $product)--}}
+{{--                    <div class="card">--}}
+{{--                        <img class="card-img-top  productImg" src="storage{{ $product->img }}" alt="Card image cap">--}}
+{{--                        <div class="card-body">--}}
+{{--                            <h5 class="card-title">ชื่อสินค้า : {{ $product->product_name }}</h5>--}}
+{{--                            <p class="card-text">รหัสสินค้า : {{ $product->product_code }}</p>--}}
+{{--                            <p class="card-text">ราคา : {{ $product->product_price }} บาท</p>--}}
+{{--                            <input onchange="inputOnChange(this, {{ $product->id }}, {{ $product->product_price }}, {{ $product->product_quantity }})" class="inputQty" type="number" id="{{ $product->id . "qty" }}" min="1" max="{{ $product->product_quantity }}" value="1">--}}
+{{--                            <div>--}}
+{{--                                <button type="button" class="btn btn-secondary basketBtn" id="{{ $product->id }}">--}}
+{{--                                    Add to basket--}}
+{{--                                </button>--}}
 
-                                <i class="fas fa-shopping-basket basketBtn" id="{{ $product->id }}"></i>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
+{{--                                <i class="fas fa-shopping-basket basketBtn" id="{{ $product->id }}"></i>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                @endforeach--}}
+{{--            </div>--}}
+{{--        </div>--}}
     </div>
 @endsection
 

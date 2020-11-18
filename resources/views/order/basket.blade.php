@@ -29,9 +29,9 @@
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col" class="thCenter">#</th>
-                        <th scope="col" class="thCenter">image</th>
-                        <th scope="col" class="thCenter">product code</th>
-                        <th scope="col" class="thCenter">name</th>
+                        <th scope="col" class="thCenter">รูปภาพสินค้า</th>
+                        <th scope="col" class="thCenter">รหัสสินค้า</th>
+                        <th scope="col" class="thCenter">ชื่อสินค้า</th>
                         <th scope="col" class="thCenter">ราคาต่อชิ้น</th>
                         <th scope="col" class="thCenter">จำนวน</th>
                         <th scope="col" class="thCenter">รวม(บาท)</th>
@@ -71,7 +71,7 @@
                 <table class="table table-hover">
                     <thead class="thead-dark">
                     <tr>
-                        <th class="align-middle">ที่อยู่ในการจัดส่ง</th>
+                        <th class="align-left" >ที่อยู่ในการจัดส่ง</th>
                         <th style="text-align: right">
                             <a class="btn btn-secondary" href="{{ route('address.create') }}">เพิ่มที่อยู่ใหม่</a>
                         </th>
@@ -86,7 +86,7 @@
                                 ชื่อสถานที่
                             </th>
                             <td class="form-group">
-                                <select class="form-control " name="userAddress" id="userAddress" onchange="addressSelect(this, {{ $addresses }})">
+                                <select class="form-control " name="userAddress" id="userAddress" onchange="addressSelect(this, {{ $addresses }})" required>
                                     <option disabled selected value> -- เลือกที่อยู่ของคุณ -- </option>
                                     @if($addresses->count() == 0)
                                     @else
@@ -102,7 +102,7 @@
                                 <label for="receiver_name">ชื่อผู้รับสินค้า :</label>
                             </th>
                             <td>
-                                <input disabled type="text" class="form-control" id="receiver_name"
+                                <input disabled type="text" class="form-control" id="receiver_name" required
                                        name="receiver_name" value="{{ old('receiver_name') }}"
                                        aria-describedby="receiver_nameHelp">
                             </td>
@@ -112,7 +112,7 @@
                                 <label for="receiver_tel">เบอร์ผู้รับสินค้า :</label>
                             </th>
                             <td>
-                                <input disabled type="text" class="form-control" id="receiver_tel"
+                                <input disabled type="text" class="form-control" id="receiver_tel" required
                                        name="receiver_tel" value="{{ old('receiver_tel') }}"
                                        aria-describedby="receiver_telHelp">
                             </td>
@@ -122,7 +122,7 @@
                                 <label for="house_no">บ้านเลขที่ :</label>
                             </th>
                             <td>
-                                <input disabled type="text" class="form-control" id="house_no"
+                                <input disabled type="text" class="form-control" id="house_no" required
                                        name="house_no" value="{{ old('house_no') }}"
                                        aria-describedby="house_noHelp">
                             </td>
@@ -132,7 +132,7 @@
                                 <label for="address">ที่อยู่ :</label>
                             </th>
                             <td>
-                                <textarea type="text" class="form-control" id="address" name="address" aria-describedby="addressHelp"
+                                <textarea type="text" class="form-control" id="address" name="address" aria-describedby="addressHelp" required
                                           rows="2" disabled >
                                     {{ old('address') }}
                                     </textarea>
@@ -143,7 +143,7 @@
                                 <label for="province">จังหวัด :</label>
                             </th>
                             <td>
-                                <input disabled type="text" class="form-control" id="province"
+                                <input disabled type="text" class="form-control" id="province" required
                                        name="province" value="{{ old('province') }}"
                                        aria-describedby="provinceHelp">
                             </td>
@@ -153,16 +153,18 @@
                                 <label for="postal">รหัสไปรษณีย์ :</label>
                             </th>
                             <td>
-                                <input disabled type="text" class="form-control" id="postal"
+                                <input disabled type="text" class="form-control" id="postal" required
                                        name="postal" value="{{ old('postal') }}"
                                        aria-describedby="postalHelp">
                             </td>
                         </tr>
                         <tr class="form-group">
                             <th colspan="2" style="text-align: center">
-                                <button type="submit" class="btn btn-success">
-                                    ยืนยันคำสั่งซื้อ
-                                </button>
+                                @if($orderDetails->count()>0)
+                                    <button type="submit" class="btn btn-success">
+                                        ยืนยันคำสั่งซื้อ
+                                    </button>
+                                @endif
                             </th>
                         </tr>
                     </form>

@@ -33,7 +33,12 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        return 'samut';
+    }
+
+    public function productCreate(){
+
+        return view('product.productCreate');
     }
 
     /**

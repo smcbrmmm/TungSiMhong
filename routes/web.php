@@ -30,6 +30,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::resource('/home' , HomeController::class);
 
+Route::get('/payment/create/{id}',[PaymentInfoContoller::class,'createPayment'])->name('payment.createPayment');
+Route::post('/payment/submit/{id}',[PaymentInfoContoller::class,'submitPayment'])->name('payment.submitPayment');
+
 Route::put('/order/submit/{id}', [OrderController::class, 'submitOrder'])->name('order.submit');
 Route::get('/order/show/basket', [OrderController::class, 'showBasket'])->name('order.basket');
 Route::get('/order/basket', [OrderController::class, 'basketQty'])->name('order.basketQty');
@@ -37,6 +40,7 @@ Route::resource('/order' , OrderController::class);
 
 Route::get('/product/{id}', [ProductController::class, 'getProduct'])->name('product.get');
 Route::resource('/product', ProductController::class);
+Route::get('/productCreate', [ ProductController::class,'productCreate'])->name('product.productCreate');
 
 Route::put('/order_detail/{id}', [OrderDetailController::class, 'setQtyDetail'])->name('order-detail.setQty');
 Route::resource('/order-detail', OrderDetailController::class);
