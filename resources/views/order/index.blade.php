@@ -81,8 +81,16 @@
                         </tr>
                     @endfor
                     <tr>
+                        <th colspan="6" style="text-align: left">ราคาสินค้าทั้งหมด</th>
+                        <th style="text-align: center">{{ $amountPrice }}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="6" style="text-align: left">ค่าจัดส่ง</th>
+                        <th style="text-align: center">{{ $deliFee }}</th>
+                    </tr>
+                    <tr>
                         <th colspan="6" style="text-align: left">รวม</th>
-                        <th id="amountPrice" style="text-align: center">{{ $amount }}</th>
+                        <th style="text-align: center">{{ $amountPrice + $deliFee }}</th>
                     </tr>
                     @endisset
                     </tbody>
@@ -107,7 +115,8 @@
             new_tbody.id = "detailBody";
             detailBody.parentNode.replaceChild(new_tbody, detailBody);
 
-            let amountAll = 0;
+            let amountPrice = 0;
+            let amountWeight = 0;
             for (let i=0; i<orderDetails.length; i++) {
                 fetch(
                     '/product/' + orderDetails[i].product_id,
@@ -117,7 +126,7 @@
                     }
                 ).then(function (response) {
                     response.json().then(function (result) {
-                        console.log("insert " + i)
+                        console.log(result)
                         let product = result.product;
 
                         let row = new_tbody.insertRow(i)
@@ -137,18 +146,37 @@
                         qty.innerHTML = '<td>' + orderDetails[i].orderdetail_quantity + '</td>';
                         amount.innerHTML = '<td>' + product.product_price * orderDetails[i].orderdetail_quantity + '</td>';
 
-                        amountAll += product.product_price * orderDetails[i].orderdetail_quantity;
+                        amountPrice += product.product_price * orderDetails[i].orderdetail_quantity;
+                        amountWeight += product.product_weight * orderDetails[i].orderdetail_quantity
                     }).then( function () {
                         if (i === orderDetails.length-1) {
-                            console.log(orderDetails.length)
-                            let row = new_tbody.insertRow(orderDetails.length);
-                            let allText = row.insertCell(0);
-                            let amountCell = row.insertCell(1);
+                            let deliFee = (30 + Math.ceil(amountWeight/1000)*15);
 
-                            allText.innerHTML = '<th><b>รวม</b></th>';
-                            allText.setAttribute('colspan', '6');
-                            allText.style.textAlign = "left";
-                            amountCell.innerHTML = '<th id="amountPrice"><b>' + amountAll + '</b></th>'
+                            let row = new_tbody.insertRow(orderDetails.length);
+                            let amountText = row.insertCell(0);
+                            let amountCell = row.insertCell(1);
+                            amountText.innerHTML = '<th><b>ราคาสินค้าทั้งหมด</b></th>';
+                            amountText.setAttribute('colspan', '6');
+                            amountText.style.textAlign = "left";
+                            amountCell.innerHTML = '<th><b>' + amountPrice + '</b></th>'
+                            amountCell.style.textAlign = "center";
+
+                            row = new_tbody.insertRow(orderDetails.length + 1);
+                            amountText = row.insertCell(0);
+                            amountCell = row.insertCell(1);
+                            amountText.innerHTML = '<th><b>ค่าจัดส่ง</b></th>';
+                            amountText.setAttribute('colspan', '6');
+                            amountText.style.textAlign = "left";
+                            amountCell.innerHTML = '<th><b>' + deliFee + '</b></th>'
+                            amountCell.style.textAlign = "center";
+
+                            row = new_tbody.insertRow(orderDetails.length + 2);
+                            amountText = row.insertCell(0);
+                            amountCell = row.insertCell(1);
+                            amountText.innerHTML = '<th><b>รวม</b></th>';
+                            amountText.setAttribute('colspan', '6');
+                            amountText.style.textAlign = "left";
+                            amountCell.innerHTML = '<th><b>' + (amountPrice + deliFee) + '</b></th>'
                             amountCell.style.textAlign = "center";
                         }
                     })
