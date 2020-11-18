@@ -35,6 +35,7 @@ Route::get('/order/show/basket', [OrderController::class, 'showBasket'])->name('
 Route::get('/order/basket', [OrderController::class, 'basketQty'])->name('order.basketQty');
 Route::resource('/order' , OrderController::class);
 
+Route::get('/product/{id}', [ProductController::class, 'getProduct'])->name('product.get');
 Route::resource('/product', ProductController::class);
 
 Route::put('/order_detail/{id}', [OrderDetailController::class, 'setQtyDetail'])->name('order-detail.setQty');

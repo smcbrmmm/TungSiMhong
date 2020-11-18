@@ -19,6 +19,14 @@ class ProductController extends Controller
         return view('product.index', ['products' => $products]);
     }
 
+    public function getProduct($id) {
+        $product = Product::where('id', $id)->first();
+//        return $product;
+        return response()->json([
+            'product' => $product
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

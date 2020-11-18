@@ -17,8 +17,17 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::where("user_id", Auth::user()->id)->get();
+        $orderDetails = $orders[0]->orderDetails;
+        $amount = 0;
+        foreach ($orderDetails as $orderDetail) {
+            $amount += $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price;
+        }
 
-        return view('order.index', ['orders' => $orders]);
+        return view('order.index', [
+            'orders' => $orders,
+            'orderDetails' => $orderDetails,
+            'amount' => $amount,
+        ]);
     }
 
     public function basketQty() {
@@ -53,11 +62,11 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function submitOrder(Request $request, $id) {
-        $address = Address::where('id', $request->userAddress)->first();
         $order = Order::where('id', $id)->first();
         $order->order_datetime = new \DateTime();
-        $order->order_status = 'รอยืนยันการชำระเงิน';
+        $order->order_status = 'รอการชำระเงิน';
         $order->address_id = $request->userAddress;
+        $order->order_code = rand(000000000,999999999);
         $order->save();
 
         if (Auth::user()) {

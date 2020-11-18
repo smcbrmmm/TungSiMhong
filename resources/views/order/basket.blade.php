@@ -38,20 +38,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($orderDetails as $orderDetail)
+                    @for($i = 0; $i < $orderDetails->count() ; $i++)
                         <tr>
-                            <th scope="row">{{ $orderDetail->id }}</th>
-                            <td><img src="/storage/{{ $orderDetail->product->img }}" alt="{{ $orderDetail->product->product_code }}" class="productImg"></td>
-                            <td>{{ $orderDetail->product->product_code }}</td>
-                            <td>{{ $orderDetail->product->product_name }}</td>
-                            <td>{{ $orderDetail->orderdetail_price }}</td>
+                            <th scope="row">{{ $i+1 }}</th>
+                            <td><img src="/storage/{{ $orderDetails[$i]->product->img }}" alt="{{ $orderDetails[$i]->product->product_code }}" class="productImg"></td>
+                            <td>{{ $orderDetails[$i]->product->product_code }}</td>
+                            <td>{{ $orderDetails[$i]->product->product_name }}</td>
+                            <td>{{ $orderDetails[$i]->orderdetail_price }}</td>
                             <td>
-                                <input onchange="inputOnChange(this, {{ $orderDetail->id }}, {{ $orderDetail->product }})" class="inputQty" type="number" id="{{ $orderDetail->product->id . "qty" }}"
-                                       min="1" max="{{ $orderDetail->product->product_quantity }}" value="{{ $orderDetail->orderdetail_quantity }}">
+                                <input onchange="inputOnChange(this, {{ $orderDetails[$i]->id }}, {{ $orderDetails[$i]->product }})" class="inputQty" type="number" id="{{ $orderDetails[$i]->product->id . "qty" }}"
+                                       min="1" max="{{ $orderDetails[$i]->product->product_quantity }}" value="{{ $orderDetails[$i]->orderdetail_quantity }}">
                             </td>
-                            <td id="product{{ $orderDetail->id }}" class="amountPrice">{{ $orderDetail->product->product_price }}</td>
+                            <td id="product{{ $orderDetails[$i]->id }}" class="amountPrice">{{ $orderDetails[$i]->product->product_price * $orderDetails[$i]->orderdetail_quantity }}</td>
                         </tr>
-                    @endforeach
+                    @endfor
                     <tr>
                         <th colspan="6" style="text-align: left">รวม</th>
                         <th id="amountPrice" style="text-align: center">{{ $amount }}</th>
