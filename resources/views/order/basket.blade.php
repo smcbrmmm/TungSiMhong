@@ -191,6 +191,10 @@
     function inputOnChange(input, id, product) {
         if (parseInt(input.value) > product.product_quantity) {
             alert("invalid qty.");
+            input.value = product.product_quantity;
+            return ;
+        } else if (parseInt(input.value) <= 0) {
+            alert("invalid qty.");
             input.value = 1;
             return ;
         }

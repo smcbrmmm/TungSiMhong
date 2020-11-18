@@ -43,6 +43,7 @@ class OrderDetailController extends Controller
         $product = Product::where('id', '=', $request->product_id)->first();
 
         $orderDetail = OrderDetail::where('order_id', $order->id)->where('product_id', $product->id)->first();
+
         if ($orderDetail) {
             $orderDetail->orderdetail_quantity = $orderDetail->orderdetail_quantity + $request->qty;
             $orderDetail->save();
@@ -55,8 +56,11 @@ class OrderDetailController extends Controller
             $orderDetail->save();
         }
 
-        $product->product_quantity = $product->product_quantity - $request->qty;
-        $product->save();
+        if ($orderDetail->orderdetail_quantity > $product->product_quantity) {
+            $orderDetail->orderdetail_quantity = $product->product_quantity;
+            $orderDetail->save();
+        }
+
 
         return $orderDetail;
     }
