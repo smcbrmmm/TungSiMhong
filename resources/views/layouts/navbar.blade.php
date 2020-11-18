@@ -15,11 +15,13 @@
                         Product
                     </a>
                 </li>
+                @auth()
                 <li class="nav-item">
                     <a href="{{ route('order.index') }}" class="nav-link">
                         ประวัติการสั่งซื้อ
                     </a>
                 </li>
+                @endauth
             </ul>
 
             <!-- Right Side Of Navbar -->

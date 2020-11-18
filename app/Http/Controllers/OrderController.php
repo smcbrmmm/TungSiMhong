@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\Order;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -55,7 +57,8 @@ class OrderController extends Controller
     public function submitOrder(Request $request, $id) {
         $address = Address::where('id', $request->userAddress)->first();
         $order = Order::where('id', $id)->first();
-        $order->order_datetime = new \DateTime();
+        $order->order_datetime = Carbon::now();
+        $order->order_datetime = $order->order_datetime->toDayDateTimeString();
         $order->order_status = 'รอยืนยันการชำระเงิน';
         $order->address_id = $request->userAddress;
         $order->save();
@@ -65,6 +68,8 @@ class OrderController extends Controller
             if (count($order) == 0) {
                 $order = new Order();
                 $order->user_id = Auth::user()->id;
+                $order->order_code = rand(000000000,999999999);;
+                $order->order_status='ตะกร้า';
                 $order->save();
 
             }
