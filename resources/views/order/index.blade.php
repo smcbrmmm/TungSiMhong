@@ -6,8 +6,7 @@
             text-align: center;
         }
         .orderSelected {
-            background-color: #718096;
-            color: white;
+            background-color: #99aabc;
         }
     </style>
 @endsection
@@ -35,20 +34,16 @@
                     <span id="detailStatus" style="color: blue"> {{ $orders[0]->order_status }}</span>
                 @elseif($orders[0]->order_status == "รอรับสินค้า" || $orders[0]->order_status == "สำเร็จ")
                     <span id="detailStatus" style="color: darkgreen"> {{ $orders[0]->order_status }}</span>
-                    <span id="detailStatus" style="font-size: 18px"> Tracking No. : {{ $orders[0]->shipment_information->tracking_no }}</span>
                 @else
                     <span id="detailStatus" style="color: indianred"> {{ $orders[0]->order_status }}</span>
                 @endif
-                    <br>
                 @endisset
-{{--                @if($orders[1]->order_status=='รอรับสินค้า')--}}
-{{--                    <span style="font-size: 18px"> Tracking No. : {{ $orders[0]->shipment_information->tracking_no }}</span>--}}
-{{--                    <form action="{{ route('order.successSubmit', [ 'id' => $orders[1]->id]) }}" method="POST">--}}
-{{--                        @method('PUT')--}}
-{{--                        @csrf--}}
-{{--                        <button type="submit" class="btn btn-success">ได้รับสินค้าแล้ว</button>--}}
-{{--                    </form>--}}
-{{--                @endif--}}
+
+                <div>
+                    @if($orders[0]->order_status == "รอรับสินค้า" || $orders[0]->order_status == "สำเร็จ")
+                        <div id="detailTrack" style="font-size: 18px;"> Tracking No.{{ $orders[0]->shipment_information->tracking_no }}</div>
+                    @endif
+                </div>
             </div>
         </div>
         <br>
@@ -61,21 +56,22 @@
                         <th scope="col">รหัสสั่งซื้อ</th>
                         <th scope="col">วัน/เวลาในการสั่ง</th>
                         <th scope="col">สถานะ</th>
-                        <th scope="col">การชำระเงิน</th>
+                        <th scope="col">จัดการ</th>
                     </tr>
                     </thead>
                     <tbody>
                     @isset($orders)
                     @foreach($orders as $order)
                         @if($order == $orders[0])
-                            <tr class="orderSelected trOder" onclick="orderOnClick(this, {{ $order }}, {{ $order->orderDetails }}, {{ $order->payment_informations }})">
+                            <tr class="orderSelected trOder"
+                                onclick="orderOnClick(this, {{ $order }}, {{ $order->orderDetails }}, {{ $order->payment_informations }}, {{ $order->shipment_information }})">
                         @else
-                            <tr class="trOder" onclick="orderOnClick(this, {{ $order }}, {{ $order->orderDetails }}, {{ $order->payment_informations }})">
+                            <tr class="trOder" onclick="orderOnClick(this, {{ $order }}, {{ $order->orderDetails }}, {{ $order->payment_informations }}, {{ $order->shipment_information }})">
                         @endif
                                 <td>{{ $order->order_code }}</td>
                                 <td>{{ $order->order_datetime }}</td>
                                 @if($order->order_status == 'สำเร็จ')
-                                    <td style="color: lightgreen">{{ $order->order_status }}</td>
+                                    <td style="color: darkgreen">{{ $order->order_status }}</td>
                                 @elseif($order->order_status == 'ยกเลิก')
                                     <td>{{ $order->order_status }}</td>
                                 @else
@@ -88,6 +84,30 @@
                                         <span class="btn btn-primary" >แจ้งหลักฐาน </span>
                                     </a>
                                 </td>
+                                @elseif($order->order_status == 'รอรับสินค้า')
+                                    <td>
+                                        <a href="#" class="btn btn-success"
+                                           data-toggle="modal" data-target="#sureSuccess">
+                                            ได้รับสินค้าแล้ว
+                                        </a>
+                                    </td>
+                                    <div class="modal fade" id="sureSuccess" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <p>ท่านได้รับสินค้าเรียบร้อยแล้วใช่หรือไม่ ?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                                    <form action="{{ route('order.successSubmit', ['id' => $order->id]) }}" method="post">
+                                                        @method('put')
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-success">ยืนยัน</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @else
                                     <td> - </td>
                                 @endif
@@ -96,7 +116,6 @@
                     @endisset
                     </tbody>
                 </table>
-
             </div>
             <div class="col-5">
                 <table class="table table-hover" id="detailTable">
@@ -153,7 +172,7 @@
                         </button>
                     </div>
                     <div class="modal-body mx-auto">
-                        <img src="/storage/{{ $orderDetail->product->img }}" alt="" width="200px">
+                        <img src="/storage{{ $orderDetail->product->img }}" alt="" width="200px">
                     </div>
                 </div>
             </div>
@@ -176,7 +195,7 @@
                     <div class="modal-body mx-auto" id="modalBodyPayment">
                         @foreach($orders[0]->payment_informations as $payment)
                             <div class="card mb-5" style="width: 18rem;">
-                                <img class="card-img-top" src="/storage/{{ $payment->img_slip }}" alt="">
+                                <img class="card-img-top" src="/storage{{ $payment->img_slip }}" alt="">
                                 <div class="card-body text-right">
                                     <h5 class="card-title">{{ $payment->payment_datetime }}</h5>
                                 </div>
@@ -201,7 +220,9 @@
         })
     </script>
     <script>
-         function orderOnClick(tr, order, orderDetails, payments) {
+         function orderOnClick(tr, order, orderDetails, payments, shipment) {
+             console.log(shipment)
+
             let trSelected = document.getElementsByClassName("orderSelected")[0];
              if (tr === trSelected) {
                 return;
@@ -227,7 +248,7 @@
                  for(payment of payments) {
                      modalsPayment.innerHTML +=
                          '<div class="card mb-5" style="width: 18rem;">\n' +
-                         '  <img class="card-img-top" src="/storage/' + payment.img_slip + '" alt="">\n' +
+                         '  <img class="card-img-top" src="/storage' + payment.img_slip + '" alt="">\n' +
                          '  <div class="card-body text-right">\n' +
                          '      <h5 class="card-title">' + payment.payment_datetime + '</h5>\n' +
                          '  </div>\n' +
@@ -238,11 +259,14 @@
              }
 
              let detailStatus = document.getElementById("detailStatus");
+             let detailTrack = document.getElementById("detailTrack");
+             detailTrack.innerHTML = "";
              detailStatus.innerHTML = order.order_status;
              if (order.order_status == "รอจัดส่งสินค้า" || order.order_status == "กำลังตรวจสอบการชำระเงิน") {
                  detailStatus.style.color = 'blue';
              } else if (order.order_status == "รอรับสินค้า" || order.order_status == "สำเร็จ") {
                  detailStatus.style.color = 'darkgreen';
+                 detailTrack.innerHTML = "Tracking No." + shipment.tracking_no;
              } else {
                  detailStatus.style.color = 'indianred';
              }
@@ -258,7 +282,6 @@
                     }
                 ).then(function (response) {
                     response.json().then(function (result) {
-                        console.log(result)
                         let product = result.product;
 
                         let row = new_tbody.insertRow(i)
@@ -291,7 +314,7 @@
                             '               </button>\n' +
                             '       </div>\n' +
                             '       <div class="modal-body mx-auto">\n' +
-                            '           <img src="/storage/' +  product.img + '" alt="" width="200px">\n' +
+                            '           <img src="/storage' +  product.img + '" alt="" width="200px">\n' +
                             '       </div>\n' +
                             '   </div>\n' +
                             '</div>\n' +
