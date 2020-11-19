@@ -24,7 +24,7 @@
             </div>
 
             <div class="form-group">
-                <label for="payment_amount">จำนวนเงินที่ชำระ</label>
+                <label for="payment_amount">จำนวนเงินที่ชำระ (บาท)</label>
                 <input type="text" class="form-control" id="payment_amount"
                        name="payment_amount"
                        aria-describedby="payment_amountHelp">

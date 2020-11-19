@@ -127,7 +127,7 @@
                             </th>
                             <td>
                                 <textarea type="text" class="form-control" id="address" name="address" aria-describedby="addressHelp" required
-                                          rows="2" disabled >
+                                          rows="3" disabled >
                                     {{ old('address') }}
                                     </textarea>
                             </td>

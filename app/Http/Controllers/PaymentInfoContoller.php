@@ -101,8 +101,10 @@ class PaymentInfoContoller extends Controller
     }
 
     public function createPayment($id){
+        $order = Order::where('id',$id)->first();
         return view('payment.createPayment',[
-           'order_id' => $id
+           'order_id' => $id,
+            'order' => $order
         ]);
     }
 
