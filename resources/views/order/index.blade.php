@@ -35,10 +35,20 @@
                     <span id="detailStatus" style="color: blue"> {{ $orders[0]->order_status }}</span>
                 @elseif($orders[0]->order_status == "รอรับสินค้า" || $orders[0]->order_status == "สำเร็จ")
                     <span id="detailStatus" style="color: darkgreen"> {{ $orders[0]->order_status }}</span>
+                    <span id="detailStatus" style="font-size: 18px"> Tracking No. : {{ $orders[0]->shipment_information->tracking_no }}</span>
                 @else
                     <span id="detailStatus" style="color: indianred"> {{ $orders[0]->order_status }}</span>
                 @endif
+                    <br>
                 @endisset
+{{--                @if($orders[1]->order_status=='รอรับสินค้า')--}}
+{{--                    <span style="font-size: 18px"> Tracking No. : {{ $orders[0]->shipment_information->tracking_no }}</span>--}}
+{{--                    <form action="{{ route('order.successSubmit', [ 'id' => $orders[1]->id]) }}" method="POST">--}}
+{{--                        @method('PUT')--}}
+{{--                        @csrf--}}
+{{--                        <button type="submit" class="btn btn-success">ได้รับสินค้าแล้ว</button>--}}
+{{--                    </form>--}}
+{{--                @endif--}}
             </div>
         </div>
         <br>
@@ -64,12 +74,18 @@
                         @endif
                                 <td>{{ $order->order_code }}</td>
                                 <td>{{ $order->order_datetime }}</td>
-                                <td>{{ $order->order_status }}</td>
+                                @if($order->order_status == 'สำเร็จ')
+                                    <td style="color: lightgreen">{{ $order->order_status }}</td>
+                                @elseif($order->order_status == 'ยกเลิก')
+                                    <td>{{ $order->order_status }}</td>
+                                @else
+                                    <td>{{ $order->order_status }}</td>
+                                @endif
 
                                 @if($order->order_status=='รอการชำระเงิน' || $order->order_status=='กรุณาตรวจสอบการชำระเงิน' )
                                 <td>
                                     <a href="{{ route('payment.createPayment',['id'=>$order->id]) }}">
-                                        <span class="btn btn-success" >แจ้งหลักฐาน </span>
+                                        <span class="btn btn-primary" >แจ้งหลักฐาน </span>
                                     </a>
                                 </td>
                                 @else

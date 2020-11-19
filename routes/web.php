@@ -36,6 +36,7 @@ Route::get('/payment/create/{id}',[PaymentInfoContoller::class,'createPayment'])
 Route::post('/order/submit/payment/{id}',[OrderController::class , 'submitPayment'])->name('order.submitPayment');
 Route::put('/order/unaccept/{id}',[OrderController::class , 'unAcceptPayment'])->name('order.unAcceptPayment');
 
+Route::put('/order/successSubmit/{id}', [OrderController::class, 'successSubmit'])->name('order.successSubmit');
 Route::get('/order/count', [OrderController::class, 'getCountOrder'])->name('order.count');
 Route::put('/order/submit/{id}', [OrderController::class, 'submitOrder'])->name('order.submit');
 Route::get('/order/show/basket', [OrderController::class, 'showBasket'])->name('order.basket');

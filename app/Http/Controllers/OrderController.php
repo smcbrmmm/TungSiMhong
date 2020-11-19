@@ -196,6 +196,14 @@ class OrderController extends Controller
         ]);
     }
 
+    public function successSubmit(Request $request , $id){
+        $order = Order::where('id',$id)->first();
+        $order->order_status = 'สำเร็จ';
+        $order->save();
+
+        return redirect()->route('order.index');
+    }
+
     public function showBasket() {
         $order = Order::where('order_status', '=', 'ตะกร้า')->where('user_id','=', Auth::user()->id)->first();
         $orderDetails = $order->orderDetails;
