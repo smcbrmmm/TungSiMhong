@@ -48,7 +48,6 @@
 {{--                            <td id="td{{ $product->id }}Qty">{{ $product->product_quantity }}</td>--}}
 {{--                            <td>{{ $product->product_detail }}</td>--}}
 {{--                            <td id="product{{ $product->id }}" >{{ $product->product_price }}</td>--}}
-
                         </tr>
                         @endif
                     @endforeach

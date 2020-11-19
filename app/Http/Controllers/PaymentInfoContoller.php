@@ -98,8 +98,20 @@ class PaymentInfoContoller extends Controller
     public function show($id)
     {
         $payment = PaymentInformation::find($id);
+        $order = $payment->order;
+        $amountWeight = 0;
+        $amountPrice = 0;
+        foreach ($order->orderDetails as $orderDetail) {
+            $amountWeight += $orderDetail->orderdetail_quantity * $orderDetail->product->product_weight;
+            $amountPrice += $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price;
+        }
+        $amountAll = 30 + ceil($amountWeight/1000)*15;
+        $amountAll += $amountPrice;
+
         return view('payment.show',[
-           'payment' => $payment
+           'payment' => $payment,
+            'order' => $order,
+            'amountAll' => $amountAll
         ]);
     }
 

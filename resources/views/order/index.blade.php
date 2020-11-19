@@ -62,7 +62,9 @@
                                         <span class="btn btn-success" >แจ้งหลักฐาน </span>
                                     </a>
                                 </td>
-                                    @endif
+                                @else
+                                    <td> - </td>
+                                @endif
                             </tr>
                     @endforeach
                     @endisset
@@ -93,7 +95,7 @@
                             <td>{{ $orderDetails[$i]->product->product_name }}</td>
                             <td>{{ $orderDetails[$i]->orderdetail_price }}</td>
                             <td>{{ $orderDetails[$i]->orderdetail_quantity }}</td>
-                            <td>{{ $orderDetails[$i]->product->product_price }}</td>
+                            <td>{{ $orderDetails[$i]->orderdetail_price * $orderDetails[$i]->orderdetail_quantity }}</td>
                         </tr>
                     @endfor
                     <tr>
@@ -121,10 +123,14 @@
     <script>
          function orderOnClick(tr, orderDetails) {
             let trSelected = document.getElementsByClassName("orderSelected")[0];
-            trSelected.classList.remove("orderSelected");
+             if (tr === trSelected) {
+                return
+             };
+
+             trSelected.classList.remove("orderSelected");
             tr.classList.add("orderSelected");
 
-            let detailBody = document.getElementById("detailBody");
+             let detailBody = document.getElementById("detailBody");
             detailBody.style.textAlign = "center";
 
             let new_tbody = document.createElement('tbody');
@@ -160,9 +166,9 @@
                         name.innerHTML = '<td>' + product.product_name + '</td>';
                         price.innerHTML = '<td>' + orderDetails[i].orderdetail_price + '</td>';
                         qty.innerHTML = '<td>' + orderDetails[i].orderdetail_quantity + '</td>';
-                        amount.innerHTML = '<td>' + product.product_price * orderDetails[i].orderdetail_quantity + '</td>';
+                        amount.innerHTML = '<td>' + orderDetails[i].orderdetail_price * orderDetails[i].orderdetail_quantity + '</td>';
 
-                        amountPrice += product.product_price * orderDetails[i].orderdetail_quantity;
+                        amountPrice += orderDetails[i].orderdetail_price * orderDetails[i].orderdetail_quantity;
                         amountWeight += product.product_weight * orderDetails[i].orderdetail_quantity
                     }).then( function () {
                         if (i === orderDetails.length-1) {
