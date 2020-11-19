@@ -30,6 +30,10 @@ class OrderDetailController extends Controller
         //
     }
 
+    public function search($start , $end){
+        return 'samut';
+    }
+
     /**
      * Store a newly created resource in storage.
      *

@@ -127,6 +127,14 @@ class OrderController extends Controller
     }
 
     public function submitPayment(Request $request,$id){
+
+        $request->validate([
+            'payment_datetime' => 'required',
+            'payment_amount'=>'required|integer',
+            'img_slip' => 'required',
+        ]);
+
+
         $order = Order::where('id',$id)->first();
         $order->order_status = 'กำลังตรวจสอบการชำระเงิน';
         $order->save();

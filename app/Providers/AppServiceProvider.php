@@ -27,5 +27,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('icon', function ($expression) {
             return "<i class=\"fas fa-fw fa-{{ $expression }}\"></i>";
         });
+
+        date_default_timezone_set('Asia/Bangkok');
     }
 }

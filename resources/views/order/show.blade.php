@@ -97,12 +97,12 @@
                                             <p>ยืนยันการชำระเงิน <span style="color: darkgreen">ถูกต้อง</span></p>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
                                             <form action="{{ route('order.update', ['order' => $order->id]) }}" class="form" method="POST" enctype="multipart/form-data" style="float: right; margin-left: 20px">
                                                 @method('PUT')
                                                 @csrf
                                                 <input type="hidden" value="รอจัดส่งสินค้า" name="status">
-                                                <button type="submit" class="btn btn-primary">Yes</button>
+                                                <button type="submit" class="btn btn-primary">ยืนยัน</button>
                                             </form>
                                         </div>
                                     </div>
@@ -118,11 +118,11 @@
                                             <p>ยืนยันการชำระเงิน <span style="color: indianred">ไม่ถูกต้อง</span></p>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
                                             <form action="{{ route('order.unAcceptPayment', ['id' => $order->id]) }}" class="form" method="POST" enctype="multipart/form-data" style="float: right; margin-left: 20px">
                                                 @method('PUT')
                                                 @csrf
-                                                <button type="submit" class="btn btn-primary">YES</button>
+                                                <button type="submit" class="btn btn-primary">ยืนยัน</button>
                                             </form>
                                         </div>
                                     </div>
