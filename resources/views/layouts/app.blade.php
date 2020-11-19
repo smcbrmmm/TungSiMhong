@@ -47,9 +47,7 @@
                 <div class="modal-body text-center" style="color: indianred">
                     <p id="error"></p>
                 </div>
-
             </div>
-
         </div>
     </div>
 </div>
