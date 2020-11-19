@@ -16,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::all()->sortByDesc;
 
         return view('product.index', ['products' => $products]);
     }

@@ -74,9 +74,15 @@
                 <table class="table table-hover">
                     <thead class="thead-dark">
                     <tr>
-                        <th class="align-left" >ที่อยู่ในการจัดส่ง</th>
-                        <th style="text-align: right">
-                            <a class="btn btn-secondary" href="{{ route('address.create') }}">เพิ่มที่อยู่ใหม่</a>
+                        <th colspan="2">
+                            <div class="row align-middle">
+                                <div class="col text-left">
+                                    ที่อยู่ในการจัดส่ง
+                                </div>
+                                <div class="col">
+                                    <a class="btn btn-secondary" href="{{ route('address.create') }}">เพิ่มที่อยู่ใหม่</a>
+                                </div>
+                            </div>
                         </th>
                     </tr>
                     </thead>
@@ -260,6 +266,10 @@
                     url: "/order/basket",
                     type:"GET",
                     success:function(response){
+                        if (response == 0) {
+                            basketQty.text("")
+                            window.location.href = "{{ route('home.index') }}";
+                        }
                         if (response > 0) {
                             basketQty.text(response)
                         }

@@ -45,7 +45,7 @@
                     <div style="font-size: 30px; color: indianred">ยังไม่มีการชำระเงิน</div>
                 @elseif($payments->count() == 1)
                     <div style="font-size: 24px ">ชำระเงินแล้ว</div>
-                    <div> {{ $payments[0]->payment_amount }} บาท </div>
+                    <div> <span><a href="#" data-toggle="modal" data-target="#payment{{ $payments[0]->id }}">{{ $payments[0]->payment_amount }}</a></span> บาท </div>
                 @else
                     <div style="font-size: 24px">
                         <span style="color: darkgreen">

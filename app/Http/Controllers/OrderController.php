@@ -101,10 +101,8 @@ class OrderController extends Controller
      */
     public function submitOrder(Request $request, $id) {
 
-
         $order = Order::where('id', $id)->first();
         $order->order_datetime = Carbon::now();
-        $order->order_datetime = $order->order_datetime->toDayDateTimeString();
         $order->order_status = 'รอการชำระเงิน';
         $order->address_id = $request->userAddress;
         $order->order_code = rand(000000000,999999999);
@@ -206,9 +204,18 @@ class OrderController extends Controller
         $amountPrice = 0;
         $amountWeight = 0;
         foreach ($orderDetails as $orderDetail) {
+            if ( $orderDetail->product->product_quantity == 0) {
+                $orderDetail->delete();
+                continue;
+            }
+            if ($orderDetail->orderdetail_quantity > $orderDetail->product->product_quantity) {
+                $orderDetail->orderdetail_quantity = $orderDetail->product->product_quantity;
+            }
+
             $amountPrice += $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price;
             $amountWeight += $orderDetail->orderdetail_quantity * $orderDetail->product->product_weight;
         }
+        $orderDetails = $order->orderDetails;
 
         $addresses = Address::where('user_id', Auth::user()->id)->get();
 
