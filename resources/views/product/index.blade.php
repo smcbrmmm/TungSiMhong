@@ -58,7 +58,7 @@
 {{--                    <th scope="col">รูปภาพสินค้า</th>--}}
                     <th scope="col">รหัสสินค้า</th>
                     <th scope="col">ชื่อสินค้า</th>
-                    <th scope="col">จำนวนสินค้า</th>
+                    <th scope="col">จำนวนสินค้าคงเหลือ</th>
 {{--                    <th scope="col">ข้อมูลสินค้า</th>--}}
                     <th scope="col">ราคา</th>
                     <th scope="col">แก้ไขข้อมูล</th>
