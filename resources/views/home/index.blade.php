@@ -1,78 +1,109 @@
 @extends('layouts.app')
 
 @section('style')
-    <style>
-        .productImg {
-            object-fit: cover;
-            width: 200px;
-            height: 150px;
-            object-position: right;
-            margin-left: auto;
-            margin-right: auto;
-            margin-bottom: 1rem;
 
-        }
-        p {
-            max-width: 40ch;
-        }
-    </style>
 @endsection
 
 @section('content')
-    <div class="text-center mb-4 top">
-    <span class="text-center mb-4" style="font-size: 40px ; color: #4a5568 ">
-        สินค้าภายในร้าน
-    </span>
-    </div>
 
     <div class="container">
-        <div id="code_prod_complex">
-            <div class="row">
-                @foreach($products as $product)
 
-                    <div class="card  col-md-4 mb-2" style="max-width: 28rem" >
-                        <img class="card-img-top mx-auto mt-3" src="storage{{ $product->img }}" style="max-width: 200px ; max-height: 200px" alt="Card image cap">
-                        <div class="card-body ">
-                            <div style="font-size: 24px"> {{ $product->product_name }}</div>
-                            <div class=""> รหัสสินค้า : {{ $product->product_code }}</div>
-                            <div class=""> ราคาสินค้า/ชิ้น : {{ $product->product_price }} บาท </div>
-                            <div class="">ข้อมูลของสินค้า : </div>
-                            <div class="">
-                                <p> {{ $product->product_detail }} </p>
-                            </div>
-                        </div>
-
-                        @if(Auth::user() && Auth::user()->role=='Customer')
-                        <div class="card-footer bg-transparent ">
-                            @auth
-                                @if(Auth::user()->role=='Customer')
-                                    @if($product->product_quantity > 0)
-                                        <div class="text-center">
-                                            <button type="button" class="btn btn-success basketBtn"
-                                                    id="{{ $product->id }}" style="font-size: 16px"
-                                                    onclick="">
-                                                <i class="fa fa-shopping-basket"></i>  เพิ่มใส่ตะกร้า
-                                            </button>
-                                        </div>
-                                    @else
-                                        <div class="text-center">
-                                            <button type="button" class="btn btn-secondary basketBtn"
-                                                    id="{{ $product->id }}###" style="font-size: 16px"
-                                                    onclick="">
-                                                สินค้าหมดชั่วคราว
-                                            </button>
-                                        </div>
-                                    @endif
-                                @endif
-                            @endauth
-                        </div>
-                        @endauth
-                        </div>
-
-                @endforeach
-            </div>
+        <div class="" style="margin-left: auto ; margin-right: auto">
+            <img src="storage/imgProduct/logo.png" alt="" style="max-width: 400px ; max-height: 300px ; margin-right: auto ; margin-left: auto ;margin-top: -4rem">
         </div>
-    </div>
+
+        <div class="text-center" style="font-size: 26px ; margin-top: -2rem">
+            "เรามีของมากมายให้ท่านได้เลือกชมเลือกซื้อ"
+        </div>
+        <div class="text-center" style="font-size: 23px ;">
+            สนใจเลือกชมสินค้า <a href="{{ route('product.products') }}" style="color: indianred"> คลิกเลย</a>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-6">
+                <div class="text-center" style="font-size: 24px ; margin-bottom: 1rem">
+                    ช่องทางการติดต่อเรา
+                </div>
+                <div style="margin-left: 5.2rem">
+                    <div style="font-size: 20px ; margin-bottom: 0.4rem ; margin-left: 7rem">
+                        <i class="fab fa-facebook-f fa-1x" style="color: blue"></i> <span style="font-size: 18px"> ตั้งสี่หมง กงเต๊กตลาดพลู </span>
+                    </div>
+                    <div style="font-size: 20px ; margin-bottom: 0.4rem ; margin-left: 7rem">
+                        <i class="fas fa-envelope fa-1x" style="color: red"></i> <span style="font-size: 18px"> tungsimhong@gmail.com </span>
+                    </div>
+                    <div style="font-size: 20px ; margin-bottom: 0.4rem ; margin-left: 7rem">
+                        <i class="fab fa-instagram fa-1x" style="color: darkred"></i> <span style="font-size: 18px"> tungsimhongtlp </span>
+                    </div>
+                    <div style="font-size: 20px ; margin-bottom: 0.4rem ; margin-left: 7rem">
+                        <i class="fab fa-line fa-1x" style="color: green"></i> <span style="font-size: 18px"> @tungsimhonggongtek </span>
+                    </div>
+                    <div style="font-size: 20px ; margin-bottom: 0.4rem ; margin-left: 7rem" >
+                        <i class="fas fa-phone-alt" ></i> <span style="font-size: 18px"> 020498231 </span>
+                    </div>
+                    <div style="font-size: 20px ; margin-bottom: 0.4rem ; margin-left: 7rem" >
+                        <i class="fas fa-map-pin" style="color:red;"></i> <span style="font-size: 18px"> 361 ถนน เทอดไท แขวง บางยี่เรือ เขตธนบุรี กรุงเทพมหานคร 10600 </span>
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+
+            <div class="col-6 ">
+                <div class="" style="font-size: 24px ; margin-left: 4rem ; margin-bottom: 1rem">
+                    ช่องทางการชำระเงิน
+                </div>
+
+                <div class="row">
+                    <div class="col-3">
+                        <div style="font-size: 20px ; margin-bottom: 0.4rem">
+                            <img src="storage/imgProduct/scb-icon.png" alt=""
+                                 style="max-width: 80px ; max-height: 40px ; margin-left: 4rem ; margin-top: 1rem" >
+                        </div>
+
+                        <div style="font-size: 20px ; margin-bottom: 0.4rem ; margin-top: 3rem">
+                            <img src="storage/imgProduct/kasikorn.png" alt=""
+                                 style="max-width: 80px ; max-height: 40px ; margin-left: 4rem ; margin-top: 1rem" >
+                        </div>
+                        <div style="font-size: 20px ; margin-bottom: 0.4rem ; margin-top: 3rem">
+                            <img src="storage/imgProduct/prompay.png" alt=""
+                                 style="max-width: 80px ; max-height: 40px ; margin-left: 4rem ; margin-top: 1rem" >
+                        </div>
+                    </div>
+
+                    <div class="col-5">
+                        <div style="margin-left: -2rem">
+                        <div style="font-size: 16px"> ธนาคารไทยพาณิชย์</div>
+                        <div style="font-size: 16px"> ชื่อบัญชี : นายสมัชญ์ ช่วยบำรุง</div>
+                        <div style="font-size: 16px"> หมายเลขบัญชี : 234-423-2341</div>
+                        </div>
+                        <br>
+                        <div style="margin-left: -2rem">
+                        <div style="font-size: 16px"> ธนาคารไทยพาณิชย์</div>
+                        <div style="font-size: 16px"> ชื่อบัญชี : นายสมัชญ์ ช่วยบำรุง</div>
+                        <div style="font-size: 16px"> หมายเลขบัญชี : 574-248-2874</div>
+                        </div>
+                        <br>
+                        <div style="margin-left: -2rem">
+                            <div style="font-size: 16px ; margin-top: 6px" > พร้อมเพย์ : 0922589093</div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+
     </div>
 
 
@@ -80,47 +111,5 @@
 @endsection
 
 @section('script')
-    <script>
-        $("#{{ $product->id }}").click(function() {
-            $(".top").animate({ scrollTop: 0 }, "slow");
-        });
-    </script>
 
-    <script>
-        $(document).ready(function(){
-
-            $(".basketBtn").click(function (event) {
-                let tdQty = $("#td" + this.id + "Qty");
-                @guest()
-                    window.location.href = "../login";
-                @endguest
-
-                @auth()
-                $.ajax({
-                    url: "../order_detail",
-                    type:"POST",
-                    data:{
-                        _token: "{{ csrf_token() }}",
-                        product_id: this.id,
-                        qty: 1
-                    },
-                    success:function(response){
-                        tdQty.text(response.product_quantity)
-                        console.log(response);
-                    },
-                });
-
-                let basketQty = $("#basketQty");
-                $.ajax({
-                    url: "/order/basket",
-                    type:"GET",
-                    success:function(response){
-                        basketQty.text(response)
-                    }
-                });
-                @endauth
-
-            })
-        });
-    </script>
 @endsection

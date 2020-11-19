@@ -20,6 +20,11 @@
                 @endif
                 @if(Auth::user()->role == 'Customer')
                 <li class="nav-item">
+                     <a href="{{ route('product.products') }}" class="nav-link">
+                          สินค้าภายในร้าน
+                     </a>
+                </li>
+                <li class="nav-item">
                     <a href="#" class="nav-link" id="orderLink">
                         ประวัติการสั่งซื้อ
                     </a>

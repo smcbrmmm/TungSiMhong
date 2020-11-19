@@ -21,6 +21,14 @@ class ProductController extends Controller
         return view('product.index', ['products' => $products]);
     }
 
+    public function products(){
+        $products = Product::all();
+
+        return view('product.products' , [
+            'products' => $products
+        ]);
+    }
+
     public function getProduct($id) {
         $product = Product::where('id', $id)->first();
         return response()->json([

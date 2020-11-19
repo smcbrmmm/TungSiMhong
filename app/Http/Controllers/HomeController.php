@@ -26,11 +26,8 @@ class HomeController extends Controller
                 $order->save();
             }
         }
-        $products = Product::all();
 
-        return view('home.index' , [
-            'products' => $products
-        ]);
+        return view('home.index');
     }
 
     public function report(){
