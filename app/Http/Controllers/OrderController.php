@@ -43,6 +43,11 @@ class OrderController extends Controller
         ]);
     }
 
+    public function getCountOrder() {
+        $orders = Order::where("user_id", Auth::user()->id)->where('order_status', '!=', 'ตะกร้า')->get();
+        return count($orders);
+    }
+
     public function adminOrder(){
         $orders = Order::where('order_status', '!=', 'ตะกร้า')->get();
         if(count($orders) == 0) {

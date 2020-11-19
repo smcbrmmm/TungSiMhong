@@ -23,7 +23,8 @@
                 </div>
             </div>
             <div class="col text-right" style="font-size: 24px">
-                สถานะ :
+                @isset($orders[0])
+                    สถานะ :
                 @if($orders[0]->order_status == "รอจัดส่งสินค้า" || $orders[0]->order_status == "กำลังตรวจสอบการชำระเงิน")
                     <span id="detailStatus" style="color: blue"> {{ $orders[0]->order_status }}</span>
                 @elseif($orders[0]->order_status == "รอรับสินค้า" || $orders[0]->order_status == "สำเร็จ")
@@ -31,7 +32,7 @@
                 @else
                     <span id="detailStatus" style="color: indianred"> {{ $orders[0]->order_status }}</span>
                 @endif
-{{--                <div id="trackingNum" >1234</div>--}}
+                @endisset
             </div>
         </div>
         <br>
@@ -118,6 +119,7 @@
 
         <!-- Modal -->
         <div id="modalsProduct">
+            @isset($orderDetails)
             @foreach($orderDetails as $orderDetail)
             <div class="modal fade" id="orderDetail{{ $orderDetail->id }}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -135,6 +137,7 @@
             </div>
             </div>
             @endforeach
+            @endisset
         </div>
     </div>
 @endsection
