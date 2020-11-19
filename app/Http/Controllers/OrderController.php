@@ -19,7 +19,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::where("user_id", Auth::user()->id)->where('order_status', '!=', 'ตะกร้า')->get();
+        $orders = Order::where("user_id", Auth::user()->id)->where('order_status', '!=', 'ตะกร้า')
+            ->orderByRaw("FIELD(order_status, \"รอรับสินค้า\", \"กรุณาตรวจสอบการชำระเงิน\", \"รอการชำระเงิน\", \"กำลังตรวจสอบการชำระเงิน\", \"รอจัดส่งสินค้า\"
+            , \"สำเร็จ\", \"ยกเลิก\")")->get();
+
         if(count($orders) == 0) {
             return view('order.index');
         }
@@ -49,7 +52,9 @@ class OrderController extends Controller
     }
 
     public function adminOrder(){
-        $orders = Order::where('order_status', '!=', 'ตะกร้า')->get();
+        $orders = Order::where('order_status', '!=', 'ตะกร้า')
+            ->orderByRaw("FIELD(order_status, \"กำลังตรวจสอบการชำระเงิน\", \"กรุณาตรวจสอบการชำระเงิน\", \"รอรับสินค้า\", \"รอการชำระเงิน\", \"รอจัดส่งสินค้า\"
+            , \"สำเร็จ\", \"ยกเลิก\")")->get();
         if(Auth::user()->role == 'Admin') {
             return view('order.index_admin', [
                 'orders' => $orders
