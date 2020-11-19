@@ -16,7 +16,7 @@
 @endsection
 
 @section('content')
-    <div class="text-center mb-4">
+    <div class="text-center mb-4 top">
     <span class="text-center mb-4" style="font-size: 40px  ; color: white ; background-color: grey">
         สินค้าภายในร้าน
     </span>
@@ -37,7 +37,9 @@
                             @auth
                             @if(Auth::user()->role=='Customer')
                             <div class="text-center">
-                                <button type="button" class="btn btn-secondary basketBtn" id="{{ $product->id }}" style="font-size: 16px">
+                                <button type="button" class="btn btn-secondary basketBtn"
+                                        id="{{ $product->id }}" style="font-size: 16px"
+                                        onclick="">
                                     <i class="fa fa-shopping-basket"></i>  เพิ่มใส่ตะกร้า
                                 </button>
                             </div>
@@ -60,9 +62,9 @@
 
 @section('script')
     <script>
-        $(document).ready(function(){
-
-        }
+        $("#{{ $product->id }}").click(function() {
+            $(".top").animate({ scrollTop: 0 }, "slow");
+        });
     </script>
 
     <script>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,6 +40,9 @@ class ProductController extends Controller
 
     public function productCreate(){
 
+        if(Gate::denies('create-product')){
+            return redirect()->route('home.index');
+        }
         return view('product.productCreate');
     }
 
@@ -112,6 +116,15 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'product_name' => 'required|min:5',
+            'product_code'=>'required|regex:/[a-zA-Z][a-zA-Z][a-zA-Z][0-9]{7}/',
+            'product_price' => 'required|integer',
+            'product_quantity' => 'required|integer',
+            'product_weight' => 'required|integer',
+            'product_detail' => 'required|max:255'
+        ]);
+
         if($request->file('img')!=null) {
             $img = $request->file('img');
             $input = time() . '.' . $img->getClientOriginalExtension();

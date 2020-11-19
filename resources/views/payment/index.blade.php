@@ -29,8 +29,6 @@
                         <th scope="col">วัน/เวลาที่ชำระเงิน</th>
                         <th scope="col">จำนวนเงินที่ชำระ (บาท)</th>
 
-
-
                     </tr>
                     </thead>
                     <tbody>
@@ -48,7 +46,6 @@
 {{--                            <td id="td{{ $product->id }}Qty">{{ $product->product_quantity }}</td>--}}
 {{--                            <td>{{ $product->product_detail }}</td>--}}
 {{--                            <td id="product{{ $product->id }}" >{{ $product->product_price }}</td>--}}
-
                         </tr>
                         @endif
                     @endforeach

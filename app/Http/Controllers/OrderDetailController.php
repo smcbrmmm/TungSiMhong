@@ -114,10 +114,16 @@ class OrderDetailController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $orderDetail = OrderDetail::where('id', $id)->first();
+        $product = $orderDetail->product;
+        $orderDetail->delete();
+        return response()->json([
+            'product' => $product,
+            'orderDetail' => $orderDetail,
+        ]);
     }
 }

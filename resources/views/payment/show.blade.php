@@ -28,10 +28,14 @@
                 </div>
 
                 <div style="font-size: 20px">
+                    สถานะ : {{ $order->order_status }}
+                </div>
+                <br>
+                <div style="font-size: 20px">
                     จำนวนเงินที่ชำระ : {{ $payment->payment_amount }} บาท
                 </div>
                 <div style="font-size: 20px">
-                    จำนวนเงินที่ต้องชำระ : {{ $payment->payment_amount }} บาท
+                    จำนวนเงินที่ต้องชำระ : {{ $amountAll }} บาท
                 </div>
 
                 <form action="{{ route('payment.update' , ['payment' => $payment->order->id]) }}" class="form" method="POST" enctype="multipart/form-data">
