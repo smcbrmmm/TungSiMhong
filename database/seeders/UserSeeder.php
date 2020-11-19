@@ -39,5 +39,29 @@ class UserSeeder extends Seeder
         $user->password = Hash::make('admin123');
         $user->role = 'Admin';
         $user->save();
+
+        $user = new User();
+        $user->name = 'Sirawit Yuwasirinun';
+        $user->tel = '0958828259';
+        $user->email = 'nobnaja@nob.com';
+        $user->password = Hash::make('nobnaja123');
+        $user->role = 'Customer';
+        $user->save();
+
+        $user = new User();
+        $user->name = 'TongRid Prasitsub';
+        $user->tel = '0651020259';
+        $user->email = 'Tongridhot@hotmail.com';
+        $user->password = Hash::make('123456TongRid');
+        $user->role = 'Customer';
+        $user->save();
+
+        $user = new User();
+        $user->name = 'Krai Boonchaiyo';
+        $user->tel = '0871020251';
+        $user->email = 'chaiyoK@hotmail.com';
+        $user->password = Hash::make('123456789K');
+        $user->role = 'Customer';
+        $user->save();
     }
 }
