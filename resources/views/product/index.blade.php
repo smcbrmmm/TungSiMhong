@@ -19,13 +19,29 @@
 
         <div></div>
 
-        @auth()
-        <div class="row" style="font-size: 20px">
-            <a href="{{ route('product.productCreate') }}">
-            <i class="fas fa-plus-circle fa-1x"></i> <span> เพิ่มสินค้า</span>
-            </a>
-        </div>
-        @endauth
+{{--        @can('create', \App\Models\Post::class)--}}
+{{--            <a href="{{ route('posts.create') }}">สร้างโพสต์ใหม่</a>--}}
+{{--        @else--}}
+{{--            <p>คุณไม่มีสิทธิ์สร้างโพสต์ใหม่</p>--}}
+{{--        @endcan--}}
+
+        @can('create',\App\Models\Product::class)
+            <div class="row" style="font-size: 20px">
+                <a href="{{ route('product.productCreate') }}">
+                    <i class="fas fa-plus-circle fa-1x"></i> <span> เพิ่มสินค้า</span>
+                </a>
+            </div>
+        @else
+            <p>คุณไม่มีสิทธิ์สร้างโพสต์ใหม่</p>
+        @endcan
+
+{{--        @auth()--}}
+{{--        <div class="row" style="font-size: 20px">--}}
+{{--            <a href="{{ route('product.productCreate') }}">--}}
+{{--            <i class="fas fa-plus-circle fa-1x"></i> <span> เพิ่มสินค้า</span>--}}
+{{--            </a>--}}
+{{--        </div>--}}
+{{--        @endauth--}}
 
             <br>
 

@@ -58,7 +58,7 @@ class OrderController extends Controller
 
         $deliFee = 30 + ceil($amountWeight/1000)*15;
 
-        return view('order.index', [
+        return view('order.index_admin', [
             'orders' => $orders,
             'orderDetails' => $orderDetails,
             'amountPrice' => $amountPrice,

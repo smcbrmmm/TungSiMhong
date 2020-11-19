@@ -58,4 +58,12 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function isAdmin(){
+        return $this->role === 'Admin';
+    }
+
+    public function isCustomer(){
+        return $this->role === 'Customer';
+    }
 }

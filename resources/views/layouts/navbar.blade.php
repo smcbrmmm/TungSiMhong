@@ -10,23 +10,31 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
+                @auth()
+                @if(Auth::user()->role == 'Admin')
                 <li class="nav-item">
                     <a href="{{ route('product.index') }}" class="nav-link">
                         สินค้า
                     </a>
                 </li>
-                @auth()
+                @endif
+                @if(Auth::user()->role == 'Customer')
                 <li class="nav-item">
                     <a href="{{ route('order.index') }}" class="nav-link">
                         ประวัติการสั่งซื้อ
                     </a>
                 </li>
-                @endauth
+                @endif
+
+                @if(Auth::user()->role == 'Admin')
                 <li class="nav-item">
                     <a href="{{ route('payment.index') }}" class="nav-link">
                         การชำระเงิน
                     </a>
                 </li>
+                @endif
+
+                @if(Auth::user()->role == 'Admin')
                 <li class="nav-item">
                     <a href="{{ route('payment.index') }}" class="nav-link">
                         เพิ่มเลขจัดส่งสินค้า
@@ -37,17 +45,21 @@
                         การสั่งซื้อสินค้าทั้งหมด
                     </a>
                 </li>
+                @endif
+                @endauth
             </ul>
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 @auth()
+                    @if(Auth::user()->role=='Customer')
                     <li class="nav-item">
                         <a href="{{ route('order.basket') }}" class="nav-link">
                             <i class="fa fa-shopping-basket"></i>
                             <span class="badge badge-pill badge-danger" id="basketQty"></span>
                         </a>
                     </li>
+                    @endif
                     <li class="nav-item" >
                         <a href="{{route('user.index')}}" class="nav-link">
                                 <i class="fas fa-user"></i>
