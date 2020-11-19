@@ -51,7 +51,7 @@ Route::get('/productCreate', [ ProductController::class,'productCreate'])->name(
 Route::get('/products',[ ProductController::class,'products'])->name('product.products');
 
 Route::put('/order_detail/{id}', [OrderDetailController::class, 'setQtyDetail'])->name('order-detail.setQty');
-Route::post('/search', [OrderDetailController::class, 'search'])->name('order-detail.search');
+Route::post('/search/{start?}/{end?}', [OrderDetailController::class, 'search'])->name('order-detail.search');
 Route::resource('/order-detail', OrderDetailController::class);
 
 Route::resource('/address', AddressController::class);
