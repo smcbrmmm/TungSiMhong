@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
         $user = new User();
         $user->name = 'Jiraporn Kowootthitam ';
         $user->tel = '0955938259';
-        $user->email = 'jiraporn.k@ku.th';
+        $user->email = 'jiraporn.kow@ku.th';
         $user->password = Hash::make('jiraporn123');
         $user->role = 'Customer';
         $user->save();
