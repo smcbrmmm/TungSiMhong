@@ -91,5 +91,16 @@ class AddressSeeder extends Seeder
         $address->house_no = '2/208';
         $address->address =' ต.เขาค้อ  อ.เขาค้อ';
         $address->save();
+
+        $address = new Address();
+        $address->user_id = 7;
+        $address->receiver_name = 'การัต มะระตะ';
+        $address->place_name = 'แฟลตขาวสะอาด';
+        $address->receiver_tel = '0819920658';
+        $address->postal = '34000';
+        $address->province = 'อุบลราชธานี';
+        $address->house_no = '10/156';
+        $address->address ='ม.10 ต.หนองขอน  อ.เมืองอุบลราชธานี';
+        $address->save();
     }
 }

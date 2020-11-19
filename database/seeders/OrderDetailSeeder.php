@@ -118,6 +118,14 @@ class OrderDetailSeeder extends Seeder
         $orderDetail->orderdetail_price=230;
         $orderDetail->save();
 
+        $orderDetail = new OrderDetail();
+        $orderDetail->product_id = 4;
+        $orderDetail->order_id = 6;
+        $orderDetail->orderdetail_quantity = 4;
+        $orderDetail->orderdetail_price=480;
+        $orderDetail->save();
+
+
     }
 
 }
