@@ -29,8 +29,6 @@
                         <th scope="col">วัน/เวลาที่ชำระเงิน</th>
                         <th scope="col">จำนวนเงินที่ชำระ (บาท)</th>
 
-
-
                     </tr>
                     </thead>
                     <tbody>

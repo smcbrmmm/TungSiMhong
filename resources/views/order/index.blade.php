@@ -36,7 +36,7 @@
                         <th scope="col">วันและเวลาในการสั่ง</th>
                         <th scope="col">สถานะ</th>
                         <th scope="col">Tracking</th>
-                        <th scope="col">แจ้งหลักฐาน</th>
+                        <th scope="col">การชำระเงิน</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -58,7 +58,7 @@
 
                                 @if($order->order_status=='รอการชำระเงิน' || $order->order_status=='กรุณาตรวจสอบการชำระเงิน' )
                                 <td>
-                                    <a href="{{route('payment.createPayment',['id'=>$order->id])}}">
+                                    <a href="{{ route('payment.createPayment',['id'=>$order->id]) }}">
                                         <span class="btn btn-success" >แจ้งหลักฐาน </span>
                                     </a>
                                 </td>

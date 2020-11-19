@@ -15,10 +15,9 @@
     <div class="container">
         <div>
             รหัสการสั่งซื้อ <span style="font-size: 20px"> {{$order->order_code}} </span>
-            {{ $order_id }}
         </div>
 
-        <form action="{{route('payment.submitPayment',['id'=>$order_id])}}" class="form" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('order.submitPayment',['id'=>$order_id])}}" class="form" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="payment_datetime">วันเวลาและเวลาที่ชำระเงินตามสลิป <i style="color: indianred" class="fas fa-star-of-life"></i></label>

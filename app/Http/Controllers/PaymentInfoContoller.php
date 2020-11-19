@@ -41,53 +41,9 @@ class PaymentInfoContoller extends Controller
      */
     public function store(Request $request)
     {
-        if($request->file('img_slip')!=null) {
-            $img = $request->file('img_slip');
-            $input = time() . '.' . $img->getClientOriginalExtension();
-            $des = public_path('storage/imgProduct/');
-            $img->move($des, $input);
-        }
 
-        $payment = new PaymentInformation();
-        $payment->user_id = Auth::user()->id;
-        $payment->order_id = 1;
-        $payment->payment_datetime = $request->input('payment_datetime');
-        $payment->payment_amount = $request->input('payment_amount');
-
-        if ($request->file('img_slip')!=null){
-            $payment->Img_slip = '/imgProduct/'.$input;;
-        }
-        $payment->save();
-
-        return redirect()->route('product.index');
     }
 
-    public function submitPayment(Request $request,$id){
-        $order = Order::where('id',$id)->first();
-        $order->order_status = 'กำลังตรวจสอบการชำระเงิน';
-        $order->save();
-
-        if($request->file('img_slip')!=null) {
-            $img = $request->file('img_slip');
-            $input = time() . '.' . $img->getClientOriginalExtension();
-            $des = public_path('storage/imgProduct/');
-            $img->move($des, $input);
-        }
-
-        $payment = new PaymentInformation();
-        $payment->user_id = Auth::user()->id;
-        $payment->order_id = $order->id;
-        $payment->payment_datetime = $request->input('payment_datetime');
-        $payment->payment_amount = $request->input('payment_amount');
-
-        if ($request->file('img_slip')!=null){
-            $payment->Img_slip = '/imgProduct/'.$input;;
-        }
-        $payment->save();
-
-
-        return redirect()->route('order.index');;
-    }
 
     /**
      * Display the specified resource.
@@ -143,19 +99,7 @@ class PaymentInfoContoller extends Controller
      */
     public function update(Request $request, $id)
     {
-        $order = Order::where('id',$id)->first();
-        $order->order_status = 'รอจัดส่งสินค้า';
-        $order->save();
 
-        return redirect()->route('payment.index');
-    }
-
-    public function unAcceptPayment(Request $request, $id){
-        $order = Order::where('id',$id)->first();
-        $order->order_status = 'กรุณาตรวจสอบการชำระเงิน';
-        $order->save();
-
-        return redirect()->route('payment.index');
     }
 
     /**

@@ -14,7 +14,7 @@ class Order extends Model
     }
 
     public function payment_informations(){
-        return $this->belongsTo(PaymentInformation::class);
+        return $this->hasMany(PaymentInformation::class);
     }
 
     public function shipment_information(){

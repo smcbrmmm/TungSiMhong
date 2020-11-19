@@ -31,8 +31,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::resource('/home' , HomeController::class);
 
 Route::get('/payment/create/{id}',[PaymentInfoContoller::class,'createPayment'])->name('payment.createPayment');
-Route::post('/payment/submit/{id}',[PaymentInfoContoller::class,'submitPayment'])->name('payment.submitPayment');
-Route::put('/payment/unaccept/{id}',[PaymentInfoContoller::class , 'unAcceptPayment'])->name('payment.unAcceptPayment');
+Route::post('/order/submit/payment/{id}',[OrderController::class , 'submitPayment'])->name('order.submitPayment');
+Route::put('/order/unaccept/{id}',[OrderController::class , 'unAcceptPayment'])->name('order.unAcceptPayment');
 
 Route::put('/order/submit/{id}', [OrderController::class, 'submitOrder'])->name('order.submit');
 Route::get('/order/show/basket', [OrderController::class, 'showBasket'])->name('order.basket');
