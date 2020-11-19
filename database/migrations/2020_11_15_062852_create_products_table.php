@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('product_code')->unique();
             $table->integer('product_price');
             $table->string('product_name');
-            $table->string('product_quantity');
+            $table->integer('product_quantity');
             $table->float('product_weight');
             $table->string('product_detail');
             $table->string('img')->nullable(true);

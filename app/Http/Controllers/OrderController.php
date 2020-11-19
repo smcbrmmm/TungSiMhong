@@ -42,6 +42,31 @@ class OrderController extends Controller
         ]);
     }
 
+    public function adminOrder(){
+        $orders = Order::where('order_status', '!=', 'ตะกร้า')->get();
+        if(count($orders) == 0) {
+            return view('order.index_admin');
+        }
+
+        $orderDetails = $orders[0]->orderDetails;
+        $amountPrice = 0;
+        $amountWeight = 0;
+        foreach ($orderDetails as $orderDetail) {
+            $amountPrice += $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price;
+            $amountWeight += $orderDetail->orderdetail_quantity * $orderDetail->product->product_weight;
+        }
+
+        $deliFee = 30 + ceil($amountWeight/1000)*15;
+
+        return view('order.index', [
+            'orders' => $orders,
+            'orderDetails' => $orderDetails,
+            'amountPrice' => $amountPrice,
+            'amountWeight'=> $amountWeight,
+            'deliFee' => $deliFee
+        ]);
+    }
+
     public function basketQty() {
         $order = Order::where('order_status', '=', 'ตะกร้า')->where('user_id','=', Auth::user()->id)->first();
 

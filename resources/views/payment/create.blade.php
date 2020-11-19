@@ -2,6 +2,13 @@
 
 @section('style')
 
+    <style>
+        .slipImg{
+            max-width: 311px;
+            max-height: 536px;
+        }
+
+    </style>
 @endsection
 
 @section('content')

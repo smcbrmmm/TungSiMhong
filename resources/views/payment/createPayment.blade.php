@@ -1,7 +1,13 @@
 @extends('layouts.app')
 
 @section('style')
+    <style>
+        .slipImg{
+            max-width: 311px;
+            max-height: 536px;
+        }
 
+    </style>
 @endsection
 
 @section('content')
@@ -9,6 +15,7 @@
     <div class="container">
         <div>
             รหัสการสั่งซื้อ <span style="font-size: 20px"> {{$order->order_code}} </span>
+            {{ $order_id }}
         </div>
 
         <form action="{{route('payment.submitPayment',['id'=>$order_id])}}" class="form" method="POST" enctype="multipart/form-data">
@@ -43,7 +50,7 @@
 
             <div>
                 <img src="" alt=""
-                     class="slipImg">
+                     class="slipImg mb-2" >
             </div>
 
 

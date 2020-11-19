@@ -22,6 +22,21 @@
                     </a>
                 </li>
                 @endauth
+                <li class="nav-item">
+                    <a href="{{ route('payment.index') }}" class="nav-link">
+                        การชำระเงิน
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('payment.index') }}" class="nav-link">
+                        เพิ่มเลขจัดส่งสินค้า
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('order.adminOrder') }}" class="nav-link">
+                        การสั่งซื้อสินค้าทั้งหมด
+                    </a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->

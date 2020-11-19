@@ -76,7 +76,7 @@ class PaymentInfoContoller extends Controller
 
         $payment = new PaymentInformation();
         $payment->user_id = Auth::user()->id;
-        $payment->order_id = 1;
+        $payment->order_id = $order->id;
         $payment->payment_datetime = $request->input('payment_datetime');
         $payment->payment_amount = $request->input('payment_amount');
 
@@ -97,7 +97,10 @@ class PaymentInfoContoller extends Controller
      */
     public function show($id)
     {
-        //
+        $payment = PaymentInformation::find($id);
+        return view('payment.show',[
+           'payment' => $payment
+        ]);
     }
 
     public function createPayment($id){
@@ -116,7 +119,7 @@ class PaymentInfoContoller extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -128,7 +131,19 @@ class PaymentInfoContoller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order = Order::where('id',$id)->first();
+        $order->order_status = 'รอจัดส่งสินค้า';
+        $order->save();
+
+        return redirect()->route('payment.index');
+    }
+
+    public function unAcceptPayment(Request $request, $id){
+        $order = Order::where('id',$id)->first();
+        $order->order_status = 'กรุณาตรวจสอบการชำระเงิน';
+        $order->save();
+
+        return redirect()->route('payment.index');
     }
 
     /**

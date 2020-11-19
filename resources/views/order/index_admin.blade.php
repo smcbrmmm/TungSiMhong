@@ -23,7 +23,7 @@
     <div class="container">
 
         <div style="font-size: 24px">
-            ประวัติการสั่งซื้อสินค้า
+            ประวัติการสั่งซื้อสินค้า ADMIN
         </div>
         <br>
 
@@ -36,36 +36,28 @@
                         <th scope="col">วันและเวลาในการสั่ง</th>
                         <th scope="col">สถานะ</th>
                         <th scope="col">Tracking</th>
-                        <th scope="col">แจ้งหลักฐาน</th>
+
                     </tr>
                     </thead>
                     <tbody>
                     @isset($orders)
-                    @foreach($orders as $order)
-                        @if($order == $orders[0])
-                            <tr class="orderSelected trOder" onclick="orderOnClick(this, {{ $order->orderDetails }})">
-                        @else
-                            <tr class="trOder" onclick="orderOnClick(this, {{ $order->orderDetails }})">
-                        @endif
-                                <td>{{ $order->order_code }}</td>
-                                <td>{{ $order->order_datetime }}</td>
-                                <td>{{ $order->order_status }}</td>
-                                @if($order->order_status != 'รอรับสินค้า')
-                                    <td> - </td>
-                                @else
-                                    <td> 123456 </td>
-                                @endif
-
-                                @if($order->order_status=='รอการชำระเงิน' || $order->order_status=='กรุณาตรวจสอบการชำระเงิน' )
-                                <td>
-                                    <a href="{{route('payment.createPayment',['id'=>$order->id])}}">
-                                        <span class="btn btn-success" >แจ้งหลักฐาน </span>
-                                    </a>
-                                </td>
+                        @foreach($orders as $order)
+                            @if($order == $orders[0])
+                                <tr class="orderSelected trOder" onclick="orderOnClick(this, {{ $order->orderDetails }})">
+                            @else
+                                <tr class="trOder" onclick="orderOnClick(this, {{ $order->orderDetails }})">
                                     @endif
-                            </tr>
-                    @endforeach
-                    @endisset
+                                    <td>{{ $order->order_code }}</td>
+                                    <td>{{ $order->order_datetime }}</td>
+                                    <td>{{ $order->order_status }}</td>
+                                    @if($order->order_status != 'รอรับสินค้า')
+                                        <td> - </td>
+                                    @else
+                                        <td> 123456 </td>
+                                    @endif
+                                </tr>
+                                @endforeach
+                            @endisset
                     </tbody>
                 </table>
 
@@ -85,29 +77,29 @@
                     </thead>
                     <tbody id="detailBody">
                     @isset($orderDetails)
-                    @for($i = 0; $i < $orderDetails->count() ; $i++)
+                        @for($i = 0; $i < $orderDetails->count() ; $i++)
+                            <tr>
+                                <th scope="row">{{ $i+1 }}</th>
+                                <td><img src="/storage/{{ $orderDetails[$i]->product->img }}" alt="{{ $orderDetails[$i]->product->product_code }}" class="productImg"></td>
+                                <td>{{ $orderDetails[$i]->product->product_code }}</td>
+                                <td>{{ $orderDetails[$i]->product->product_name }}</td>
+                                <td>{{ $orderDetails[$i]->orderdetail_price }}</td>
+                                <td>{{ $orderDetails[$i]->orderdetail_quantity }}</td>
+                                <td>{{ $orderDetails[$i]->product->product_price }}</td>
+                            </tr>
+                        @endfor
                         <tr>
-                            <th scope="row">{{ $i+1 }}</th>
-                            <td><img src="/storage/{{ $orderDetails[$i]->product->img }}" alt="{{ $orderDetails[$i]->product->product_code }}" class="productImg"></td>
-                            <td>{{ $orderDetails[$i]->product->product_code }}</td>
-                            <td>{{ $orderDetails[$i]->product->product_name }}</td>
-                            <td>{{ $orderDetails[$i]->orderdetail_price }}</td>
-                            <td>{{ $orderDetails[$i]->orderdetail_quantity }}</td>
-                            <td>{{ $orderDetails[$i]->product->product_price }}</td>
+                            <th colspan="6" style="text-align: left">ราคาสินค้าทั้งหมด</th>
+                            <th style="text-align: center">{{ $amountPrice }}</th>
                         </tr>
-                    @endfor
-                    <tr>
-                        <th colspan="6" style="text-align: left">ราคาสินค้าทั้งหมด</th>
-                        <th style="text-align: center">{{ $amountPrice }}</th>
-                    </tr>
-                    <tr>
-                        <th colspan="6" style="text-align: left">ค่าจัดส่ง</th>
-                        <th style="text-align: center">{{ $deliFee }}</th>
-                    </tr>
-                    <tr>
-                        <th colspan="6" style="text-align: left">รวม</th>
-                        <th style="text-align: center">{{ $amountPrice + $deliFee }}</th>
-                    </tr>
+                        <tr>
+                            <th colspan="6" style="text-align: left">ค่าจัดส่ง</th>
+                            <th style="text-align: center">{{ $deliFee }}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="6" style="text-align: left">รวม</th>
+                            <th style="text-align: center">{{ $amountPrice + $deliFee }}</th>
+                        </tr>
                     @endisset
                     </tbody>
                 </table>
@@ -119,7 +111,7 @@
 
 @section('script')
     <script>
-         function orderOnClick(tr, orderDetails) {
+        function orderOnClick(tr, orderDetails) {
             let trSelected = document.getElementsByClassName("orderSelected")[0];
             trSelected.classList.remove("orderSelected");
             tr.classList.add("orderSelected");
