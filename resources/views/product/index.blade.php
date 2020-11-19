@@ -17,7 +17,11 @@
 
     <div class="container">
 
-        <div></div>
+
+        <div>
+            <input class="form-control" type="text" placeholder="Search" aria-label="Search" id="searchBar" >
+        </div>
+        <br>
 
 {{--        @can('create', \App\Models\Post::class)--}}
 {{--            <a href="{{ route('posts.create') }}">สร้างโพสต์ใหม่</a>--}}
@@ -43,7 +47,7 @@
 {{--        </div>--}}
 {{--        @endauth--}}
 
-            <br>
+        <br>
 
         <div class="row">
             <table class="table table-hover">
@@ -60,7 +64,7 @@
                     <th scope="col">แก้ไขข้อมูล</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="product_body">
                 @foreach($products as $product)
                     <tr>
                         <th scope="row">{{ $product->id }}</th>
@@ -107,6 +111,11 @@
 @section('script')
     <script>
         $(document).ready(function(){
+            $("#searchBar").change(function () {
+                let txt = $("#searchBar").val()
+                console.log(txt)
+            })
+
 
            $(".basketBtn").click(function (event) {
                let tdQty = $("#td" + this.id + "Qty");
