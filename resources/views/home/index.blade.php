@@ -67,6 +67,10 @@
                             <img src="storage/imgProduct/kasikorn.png" alt=""
                                  style="max-width: 80px ; max-height: 40px ; margin-left: 4rem ; margin-top: 1rem" >
                         </div>
+                        <div style="font-size: 20px ; margin-bottom: 0.4rem ; margin-top: 3rem">
+                            <img src="storage/imgProduct/prompay.png" alt=""
+                                 style="max-width: 80px ; max-height: 40px ; margin-left: 4rem ; margin-top: 1rem" >
+                        </div>
                     </div>
 
                     <div class="col-5">
@@ -79,7 +83,11 @@
                         <div style="margin-left: -2rem">
                         <div style="font-size: 16px"> ธนาคารไทยพาณิชย์</div>
                         <div style="font-size: 16px"> ชื่อบัญชี : นายสมัชญ์ ช่วยบำรุง</div>
-                        <div style="font-size: 16px"> หมายเลขบัญชี : 234-423-2341</div>
+                        <div style="font-size: 16px"> หมายเลขบัญชี : 574-248-2874</div>
+                        </div>
+                        <br>
+                        <div style="margin-left: -2rem">
+                            <div style="font-size: 16px ; margin-top: 6px" > พร้อมเพย์ : 0922589093</div>
                         </div>
                     </div>
 
