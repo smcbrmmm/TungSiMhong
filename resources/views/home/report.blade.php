@@ -17,23 +17,23 @@
 
         <form action="" class="form" method="POST" enctype="multipart/form-data">
             @csrf
-            <span class="form-group" >
-                <label for="payment_datetime">Start Date <i style="color: indianred" class="fas fa-star-of-life"></i></label>
+            <div class="form-group mb-1" >
+                <label for="payment_datetime">ตั้งแต่วันที่ <i style="color: indianred" class="fas fa-star-of-life"></i></label>
                 <span><input type="date" class="form-control" id="payment_datetime"
                        name="payment_datetime" required style="max-width: 20rem"
                        aria-describedby="payment_datetimeHelp">
                 </span>
-            </span>
+            </div>
 
-            <span class="form-group " >
-                <label for="payment_datetime">End Date <i style="color: indianred" class="fas fa-star-of-life"></i></label>
+            <div class="form-group " >
+                <label for="payment_datetime">จนถึงวันที่ <i style="color: indianred" class="fas fa-star-of-life"></i></label>
                 <input type="date" class="form-control" id="payment_datetime"
                        name="payment_datetime" required style="max-width: 20rem"
                        aria-describedby="payment_datetimeHelp">
 {{--                <small id="payment_datetimeHelp" class="form-text text-muted">--}}
 {{--                    วันเวลาและเวลาที่ชำระเงินตามสลิป จำเป็น--}}
 {{--                </small>--}}
-            </span>
+            </div>
 
             <br>
             <button type="submit" class="btn btn-primary"> ค้นหา </button>
@@ -52,6 +52,7 @@
                     <th scope="col">วัน/เวลาที่ขาย</th>
                     <th scope="col">ราคาสินค้า/ชิ้น</th>
                     <th scope="col">จำนวนสินค้าที่ขายได้</th>
+                    <th scope="col">ยอดรวม</th>
 
                 </tr>
                 </thead>
@@ -63,6 +64,7 @@
                             <th>{{ $orderDetail->order->order_datetime }}</th>
                             <th>{{ $orderDetail->orderdetail_price }}</th>
                             <th>{{ $orderDetail->orderdetail_quantity}}</th>
+                            <th>{{ $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price}}</th>
                         </tr>
 
                 @endforeach
