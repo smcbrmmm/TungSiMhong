@@ -47,6 +47,7 @@ Route::resource('/order' , OrderController::class);
 Route::get('/product/{id}', [ProductController::class, 'getProduct'])->name('product.get');
 Route::resource('/product', ProductController::class);
 Route::get('/productCreate', [ ProductController::class,'productCreate'])->name('product.productCreate');
+Route::get('/products',[ ProductController::class,'products'])->name('product.products');
 
 Route::put('/order_detail/{id}', [OrderDetailController::class, 'setQtyDetail'])->name('order-detail.setQty');
 Route::resource('/order-detail', OrderDetailController::class);
