@@ -49,7 +49,7 @@
                 @auth()
                     @if(Auth::user()->role=='Customer')
                     <li class="nav-item">
-                        <a href="{{ route('order.basket') }}" class="nav-link">
+                        <a href="#" class="nav-link" id="basketLink">
                             <i class="fa fa-shopping-basket"></i>
                             <span class="badge badge-pill badge-danger" id="basketQty" style="margin-left: -10px"></span>
                         </a>

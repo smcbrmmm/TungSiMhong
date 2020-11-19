@@ -39,11 +39,25 @@
     <main class="py-4 " style="font-family: 'Mitr', sans-serif;">
         @yield('content')
     </main>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body text-center" style="color: indianred">
+                    <p id="error"></p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
 </div>
 
 @yield('script')
 <script>
     $(document).ready(function(){
+
         @auth()
             let basketQty = $("#basketQty");
 
@@ -56,6 +70,22 @@
                     }
                 }
             });
+
+            $('#basketLink').click(function () {
+                $.ajax({
+                    url: "/order/basket",
+                    type:"GET",
+                    success:function(response){
+                        if (response > 0) {
+                            window.location.href = "{{ route('order.basket') }}";
+                        } else {
+                            $("#error").html("<b>ไม่มีสินค้าในตะกร้า</b>");
+                            $('#myModal').modal("show");
+                        }
+                    }
+                });
+
+            })
         @endauth
     });
 </script>

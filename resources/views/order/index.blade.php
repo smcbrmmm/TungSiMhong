@@ -2,12 +2,6 @@
 
 @section('style')
     <style>
-        .productImg {
-            object-fit: cover;
-            width: 100px;
-            height: 100px;
-            max-width: 100px;
-        }
         td, th {
             text-align: center;
         }
@@ -22,8 +16,23 @@
 
     <div class="container">
 
-        <div style="font-size: 24px">
-            ประวัติการสั่งซื้อสินค้า
+        <div class="row">
+            <div class="col">
+                <div style="font-size: 24px">
+                    ประวัติการสั่งซื้อสินค้า
+                </div>
+            </div>
+            <div class="col text-right" style="font-size: 24px">
+                สถานะ :
+                @if($orders[0]->order_status == "รอจัดส่งสินค้า" || $orders[0]->order_status == "กำลังตรวจสอบการชำระเงิน")
+                    <span id="detailStatus" style="color: blue"> {{ $orders[0]->order_status }}</span>
+                @elseif($orders[0]->order_status == "รอรับสินค้า" || $orders[0]->order_status == "สำเร็จ")
+                    <span id="detailStatus" style="color: darkgreen"> {{ $orders[0]->order_status }}</span>
+                @else
+                    <span id="detailStatus" style="color: indianred"> {{ $orders[0]->order_status }}</span>
+                @endif
+{{--                <div id="trackingNum" >1234</div>--}}
+            </div>
         </div>
         <br>
 
@@ -35,7 +44,6 @@
                         <th scope="col">รหัสสั่งซื้อ</th>
                         <th scope="col">วัน/เวลาในการสั่ง</th>
                         <th scope="col">สถานะ</th>
-                        <th scope="col">Tracking</th>
                         <th scope="col">การชำระเงิน</th>
                     </tr>
                     </thead>
@@ -43,18 +51,13 @@
                     @isset($orders)
                     @foreach($orders as $order)
                         @if($order == $orders[0])
-                            <tr class="orderSelected trOder" onclick="orderOnClick(this, {{ $order->orderDetails }})">
+                            <tr class="orderSelected trOder" onclick="orderOnClick(this, {{ $order }}, {{ $order->orderDetails }})">
                         @else
-                            <tr class="trOder" onclick="orderOnClick(this, {{ $order->orderDetails }})">
+                            <tr class="trOder" onclick="orderOnClick(this, {{ $order }}, {{ $order->orderDetails }})">
                         @endif
                                 <td>{{ $order->order_code }}</td>
                                 <td>{{ $order->order_datetime }}</td>
                                 <td>{{ $order->order_status }}</td>
-                                @if($order->order_status != 'รอรับสินค้า')
-                                    <td> - </td>
-                                @else
-                                    <td> 123456 </td>
-                                @endif
 
                                 @if($order->order_status=='รอการชำระเงิน' || $order->order_status=='กรุณาตรวจสอบการชำระเงิน' )
                                 <td>
@@ -145,7 +148,7 @@
         })
     </script>
     <script>
-         function orderOnClick(tr, orderDetails) {
+         function orderOnClick(tr, order, orderDetails) {
             let trSelected = document.getElementsByClassName("orderSelected")[0];
              if (tr === trSelected) {
                 return;
@@ -163,6 +166,16 @@
 
              let modals = document.getElementById('modalsProduct');
              modals.innerHTML = "";
+
+             let detailStatus = document.getElementById("detailStatus");
+             detailStatus.innerHTML = order.order_status;
+             if (order.order_status == "รอจัดส่งสินค้า" || order.order_status == "กำลังตรวจสอบการชำระเงิน") {
+                 detailStatus.style.color = 'blue';
+             } else if (order.order_status == "รอรับสินค้า" || order.order_status == "สำเร็จ") {
+                 detailStatus.style.color = 'darkgreen';
+             } else {
+                 detailStatus.style.color = 'indianred';
+             }
 
              let amountPrice = 0;
             let amountWeight = 0;

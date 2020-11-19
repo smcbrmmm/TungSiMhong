@@ -266,6 +266,10 @@
                     url: "/order/basket",
                     type:"GET",
                     success:function(response){
+                        if (response == 0) {
+                            basketQty.text("")
+                            window.location.href = "{{ route('home.index') }}";
+                        }
                         if (response > 0) {
                             basketQty.text(response)
                         }
