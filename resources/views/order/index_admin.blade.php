@@ -28,14 +28,14 @@
         <br>
 
         <div class="row">
-            <div class="col-8">
+            <div class="col">
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">รหัสการสั่งซื้อ</th>
                         <th scope="col">วันและเวลาในการสั่ง</th>
                         <th scope="col">สถานะ</th>
-                        <th scope="col">Tracking</th>
+
 
                     </tr>
                     </thead>
@@ -44,66 +44,17 @@
                         @foreach($orders as $order)
                             @if($order == $orders[0])
                                 <tr class="orderSelected trOder" onclick="orderOnClick(this, {{ $order->orderDetails }})">
-                            @else
+                            @else<a href=""></a>
                                 <tr class="trOder" onclick="orderOnClick(this, {{ $order->orderDetails }})">
                                     @endif
-                                    <td>{{ $order->order_code }}</td>
+                                    <td><a href="{{ route('order.show',['order'=>$order->id]) }}">{{ $order->order_code }}</a></td>
                                     <td>{{ $order->order_datetime }}</td>
                                     <td>{{ $order->order_status }}</td>
-                                    @if($order->order_status != 'รอรับสินค้า')
-                                        <td> - </td>
-                                    @else
-                                        <td> 123456 </td>
-                                    @endif
                                 </tr>
                                 @endforeach
                             @endisset
                     </tbody>
                 </table>
-
-            </div>
-            <div class="col-4">
-                <table class="table" id="detailTable">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col" class="thCenter">#</th>
-                        <th scope="col" class="thCenter">รูปภาพสินค้า</th>
-                        <th scope="col" class="thCenter">รหัสสินค้า</th>
-                        <th scope="col" class="thCenter">ชื่อสินค้า</th>
-                        <th scope="col" class="thCenter">ราคา</th>
-                        <th scope="col" class="thCenter">จำนวน</th>
-                        <th scope="col" class="thCenter">รวม(บาท)</th>
-                    </tr>
-                    </thead>
-                    <tbody id="detailBody">
-                    @isset($orderDetails)
-                        @for($i = 0; $i < $orderDetails->count() ; $i++)
-                            <tr>
-                                <th scope="row">{{ $i+1 }}</th>
-                                <td><img src="/storage/{{ $orderDetails[$i]->product->img }}" alt="{{ $orderDetails[$i]->product->product_code }}" class="productImg"></td>
-                                <td>{{ $orderDetails[$i]->product->product_code }}</td>
-                                <td>{{ $orderDetails[$i]->product->product_name }}</td>
-                                <td>{{ $orderDetails[$i]->orderdetail_price }}</td>
-                                <td>{{ $orderDetails[$i]->orderdetail_quantity }}</td>
-                                <td>{{ $orderDetails[$i]->product->product_price }}</td>
-                            </tr>
-                        @endfor
-                        <tr>
-                            <th colspan="6" style="text-align: left">ราคาสินค้าทั้งหมด</th>
-                            <th style="text-align: center">{{ $amountPrice }}</th>
-                        </tr>
-                        <tr>
-                            <th colspan="6" style="text-align: left">ค่าจัดส่ง</th>
-                            <th style="text-align: center">{{ $deliFee }}</th>
-                        </tr>
-                        <tr>
-                            <th colspan="6" style="text-align: left">รวม</th>
-                            <th style="text-align: center">{{ $amountPrice + $deliFee }}</th>
-                        </tr>
-                    @endisset
-                    </tbody>
-                </table>
-
 
             </div>
         </div>

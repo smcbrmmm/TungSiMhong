@@ -15,7 +15,7 @@ class CreateShipmentInfosTable extends Migration
     {
         Schema::create('shipment_infos', function (Blueprint $table) {
             $table->id();
-            $table->string('tracking#');
+            $table->string('tracking_no');
             $table->string('send_time');
             $table->timestamps();
         });

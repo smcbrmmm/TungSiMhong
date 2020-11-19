@@ -138,7 +138,10 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-
+        $order = Order::where('id',$id)->first();
+        return view('order.show',[
+            'order' => $order
+        ]);
     }
 
     public function showBasket() {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ShipmentInfo;
 use Illuminate\Http\Request;
 
 class ShipmentInfoController extends Controller
@@ -34,7 +35,7 @@ class ShipmentInfoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -68,7 +69,8 @@ class ShipmentInfoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tracking = new ShipmentInfo();
+
     }
 
     /**
