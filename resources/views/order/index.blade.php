@@ -22,8 +22,15 @@
                     ประวัติการสั่งซื้อสินค้า
                 </div>
             </div>
-            <div class="col text-right" style="font-size: 24px">
-                สถานะ :
+            <div class="col text-right align-bottom">
+                @isset($orders[0])
+                    <b id="orderNum">Order #{{ $orders[0]->order_code }}</b>
+                    <button class="btn btn-secondary" data-toggle="modal" data-target="#paymentModal" id="paymentBtn"> ประวัติการชำระเงิน </button>
+                @endisset
+            </div>
+            <div class="col-5 text-right" style="font-size: 24px">
+                @isset($orders[0])
+                    สถานะ :
                 @if($orders[0]->order_status == "รอจัดส่งสินค้า" || $orders[0]->order_status == "กำลังตรวจสอบการชำระเงิน")
                     <span id="detailStatus" style="color: blue"> {{ $orders[0]->order_status }}</span>
                 @elseif($orders[0]->order_status == "รอรับสินค้า" || $orders[0]->order_status == "สำเร็จ")
@@ -31,7 +38,7 @@
                 @else
                     <span id="detailStatus" style="color: indianred"> {{ $orders[0]->order_status }}</span>
                 @endif
-{{--                <div id="trackingNum" >1234</div>--}}
+                @endisset
             </div>
         </div>
         <br>
@@ -51,9 +58,9 @@
                     @isset($orders)
                     @foreach($orders as $order)
                         @if($order == $orders[0])
-                            <tr class="orderSelected trOder" onclick="orderOnClick(this, {{ $order }}, {{ $order->orderDetails }})">
+                            <tr class="orderSelected trOder" onclick="orderOnClick(this, {{ $order }}, {{ $order->orderDetails }}, {{ $order->payment_informations }})">
                         @else
-                            <tr class="trOder" onclick="orderOnClick(this, {{ $order }}, {{ $order->orderDetails }})">
+                            <tr class="trOder" onclick="orderOnClick(this, {{ $order }}, {{ $order->orderDetails }}, {{ $order->payment_informations }})">
                         @endif
                                 <td>{{ $order->order_code }}</td>
                                 <td>{{ $order->order_datetime }}</td>
@@ -118,6 +125,7 @@
 
         <!-- Modal -->
         <div id="modalsProduct">
+            @isset($orderDetails)
             @foreach($orderDetails as $orderDetail)
             <div class="modal fade" id="orderDetail{{ $orderDetail->id }}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -135,7 +143,36 @@
             </div>
             </div>
             @endforeach
+            @endisset
         </div>
+
+        <div id="modalsPayment">
+            @isset($orders[0])
+            <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" ><b id="orderCodeModal">Order #{{ $orders[0]->order_code }}</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-auto" id="modalBodyPayment">
+                        @foreach($orders[0]->payment_informations as $payment)
+                            <div class="card mb-5" style="width: 18rem;">
+                                <img class="card-img-top" src="/storage/{{ $payment->img_slip }}" alt="">
+                                <div class="card-body text-right">
+                                    <h5 class="card-title">{{ $payment->payment_datetime }}</h5>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            </div>
+            @endisset
+        </div>
+
     </div>
 @endsection
 
@@ -148,7 +185,7 @@
         })
     </script>
     <script>
-         function orderOnClick(tr, order, orderDetails) {
+         function orderOnClick(tr, order, orderDetails, payments) {
             let trSelected = document.getElementsByClassName("orderSelected")[0];
              if (tr === trSelected) {
                 return;
@@ -164,8 +201,25 @@
             new_tbody.id = "detailBody";
             detailBody.parentNode.replaceChild(new_tbody, detailBody);
 
+             document.getElementById('orderNum').innerHTML = 'Order #' + order.order_code;
+             document.getElementById('orderCodeModal').innerHTML = 'Order #' + order.order_code;
              let modals = document.getElementById('modalsProduct');
              modals.innerHTML = "";
+             let modalsPayment = document.getElementById('modalBodyPayment');
+             modalsPayment.innerHTML = "";
+             if (payments.length > 0) {
+                 for(payment of payments) {
+                     modalsPayment.innerHTML +=
+                         '<div class="card mb-5" style="width: 18rem;">\n' +
+                         '  <img class="card-img-top" src="/storage/' + payment.img_slip + '" alt="">\n' +
+                         '  <div class="card-body text-right">\n' +
+                         '      <h5 class="card-title">' + payment.payment_datetime + '</h5>\n' +
+                         '  </div>\n' +
+                         '</div>'
+                 }
+             } else {
+                 modalsPayment.innerHTML += '<div>ยังไม่มีประวัติการชำระเงิน</div>'
+             }
 
              let detailStatus = document.getElementById("detailStatus");
              detailStatus.innerHTML = order.order_status;

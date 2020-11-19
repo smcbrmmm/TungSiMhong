@@ -20,7 +20,7 @@
                 @endif
                 @if(Auth::user()->role == 'Customer')
                 <li class="nav-item">
-                    <a href="{{ route('order.index') }}" class="nav-link">
+                    <a href="#" class="nav-link" id="orderLink">
                         ประวัติการสั่งซื้อ
                     </a>
                 </li>

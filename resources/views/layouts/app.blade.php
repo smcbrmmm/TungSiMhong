@@ -84,7 +84,22 @@
                         }
                     }
                 });
+            })
 
+            $('#orderLink').click(function () {
+                $.ajax({
+                    url: "/order/count",
+                    type:"GET",
+                    success:function(response){
+                        console.log(response)
+                        if (response > 0) {
+                            window.location.href = "{{ route('order.index') }}";
+                        } else {
+                            $("#error").html("<b>คุณยังไม่มีประวัติการสั่งซื้อ</b>");
+                            $('#myModal').modal("show");
+                        }
+                    }
+                });
             })
         @endauth
     });
