@@ -112,6 +112,15 @@ class OrderController extends Controller
             $product = $orderDetail->product;
             $product->product_quantity = $product->product_quantity - $orderDetail->orderdetail_quantity;
             $product->save();
+
+            $otherDetails = $orderDetail->product->order_details;
+            foreach ($otherDetails as $otherDetail) {
+                if ($otherDetail->product->product_quantity == 0) {
+                    $otherDetail->delete();
+                } else if ($otherDetail->orderdetail_quantity > $otherDetail->product->product_quantity) {
+                    $otherDetail->orderdetail_quantity = $otherDetail->product->product_quantity;
+                }
+            }
         }
 
         if (Auth::user()) {
@@ -204,14 +213,6 @@ class OrderController extends Controller
         $amountPrice = 0;
         $amountWeight = 0;
         foreach ($orderDetails as $orderDetail) {
-            if ( $orderDetail->product->product_quantity == 0) {
-                $orderDetail->delete();
-                continue;
-            }
-            if ($orderDetail->orderdetail_quantity > $orderDetail->product->product_quantity) {
-                $orderDetail->orderdetail_quantity = $orderDetail->product->product_quantity;
-            }
-
             $amountPrice += $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price;
             $amountWeight += $orderDetail->orderdetail_quantity * $orderDetail->product->product_weight;
         }
