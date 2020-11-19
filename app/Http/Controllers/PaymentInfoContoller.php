@@ -99,7 +99,11 @@ class PaymentInfoContoller extends Controller
      */
     public function update(Request $request, $id)
     {
+        $payment = PaymentInformation::where('id', $id)->first();
+        $payment->payment_amount = $request->amount;
+        $payment->save();
 
+        return redirect()->route('order.show',['order'=>$payment->order->id]);
     }
 
     /**

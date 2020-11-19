@@ -44,8 +44,12 @@
                 @if($payments->count() == 0)
                     <div style="font-size: 30px; color: indianred">ยังไม่มีการชำระเงิน</div>
                 @elseif($payments->count() == 1)
-                    <div style="font-size: 24px ">ชำระเงินแล้ว</div>
-                    <div> <span><a href="#" data-toggle="modal" data-target="#payment{{ $payments[0]->id }}">{{ $payments[0]->payment_amount }}</a></span> บาท </div>
+                    <div style="font-size: 24px ">
+                        <span style="color: darkgreen">
+                            ชำระเงินแล้ว :
+                        </span>
+                        <span><a href="#" data-toggle="modal" data-target="#payment{{ $payments[0]->id }}">{{ $payments[0]->payment_amount }}</a></span> บาท
+                    </div>
                 @else
                     <div style="font-size: 24px">
                         <span style="color: darkgreen">
@@ -63,35 +67,73 @@
 
                 @if($payments->count() != 0)
                     @if($order->order_status == "รอจัดส่งสินค้า" || $order->order_status == "รอรับสินค้า" || $order->order_status == "สำเร็จ")
-                        <div style="font-size: 30px; margin-top: 15px">
+                        <div style="font-size: 30px; ">
                             <span style="color: darkgreen">
                                 การชำระเงินเสร็จสิ้น
                             </span>
                         </div>
                     @else
                         <div style="margin-top: 15px">
-                            <form action="{{ route('order.update', ['order' => $order->id]) }}" class="form" method="POST" enctype="multipart/form-data" style="float: right; margin-left: 20px">
-                                @method('PUT')
-                                @csrf
-                                <button type="submit" class="btn btn-primary mb-2"> การชำระเงินถูกต้อง </button>
-                            </form>
 
-                            <form action="{{ route('order.unAcceptPayment', ['id' => $order->id]) }}" class="form" method="POST" enctype="multipart/form-data">
-                                @method('PUT')
-                                @csrf
-                                <button type="submit" class="btn btn-danger"> การชำระเงินไม่ถูกต้อง </button>
-                            </form>
+                            <a class="btn btn-primary mb-2" data-toggle="modal" data-target="#sureCorrect"> การชำระเงินถูกต้อง </a>
+                            @if ($amountPayment < $amountPrice + $deliFee)
+                            <div class="modal fade" id="sureCorrect" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-center" style="color: indianred">
+                                            ยอดเงินที่ชำระไม่ตรงกับยอดสั่งซื้อ
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @else
+                            <div class="modal fade" id="sureCorrect" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-center" >
+                                            <p>ยืนยันการชำระเงิน <span style="color: darkgreen">ถูกต้อง</span></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            <form action="{{ route('order.update', ['order' => $order->id]) }}" class="form" method="POST" enctype="multipart/form-data" style="float: right; margin-left: 20px">
+                                                @method('PUT')
+                                                @csrf
+                                                <input type="hidden" value="รอจัดส่งสินค้า" name="status">
+                                                <button type="submit" class="btn btn-primary">Yes</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+
+                            <a class="btn btn-danger mb-2" data-toggle="modal" data-target="#sureIncorrect"> การชำระเงินไม่ถูกต้อง </a>
+                            <div class="modal fade" id="sureIncorrect" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-center" >
+                                            <p>ยืนยันการชำระเงิน <span style="color: indianred">ไม่ถูกต้อง</span></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            <form action="{{ route('order.unAcceptPayment', ['id' => $order->id]) }}" class="form" method="POST" enctype="multipart/form-data" style="float: right; margin-left: 20px">
+                                                @method('PUT')
+                                                @csrf
+                                                <button type="submit" class="btn btn-primary">YES</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     @endif
                 @endif
             </div>
 
         </div>
-        @if($order->order_status=='รอรับสินค้า')
-            <div style="font-size: 20px  " class="mb-2">
-                เลขส่งสินค้า :  <span style="color: indianred"> {{ $order->shipment_information->tracking_no }}</span>
-            </div>
-        @endif
         <div class="row">
             <div class="col-3">
                 <div class="address">
@@ -143,6 +185,12 @@
                         <button type="submit" class="btn btn-primary">บันทึก</button>
                     </form>
                 </div>
+                @endif
+
+                @if($order->order_status=='รอรับสินค้า')
+                    <div style="font-size: 20px  " class="mb-2">
+                        เลขส่งสินค้า :  <span style="color: indianred"> {{ $order->shipment_information->tracking_no }}</span>
+                    </div>
                 @endif
 
 
@@ -206,10 +254,24 @@
                             </button>
                         </div>
                         <div class="modal-body mx-auto">
-                            <img src="/storage/{{ $payment->img_slip }}" alt="">
+                            <img src="/storage/{{ $payment->img_slip }}" alt="" style="max-width: 450px">
                         </div>
                         <div class="modal-footer">
-                            {{ $payment->payment_amount }} บาท
+                            <form action="{{ route('payment.update', ['payment' => $payment->id]) }}" class="form col" method="POST" enctype="multipart/form-data" style="float: right; margin-left: 20px">
+                                @method('PUT')
+                                @csrf
+                                <div class="row">
+                                    <div class="col-3 text-right">
+                                        แก้ไขราคา :
+                                    </div>
+                                    <div class="col-4 text-right">
+                                        <input class="form-control" type="number" value="{{ $payment->payment_amount }}" width="100px" name="amount" min="0" >
+                                    </div>
+                                    <div class="col-5">
+                                        <button class="btn btn-success" type="submit">ยืนยันการแก้ไข</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

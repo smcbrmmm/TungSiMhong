@@ -50,27 +50,11 @@ class OrderController extends Controller
 
     public function adminOrder(){
         $orders = Order::where('order_status', '!=', 'ตะกร้า')->get();
-        if(count($orders) == 0) {
-            return view('order.index_admin');
+        if(Auth::user()->role == 'Admin') {
+            return view('order.index_admin', [
+                'orders' => $orders
+            ]);
         }
-
-        $orderDetails = $orders[0]->orderDetails;
-        $amountPrice = 0;
-        $amountWeight = 0;
-        foreach ($orderDetails as $orderDetail) {
-            $amountPrice += $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price;
-            $amountWeight += $orderDetail->orderdetail_quantity * $orderDetail->product->product_weight;
-        }
-
-        $deliFee = 30 + ceil($amountWeight/1000)*15;
-
-        return view('order.index_admin', [
-            'orders' => $orders,
-            'orderDetails' => $orderDetails,
-            'amountPrice' => $amountPrice,
-            'amountWeight'=> $amountWeight,
-            'deliFee' => $deliFee
-        ]);
     }
 
     public function basketQty() {
@@ -258,7 +242,11 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         $order = Order::where('id',$id)->first();
-        $order->order_status = 'รอจัดส่งสินค้า';
+        if ($request->status == 'รอจัดส่งสินค้า') {
+            $order->order_status = 'รอจัดส่งสินค้า';
+        } else {
+
+        }
         $order->save();
 
         return redirect()->route('order.show',['order'=>$order->id]);

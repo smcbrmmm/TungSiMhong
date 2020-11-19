@@ -36,23 +36,24 @@
                         <th scope="col">วันและเวลาในการสั่ง</th>
                         <th scope="col">สถานะ</th>
 
-
                     </tr>
                     </thead>
                     <tbody>
                     @isset($orders)
                         @foreach($orders as $order)
-                            @if($order == $orders[0])
-                                <tr class="orderSelected trOder" onclick="orderOnClick(this, {{ $order->orderDetails }})">
-                            @else<a href=""></a>
-                                <tr class="trOder" onclick="orderOnClick(this, {{ $order->orderDetails }})">
-                                    @endif
-                                    <td><a href="{{ route('order.show',['order'=>$order->id]) }}">{{ $order->order_code }}</a></td>
-                                    <td>{{ $order->order_datetime }}</td>
-                                    <td>{{ $order->order_status }}</td>
-                                </tr>
-                                @endforeach
-                            @endisset
+                            <tr class="trOder" onclick="orderOnClick(this, {{ $order->orderDetails }})">
+                                <td><a href="{{ route('order.show',['order'=>$order->id]) }}">{{ $order->order_code }}</a></td>
+                                <td>{{ $order->order_datetime }}</td>
+                                @if($order->order_status == "รอจัดส่งสินค้า" || $order->order_status == "กำลังตรวจสอบการชำระเงิน")
+                                    <td style="color: blue">{{ $order->order_status }}</td>
+                                @elseif($order->order_status == "รอรับสินค้า" || $order->order_status == "สำเร็จ")
+                                    <td style="color: darkgreen">{{ $order->order_status }}</td>
+                                @else
+                                    <td style="color: indianred">{{ $order->order_status }}</td>
+                                @endif
+                            </tr>
+                        @endforeach
+                    @endisset
                     </tbody>
                 </table>
 
@@ -62,86 +63,5 @@
 @endsection
 
 @section('script')
-    <script>
-        function orderOnClick(tr, orderDetails) {
-            let trSelected = document.getElementsByClassName("orderSelected")[0];
-            trSelected.classList.remove("orderSelected");
-            tr.classList.add("orderSelected");
 
-            let detailBody = document.getElementById("detailBody");
-            detailBody.style.textAlign = "center";
-
-            let new_tbody = document.createElement('tbody');
-            new_tbody.id = "detailBody";
-            detailBody.parentNode.replaceChild(new_tbody, detailBody);
-
-            let amountPrice = 0;
-            let amountWeight = 0;
-            for (let i=0; i<orderDetails.length; i++) {
-                fetch(
-                    '/product/' + orderDetails[i].product_id,
-                    {
-                        method: 'GET',
-                        headers: {},
-                    }
-                ).then(function (response) {
-                    response.json().then(function (result) {
-                        console.log(result)
-                        let product = result.product;
-
-                        let row = new_tbody.insertRow(i)
-                        let num = row.insertCell(0);
-                        let img = row.insertCell(1);
-                        let pc = row.insertCell(2);
-                        let name = row.insertCell(3);
-                        let price = row.insertCell(4);
-                        let qty = row.insertCell(5);
-                        let amount = row.insertCell(6);
-
-                        num.innerHTML = '<th scope="row"><b>' + (i+1) + '</b></th>';
-                        img.innerHTML = '<td><img src="/storage/' + product.img +'" alt="' + product.product_code + '" class="productImg"></td>';
-                        pc.innerHTML = '<td>' + product.product_code + '</td>';
-                        name.innerHTML = '<td>' + product.product_name + '</td>';
-                        price.innerHTML = '<td>' + orderDetails[i].orderdetail_price + '</td>';
-                        qty.innerHTML = '<td>' + orderDetails[i].orderdetail_quantity + '</td>';
-                        amount.innerHTML = '<td>' + product.product_price * orderDetails[i].orderdetail_quantity + '</td>';
-
-                        amountPrice += product.product_price * orderDetails[i].orderdetail_quantity;
-                        amountWeight += product.product_weight * orderDetails[i].orderdetail_quantity
-                    }).then( function () {
-                        if (i === orderDetails.length-1) {
-                            let deliFee = (30 + Math.ceil(amountWeight/1000)*15);
-
-                            let row = new_tbody.insertRow(orderDetails.length);
-                            let amountText = row.insertCell(0);
-                            let amountCell = row.insertCell(1);
-                            amountText.innerHTML = '<th><b>ราคาสินค้าทั้งหมด</b></th>';
-                            amountText.setAttribute('colspan', '6');
-                            amountText.style.textAlign = "left";
-                            amountCell.innerHTML = '<th><b>' + amountPrice + '</b></th>'
-                            amountCell.style.textAlign = "center";
-
-                            row = new_tbody.insertRow(orderDetails.length + 1);
-                            amountText = row.insertCell(0);
-                            amountCell = row.insertCell(1);
-                            amountText.innerHTML = '<th><b>ค่าจัดส่ง</b></th>';
-                            amountText.setAttribute('colspan', '6');
-                            amountText.style.textAlign = "left";
-                            amountCell.innerHTML = '<th><b>' + deliFee + '</b></th>'
-                            amountCell.style.textAlign = "center";
-
-                            row = new_tbody.insertRow(orderDetails.length + 2);
-                            amountText = row.insertCell(0);
-                            amountCell = row.insertCell(1);
-                            amountText.innerHTML = '<th><b>รวม</b></th>';
-                            amountText.setAttribute('colspan', '6');
-                            amountText.style.textAlign = "left";
-                            amountCell.innerHTML = '<th><b>' + (amountPrice + deliFee) + '</b></th>'
-                            amountCell.style.textAlign = "center";
-                        }
-                    })
-                });
-            }
-        }
-    </script>
 @endsection

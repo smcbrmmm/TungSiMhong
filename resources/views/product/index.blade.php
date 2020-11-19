@@ -55,11 +55,11 @@
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">รูปภาพสินค้า</th>
+{{--                    <th scope="col">รูปภาพสินค้า</th>--}}
                     <th scope="col">รหัสสินค้า</th>
                     <th scope="col">ชื่อสินค้า</th>
                     <th scope="col">จำนวนสินค้า</th>
-                    <th scope="col">ข้อมูลสินค้า</th>
+{{--                    <th scope="col">ข้อมูลสินค้า</th>--}}
                     <th scope="col">ราคา</th>
                     <th scope="col">แก้ไขข้อมูล</th>
                 </tr>
@@ -68,11 +68,11 @@
                 @foreach($products as $product)
                     <tr>
                         <th scope="row">{{ $product->id }}</th>
-                        <td><img src="storage{{ $product->img }}" alt="{{ $product->product_code }}" class="productImg"></td>
+{{--                        <td><img src="storage{{ $product->img }}" alt="{{ $product->product_code }}" class="productImg"></td>--}}
                         <td>{{ $product->product_code }}</td>
                         <td>{{ $product->product_name }}</td>
                         <td id="td{{ $product->id }}Qty">{{ $product->product_quantity }}</td>
-                        <td>{{ $product->product_detail }}</td>
+{{--                        <td>{{ $product->product_detail }}</td>--}}
                         <td id="product{{ $product->id }}" >{{ $product->product_price }}</td>
                         <td>
                             <div class="btn btn-success"><a href="{{route('product.edit',['product' => $product->id])}}">แก้ไขข้อมูลสินค้า</a></div>
