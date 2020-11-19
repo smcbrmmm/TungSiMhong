@@ -67,9 +67,13 @@ class OrderDetailController extends Controller
 
     public function setQtyDetail(Request $request, $id) {
         $orderDetail = OrderDetail::where("id", $id)->first();
+        $oldQty = $orderDetail->orderdetail_quantity;
         $orderDetail->orderdetail_quantity = $request->qty;
         $orderDetail->save();
-        return $orderDetail;
+        return response()->json([
+            'orderDetail' => $orderDetail,
+            'oldQty' => $oldQty
+        ]);
     }
 
     /**

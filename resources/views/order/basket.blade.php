@@ -46,20 +46,26 @@
                             <td>{{ $orderDetails[$i]->product->product_name }}</td>
                             <td>{{ $orderDetails[$i]->orderdetail_price }}</td>
                             <td>
-                                <input onchange="inputOnChange(this, {{ $orderDetails[$i]->id }}, {{ $orderDetails[$i]->product }})" class="inputQty" type="number" id="{{ $orderDetails[$i]->product->id . "qty" }}"
+                                <input onchange="inputOnChange(this, {{ $orderDetails[$i] }}, {{ $orderDetails[$i]->product }})" class="inputQty" type="number" id="{{ $orderDetails[$i]->product->id . "qty" }}"
                                        min="1" max="{{ $orderDetails[$i]->product->product_quantity }}" value="{{ $orderDetails[$i]->orderdetail_quantity }}">
                             </td>
                             <td id="product{{ $orderDetails[$i]->id }}" class="amountPrice">{{ $orderDetails[$i]->product->product_price * $orderDetails[$i]->orderdetail_quantity }}</td>
                         </tr>
                     @endfor
                     <tr>
+                        <th colspan="6" style="text-align: left">ราคาสินค้าทั้งหมด</th>
+                        <th id="amountPrice" style="text-align: center">{{ $amountPrice }}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="6" style="text-align: left">ค่าจัดส่ง</th>
+                        <th id="deliFee" style="text-align: center">{{ $deliFee }}</th>
+                    </tr>
+                    <tr>
                         <th colspan="6" style="text-align: left">รวม</th>
-                        <th id="amountPrice" style="text-align: center">{{ $amount }}</th>
+                        <th id="amountAll" style="text-align: center">{{ $amountPrice + $deliFee }}</th>
                     </tr>
                     </tbody>
                 </table>
-
-
             </div>
             <div class="col-4">
                 <table class="table table-hover">
@@ -190,19 +196,21 @@
         }
     }
 
-    function inputOnChange(input, id, product) {
+    var amountWeight = parseInt({{ $amountWeight }})
+    console.log(amountWeight)
+
+    function inputOnChange(input, orderDetail, product) {
         if (parseInt(input.value) > product.product_quantity) {
             alert("invalid qty.");
             input.value = product.product_quantity;
-            return ;
         } else if (parseInt(input.value) <= 0) {
             alert("invalid qty.");
             input.value = 1;
-            return ;
         }
 
+
         $.ajax({
-            url: "/order_detail/" + id,
+            url: "/order_detail/" + orderDetail.id,
             type:"PUT",
             data:{
                 _token: "{{ csrf_token() }}",
@@ -211,7 +219,10 @@
             success:function(response){
                 console.log(response)
 
-                let amountTag = document.getElementById("product" + id);
+                amountWeight -= response.oldQty * product.product_weight;
+                amountWeight += input.value * product.product_weight;
+
+                let amountTag = document.getElementById("product" + orderDetail.id);
                 amountTag.innerHTML = product.product_price * parseInt(input.value);
 
                 let amountPrice = 0;
@@ -220,6 +231,11 @@
                     amountPrice += parseInt(amounts[i].innerHTML);
                 }
                 document.getElementById("amountPrice").innerHTML = amountPrice;
+
+                let deliFee = 30 + Math.ceil(amountWeight/1000)*15;
+                document.getElementById("deliFee").innerHTML = deliFee
+                document.getElementById("amountAll").innerHTML = deliFee + amountPrice;
+
             }
         });
     }

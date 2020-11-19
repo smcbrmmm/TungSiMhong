@@ -24,15 +24,21 @@ class OrderController extends Controller
         }
 
         $orderDetails = $orders[0]->orderDetails;
-        $amount = 0;
+        $amountPrice = 0;
+        $amountWeight = 0;
         foreach ($orderDetails as $orderDetail) {
-            $amount += $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price;
+            $amountPrice += $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price;
+            $amountWeight += $orderDetail->orderdetail_quantity * $orderDetail->product->product_weight;
         }
+
+        $deliFee = 30 + ceil($amountWeight/1000)*15;
 
         return view('order.index', [
             'orders' => $orders,
             'orderDetails' => $orderDetails,
-            'amount' => $amount,
+            'amountPrice' => $amountPrice,
+            'amountWeight'=> $amountWeight,
+            'deliFee' => $deliFee
         ]);
     }
 
@@ -113,17 +119,23 @@ class OrderController extends Controller
     public function showBasket() {
         $order = Order::where('order_status', '=', 'ตะกร้า')->where('user_id','=', Auth::user()->id)->first();
         $orderDetails = $order->orderDetails;
-        $amount = 0;
+        $amountPrice = 0;
+        $amountWeight = 0;
         foreach ($orderDetails as $orderDetail) {
-            $amount += $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price;
+            $amountPrice += $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price;
+            $amountWeight += $orderDetail->orderdetail_quantity * $orderDetail->product->product_weight;
         }
 
         $addresses = Address::where('user_id', Auth::user()->id)->get();
 
+        $deliFee = 30 + ceil($amountWeight/1000)*15;
+
         return view('order.basket', [
             'orderId' => $order->id,
             'orderDetails' => $orderDetails,
-            'amount' => $amount,
+            'amountPrice' => $amountPrice,
+            'amountWeight' => $amountWeight,
+            'deliFee' => $deliFee,
             'addresses' => $addresses
         ]);
     }
