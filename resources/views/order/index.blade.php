@@ -8,6 +8,9 @@
         .orderSelected {
             background-color: #99aabc;
         }
+        tbody {
+            cursor: pointer;
+        }
     </style>
 @endsection
 
@@ -35,14 +38,16 @@
                 @elseif($orders[0]->order_status == "รอรับสินค้า" || $orders[0]->order_status == "สำเร็จ")
                     <span id="detailStatus" style="color: darkgreen"> {{ $orders[0]->order_status }}</span>
                 @else
-                    <span id="detailStatus" style="color: indianred"> {{ $orders[0]->order_status }}</span>
+                    <span id="detailStatus" style="color: red"> {{ $orders[0]->order_status }}</span>
                 @endif
                 @endisset
 
                 <div>
-                    @if($orders[0]->order_status == "รอรับสินค้า" || $orders[0]->order_status == "สำเร็จ")
-                        <div id="detailTrack" style="font-size: 18px;"> Tracking No.{{ $orders[0]->shipment_information->tracking_no }}</div>
-                    @endif
+                    <div id="detailTrack" style="font-size: 18px;">
+                        @if($orders[0]->order_status == "รอรับสินค้า" || $orders[0]->order_status == "สำเร็จ")
+                            Tracking No.{{ $orders[0]->shipment_information->tracking_no }}
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -70,12 +75,12 @@
                         @endif
                                 <td>{{ $order->order_code }}</td>
                                 <td>{{ $order->order_datetime }}</td>
-                                @if($order->order_status == 'สำเร็จ')
+                                @if($order->order_status == 'สำเร็จ' || $order->order_status == 'รอรับสินค้า')
                                     <td style="color: darkgreen">{{ $order->order_status }}</td>
-                                @elseif($order->order_status == 'ยกเลิก')
-                                    <td>{{ $order->order_status }}</td>
+                                @elseif($order->order_status == 'ยกเลิก' || $order->order_status == 'รอการชำระเงิน' || $order->order_status == 'กรุณาตรวจสอบการชำระเงิน')
+                                    <td style="color: red">{{ $order->order_status }}</td>
                                 @else
-                                    <td>{{ $order->order_status }}</td>
+                                    <td style="color: blue">{{ $order->order_status }}</td>
                                 @endif
 
                                 @if($order->order_status=='รอการชำระเงิน' || $order->order_status=='กรุณาตรวจสอบการชำระเงิน' )
@@ -151,6 +156,15 @@
                         <th colspan="4" style="text-align: left">รวม</th>
                         <th style="text-align: center">{{ $amountPrice + $deliFee }}</th>
                     </tr>
+                    @if($orders[0]->order_status == 'รอการชำระเงิน' || $orders[0]->order_status == 'กรุณาตรวจสอบการชำระเงิน')
+                        <tr>
+                            <th colspan="5" style="text-align: center">
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#sureCancel{{ $orders[0]->id }}">
+                                    ยกเลิกคำสั่งซื้อ
+                                </button>
+                            </th>
+                        </tr>
+                    @endif
                     @endisset
                     </tbody>
                 </table>
@@ -159,6 +173,24 @@
         </div>
 
         <!-- Modal -->
+        <div id="modalsCancel">
+            @foreach($orders as $order)
+                <div class="modal fade" id="sureCancel{{ $order->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <p>ท่านต้องการยกเลิกคำสั่งซื้อนี้ใช่หรือไม่ ?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                <a href="{{ route('order.cancel', ['id' => $order->id]) }}" class="btn btn-danger">ยืนยัน</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
         <div id="modalsProduct">
             @isset($orderDetails)
             @foreach($orderDetails as $orderDetail)
@@ -221,8 +253,6 @@
     </script>
     <script>
          function orderOnClick(tr, order, orderDetails, payments, shipment) {
-             console.log(shipment)
-
             let trSelected = document.getElementsByClassName("orderSelected")[0];
              if (tr === trSelected) {
                 return;
@@ -321,40 +351,60 @@
                             '</div>'
                     }).then( function () {
                         if (i === orderDetails.length-1) {
-                            let deliFee = (30 + Math.ceil(amountWeight/1000)*15);
-
-                            let row = new_tbody.insertRow(orderDetails.length);
-                            let amountText = row.insertCell(0);
-                            let amountCell = row.insertCell(1);
-                            let colspan = 4;
-                            amountText.innerHTML = '<th><b>ราคาสินค้าทั้งหมด</b></th>';
-                            amountText.setAttribute('colspan', colspan);
-                            amountText.style.textAlign = "left";
-                            amountCell.innerHTML = '<th><b>' + amountPrice + '</b></th>'
-                            amountCell.style.textAlign = "center";
-
-                            row = new_tbody.insertRow(orderDetails.length + 1);
-                            amountText = row.insertCell(0);
-                            amountCell = row.insertCell(1);
-                            amountText.innerHTML = '<th><b>ค่าจัดส่ง</b></th>';
-                            amountText.setAttribute('colspan', colspan);
-                            amountText.style.textAlign = "left";
-                            amountCell.innerHTML = '<th><b>' + deliFee + '</b></th>'
-                            amountCell.style.textAlign = "center";
-
-                            row = new_tbody.insertRow(orderDetails.length + 2);
-                            amountText = row.insertCell(0);
-                            amountCell = row.insertCell(1);
-                            amountText.innerHTML = '<th><b>รวม</b></th>';
-                            amountText.setAttribute('colspan', colspan);
-                            amountText.style.textAlign = "left";
-                            amountCell.innerHTML = '<th><b>' + (amountPrice + deliFee) + '</b></th>'
-                            amountCell.style.textAlign = "center";
+                            createFooter(order, orderDetails, amountWeight, amountPrice)
                         }
                     })
                 });
-
             }
         }
+
+        function createFooter(order, orderDetails, amountWeight, amountPrice) {
+            let new_tbody = document.getElementById('detailBody');
+            let deliFee = (30 + Math.ceil(amountWeight/1000)*15);
+
+            let row = new_tbody.insertRow(orderDetails.length);
+            let amountText = row.insertCell(0);
+            let amountCell = row.insertCell(1);
+            let colspan = 4;
+            amountText.innerHTML = '<b>ราคาสินค้าทั้งหมด</b>';
+            amountText.setAttribute('colspan', colspan);
+            amountText.style.textAlign = "left";
+            amountCell.innerHTML = '<b>' + amountPrice + '</b>'
+            amountCell.style.textAlign = "center";
+
+            row = new_tbody.insertRow(orderDetails.length + 1);
+            amountText = row.insertCell(0);
+            amountCell = row.insertCell(1);
+            amountText.innerHTML = '<b>ค่าจัดส่ง</b>';
+            amountText.setAttribute('colspan', colspan);
+            amountText.style.textAlign = "left";
+            amountCell.innerHTML = '<b>' + deliFee + '</b>'
+            amountCell.style.textAlign = "center";
+
+            row = new_tbody.insertRow(orderDetails.length + 2);
+            amountText = row.insertCell(0);
+            amountCell = row.insertCell(1);
+            amountText.innerHTML = '<b>รวม</b>';
+            amountText.setAttribute('colspan', colspan);
+            amountText.style.textAlign = "left";
+            amountCell.innerHTML = '<b>' + (amountPrice + deliFee) + '</b>'
+            amountCell.style.textAlign = "center";
+
+            createCancel(order, orderDetails);
+        }
+
+        function createCancel(order, orderDetails) {
+            if (order.order_status == 'รอการชำระเงิน' || order.order_status == 'กรุณาตรวจสอบการชำระเงิน') {
+                let new_tbody = document.getElementById('detailBody');
+                let cancelRow = new_tbody.insertRow(orderDetails.length+3);
+                let cancelBtn = cancelRow.insertCell(0);
+                cancelBtn.setAttribute('colspan', '5')
+                cancelBtn.innerHTML = '' +
+                    '<button class="btn btn-danger" data-toggle="modal" data-target="#sureCancel' + order.id + '">\n' +
+                    '   ยกเลิกคำสั่งซื้อ\n' +
+                    '</button>';
+            }
+        }
+
     </script>
 @endsection
