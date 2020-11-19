@@ -104,7 +104,6 @@ class OrderController extends Controller
 
         $order = Order::where('id', $id)->first();
         $order->order_datetime = Carbon::now();
-        $order->order_datetime = $order->order_datetime->toDayDateTimeString();
         $order->order_status = 'รอการชำระเงิน';
         $order->address_id = $request->userAddress;
         $order->order_code = rand(000000000,999999999);
