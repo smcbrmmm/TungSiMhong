@@ -242,6 +242,14 @@ class OrderController extends Controller
         ]);
     }
 
+    public function orderCancel($id) {
+        $order = Order::where('id',$id)->first();
+        $order->order_status = 'ยกเลิก';
+        $order->save();
+        return redirect()->route('order.index');
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      *

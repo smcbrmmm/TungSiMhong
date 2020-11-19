@@ -36,13 +36,13 @@
                     @if($order->order_status == "รอจัดส่งสินค้า")
                         <span style="color: blue"> {{ $order->order_status }}</span>
                     @else
-                        <span style="color: indianred"> {{ $order->order_status }}</span>
+                        <span style="color: red"> {{ $order->order_status }}</span>
                     @endif
                 </div>
             </div>
             <div class="col" style="text-align: right">
                 @if($payments->count() == 0)
-                    <div style="font-size: 30px; color: indianred">ยังไม่มีการชำระเงิน</div>
+                    <div style="font-size: 30px; color: red">ยังไม่มีการชำระเงิน</div>
                 @elseif($payments->count() == 1)
                     <div style="font-size: 24px ">
                         <span style="color: darkgreen">
@@ -80,7 +80,7 @@
                             <div class="modal fade" id="sureCorrect" role="dialog">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <div class="modal-body text-center" style="color: indianred">
+                                        <div class="modal-body text-center" style="color: red">
                                             ยอดเงินที่ชำระไม่ตรงกับยอดสั่งซื้อ
                                         </div>
                                         <div class="modal-footer">
@@ -115,7 +115,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-body text-center" >
-                                            <p>ยืนยันการชำระเงิน <span style="color: indianred">ไม่ถูกต้อง</span></p>
+                                            <p>ยืนยันการชำระเงิน <span style="color: red">ไม่ถูกต้อง</span></p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
@@ -163,7 +163,7 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label for="tracking_no">เพิ่มหมายเลขการจัดส่งสินค้า <i style="color: indianred" class="fas fa-star-of-life"></i></label>
+                            <label for="tracking_no">เพิ่มหมายเลขการจัดส่งสินค้า <i style="color: red" class="fas fa-star-of-life"></i></label>
                             <input type="text" class="form-control" id="tracking_no"
                                    name="tracking_no"
                                    aria-describedby="trackingHelp">
@@ -173,7 +173,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="send_time">วันและเวลาในการจัดส่ง <i style="color: indianred" class="fas fa-star-of-life"></i></label>
+                            <label for="send_time">วันและเวลาในการจัดส่ง <i style="color: red" class="fas fa-star-of-life"></i></label>
                             <input type="datetime-local" class="form-control" id="send_time"
                                    name="send_time" required
                                    aria-describedby="send_timetimeHelp">
@@ -189,7 +189,7 @@
 
                 @if($order->order_status=='รอรับสินค้า')
                     <div style="font-size: 20px  " class="mb-2">
-                        เลขส่งสินค้า :  <span style="color: indianred"> {{ $order->shipment_information->tracking_no }}</span>
+                        เลขส่งสินค้า :  <span style="color: red"> {{ $order->shipment_information->tracking_no }}</span>
                     </div>
                 @endif
 

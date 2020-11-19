@@ -49,7 +49,7 @@
                                 @elseif($order->order_status == "รอรับสินค้า" || $order->order_status == "สำเร็จ")
                                     <td style="color: darkgreen">{{ $order->order_status }}</td>
                                 @else
-                                    <td style="color: indianred">{{ $order->order_status }}</td>
+                                    <td style="color: red">{{ $order->order_status }}</td>
                                 @endif
                             </tr>
                         @endforeach
