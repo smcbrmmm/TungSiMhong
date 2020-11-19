@@ -127,16 +127,6 @@ class ProductSeeder extends Seeder
         $product->save();
 
         $product = new Product();
-        $product->product_code = "CHUD001998";
-        $product->product_name = 'ชุดไหว้บรรพบุรุษ 1';
-        $product->product_price = "230";
-        $product->product_quantity = '50';
-        $product->product_weight = '400';
-        $product->product_detail ='ชุดไหว้บรรพบุรุษแบบจบในชุดเดียว ไม่จำเป็นต้องไปซื้ออย่างอื่นแยก';
-        $product->img ='/imgProduct/1.jpg';
-        $product->save();
-
-        $product = new Product();
         $product->product_code = "BANK2019789";
         $product->product_name = 'แบงค์กระดาษ';
         $product->product_price = "45";

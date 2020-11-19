@@ -40,9 +40,6 @@ class ProductController extends Controller
 
     public function productCreate(){
 
-        if(Gate::denies('create-product')){
-            return redirect()->route('home.index');
-        }
         return view('product.productCreate');
     }
 

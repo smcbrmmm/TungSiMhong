@@ -26,7 +26,7 @@
                        name="payment_datetime"
                        aria-describedby="payment_datetimeHelp">
                 <small id="payment_datetimeHelp" class="form-text text-muted">
-                    วันเวลาและเวลาที่ชำระเงินตามสลิป is required .
+                    วันเวลาและเวลาที่ชำระเงินตามสลิป จำเป็น
                 </small>
             </div>
 
@@ -36,7 +36,7 @@
                        name="payment_amount"
                        aria-describedby="payment_amountHelp">
                 <small id="payment_amountHelp" class="form-text text-muted">
-                    จำนวนเงินที่ชำระ is required .
+                    จำนวนเงินที่ชำระ จำเป็น
                 </small>
             </div>
 

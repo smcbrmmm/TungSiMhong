@@ -17,7 +17,7 @@
 
 @section('content')
     <div class="text-center mb-4 top">
-    <span class="text-center mb-4" style="font-size: 40px  ; color: white ; background-color: grey">
+    <span class="text-center mb-4" style="font-size: 40px ; color: #4a5568 ">
         สินค้าภายในร้าน
     </span>
     </div>
@@ -36,13 +36,23 @@
                             <div class="text-center" style="color: #4a5568"> {{ $product->product_detail }} </div>
                             @auth
                             @if(Auth::user()->role=='Customer')
-                            <div class="text-center">
-                                <button type="button" class="btn btn-secondary basketBtn"
-                                        id="{{ $product->id }}" style="font-size: 16px"
-                                        onclick="">
-                                    <i class="fa fa-shopping-basket"></i>  เพิ่มใส่ตะกร้า
-                                </button>
-                            </div>
+                                @if($product->product_quantity > 0)
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-success basketBtn"
+                                                    id="{{ $product->id }}" style="font-size: 16px"
+                                                    onclick="">
+                                                <i class="fa fa-shopping-basket"></i>  เพิ่มใส่ตะกร้า
+                                            </button>
+                                        </div>
+                                @else
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-secondary basketBtn"
+                                                    id="{{ $product->id }}###" style="font-size: 16px"
+                                                    onclick="">
+                                                  สินค้าหมดชั่วคราว
+                                            </button>
+                                        </div>
+                                @endif
                             @endif
                             @endauth
                         </figure>

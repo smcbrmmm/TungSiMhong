@@ -15,8 +15,8 @@
 
     <div class="container container-page">
 
-        <div style="font-size: 24px">
-            เพิ่มสินค้า
+        <div style="font-size: 24px" class="mb-2">
+            ระบบการเพิ่มสินค้า
         </div>
         <br>
 

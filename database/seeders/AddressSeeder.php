@@ -16,24 +16,24 @@ class AddressSeeder extends Seeder
     {
         $address = new Address();
         $address->user_id = 1;
-        $address->receiver_name = 'Janjira Aekpatcha';
-        $address->place_name = 'Home';
+        $address->receiver_name = 'สมัชญ์ ช่วยบำรุง';
+        $address->place_name = 'หอพักศุภกรแมนชั่น';
         $address->receiver_tel = '0955938259';
         $address->postal = '10900';
-        $address->province = 'Bangkok';
-        $address->house_no = '54/10';
-        $address->address ='M.7';
+        $address->province = 'กรุงเทพมหานคร';
+        $address->house_no = '2103/30';
+        $address->address ='ซอยตลาดอมรพันธ์ ถนนพหลโยธิน แขวงลาดยาว เขตจตุจักร';
         $address->save();
 
         $address = new Address();
         $address->user_id = 1;
-        $address->receiver_name = 'Naomi Shabu';
-        $address->place_name = 'Home2';
-        $address->receiver_tel = '0955938259';
-        $address->postal = '10700';
-        $address->province = 'Bangkok';
-        $address->house_no = '22/10';
-        $address->address ='M.4';
+        $address->receiver_name = 'สกุลรัตน์ ช่วยบำรุง';
+        $address->place_name = 'บ้านแม่';
+        $address->receiver_tel = '085-7925230';
+        $address->postal = '82120';
+        $address->province = 'พังงา';
+        $address->house_no = '54/10';
+        $address->address ='ม.7 ต.ทุ่งมะพร้าว อ.ท้ายเหมือง';
         $address->save();
     }
 }

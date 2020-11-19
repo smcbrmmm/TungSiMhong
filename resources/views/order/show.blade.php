@@ -62,7 +62,7 @@
                 @endif
 
                 @if($payments->count() != 0)
-                    @if($order->order_status == "รอจัดส่งสินค้า")
+                    @if($order->order_status == "รอจัดส่งสินค้า" || $order->order_status == "รอรับสินค้า" || $order->order_status == "สำเร็จ")
                         <div style="font-size: 30px; margin-top: 15px">
                             <span style="color: darkgreen">
                                 การชำระเงินเสร็จสิ้น

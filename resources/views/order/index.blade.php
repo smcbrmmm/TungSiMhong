@@ -35,7 +35,7 @@
                         <th scope="col">รหัสการสั่งซื้อ</th>
                         <th scope="col">วันและเวลาในการสั่ง</th>
                         <th scope="col">สถานะ</th>
-                        <th scope="col">Tracking</th>
+                        <th scope="col">เลขจัดส่งสินค้า</th>
                         <th scope="col">การชำระเงิน</th>
                     </tr>
                     </thead>

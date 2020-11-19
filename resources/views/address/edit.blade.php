@@ -8,59 +8,61 @@
 
     <div class="container">
 
-        Edit Address Information
+        <div style="font-size: 26px">
+            ระบบแก้ไขข้อมูลที่อยู่ของคุณ
+        </div>
 
         <form action="{{ route('address.update',['address' => $address->id ]) }}" method="POST">
             @method('PUT')
             @csrf
 
             <div class="form-group">
-                <label for="place_name">ชื่อสถานที่</label>
+                <label for="place_name">ชื่อสถานที่ <i style="color: indianred" class="fas fa-star-of-life"></i></label>
                 <input type="text" class="form-control" id="place_name"
                        name="place_name" value="{{ old('place_name' ,$address->place_name) }}"
                        aria-describedby="place_nameHelp">
                 <small id="place_nameHelp" class="form-text text-muted">
-                    ชื่อสถานที่ is required
+                    ชื่อสถานที่ จำเป็น
                 </small>
             </div>
 
             <div class="form-group">
-                <label for="receiver_name">ชื่อผู้รับสินค้า</label>
+                <label for="receiver_name">ชื่อผู้รับสินค้า <i style="color: indianred" class="fas fa-star-of-life"></i></label>
                 <input type="text" class="form-control" id="place_name"
                        name="receiver_name" value="{{ old('receiver_name' ,$address->receiver_name) }}"
                        aria-describedby="receiver_nameHelp">
                 <small id="receiver_nameHelp" class="form-text text-muted">
-                    ชื่อผู้รับสินค้า is required
+                    ชื่อผู้รับสินค้า จำเป็น
                 </small>
             </div>
 
             <div class="form-group">
-                <label for="receiver_tel">เบอร์โทรศัพท์ผู้รับสินค้า</label>
+                <label for="receiver_tel">เบอร์โทรศัพท์ผู้รับสินค้า <i style="color: indianred" class="fas fa-star-of-life"></i></label>
                 <input type="text" class="form-control" id="title"
                        name="receiver_tel" value="{{ old('receiver_tel',$address->receiver_tel) }}"
                        aria-describedby="receiver_telHelp">
                 <small id="receiver_telHelp" class="form-text text-muted">
-                    เบอร์โทรศัพท์ผู้รับสินค้า is required .
+                    เบอร์โทรศัพท์ผู้รับสินค้า จำเป็น
                 </small>
             </div>
 
             <div class="form-group">
-                <label for="house_no">เลขที่บ้าน</label>
+                <label for="house_no">เลขที่บ้าน <i style="color: indianred" class="fas fa-star-of-life"></i></label>
                 <input type="text" class="form-control " id="house_no"
                        name="house_no" value="{{old('house_no', $address->house_no) }}"
                        aria-describedby="house_noHelp">
                 <small id="house_noHelp" class="form-text text-muted">
-                    เลขที่บ้าน is required
+                    เลขที่บ้าน จำเป็น
                 </small>
             </div>
 
             <div class="form-group">
-                <label for="address">ที่อยู่</label>
+                <label for="address">ที่อยู่ <i style="color: indianred" class="fas fa-star-of-life"></i></label>
                 <input type="text" class="form-control " id="email"
                        name="address" value="{{old('address', $address->address) }}"
                        aria-describedby="addressHelp">
                 <small id="addressHelp" class="form-text text-muted">
-                    ที่อยู่ is required
+                    ที่อยู่ จำเป็น
                 </small>
             </div>
 
@@ -72,7 +74,7 @@
 {{--            </div>--}}
 
             <div class="form-group">
-                <label for="province">จังหวัด</label>
+                <label for="province">จังหวัด <i style="color: indianred" class="fas fa-star-of-life"></i></label>
                 <br>
                 <select name="province" id="province">
                     <option value="{{ $address->province }}"> {{ $address->province }} </option>
@@ -156,13 +158,19 @@
                     <option value="อำนาจเจริญ">อำนาจเจริญ</option>
 
                 </select>
+                <small id="addressHelp" class="form-text text-muted">
+                    จังหวัด จำเป็น
+                </small>
             </div>
 
             <div class="form-group">
-                <label for="postal">รหัสไปรษณีย์</label>
+                <label for="postal">รหัสไปรษณีย์ <i style="color: indianred" class="fas fa-star-of-life"></i></label>
                 <input type="text" class="form-control " id="postal"
                        name="postal" value="{{old('postal', $address->postal) }}"
                        aria-describedby="provinceHelp">
+                <small id="addressHelp" class="form-text text-muted">
+                    รหัสไปรษณีย์ จำเป็น
+                </small>
             </div>
 
 

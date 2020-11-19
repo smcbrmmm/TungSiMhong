@@ -18,7 +18,7 @@
         <div class="form-group">
             <label for="name">ชื่อ-นามสกุล <i style="color: indianred" class="fas fa-star-of-life"></i></label>
             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                   name="name" value="{{ old('name', $user->name) }}"
+                   name="name" value="{{ old('name', $user->name) }}" placeholder="ตัวอย่าง : Samut Chouybumrung"
                    aria-describedby="nameHelp">
             <small id="nameHelp" class="form-text text-muted">
                 ชื่อ-นามสกุล จำเป็น
@@ -32,7 +32,7 @@
                 <label for="tel">เบอร์โทรศัพท์ <i style="color: indianred" class="fas fa-star-of-life"></i></label>
                 <input type="text" class="form-control @error('tel') is-invalid @enderror" id="tel"
                        name="tel" value="{{ old('tel', $user->tel) }}"
-                       aria-describedby="telHelp" placeholder="ตัวอย่าง : 099-999-9999">
+                       aria-describedby="telHelp" placeholder="ตัวอย่าง : 0955938259">
                 <small id="telHelp" class="form-text text-muted">
                     เบอร์โทรศัพท์ จำเป็น
                 </small>
@@ -43,7 +43,7 @@
 
             <div class="form-group">
                 <label for="email">อีเมลล์ <i style="color: indianred" class="fas fa-star-of-life"></i></label>
-                <input type="text" class="form-control @error('email') is-invalid @enderror" id="email"
+                <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" readonly
                        name="email" value="{{ old('email', $user->email) }}"
                        aria-describedby="emailHelp">
                 <small id="emailHelp" class="form-text text-muted">
