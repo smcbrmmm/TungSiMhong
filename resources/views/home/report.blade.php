@@ -11,33 +11,42 @@
 @section('content')
 
     <div class="container">
-        <div>
-            รายงานยอดขาย
+        <div style="font-size: 24px">
+            รายงานยอดขาย [ {{ $start }} ถึง {{ $end }} ]
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-3">
+                <label for="start_datetime">ตั้งแต่วันที่ <i style="color: indianred" class="fas fa-star-of-life"></i></label>
+            </div>
+            <div class="col">
+                <label for="end_datetime">จนถึงวันที่ <i style="color: indianred" class="fas fa-star-of-life"></i></label>
+            </div>
         </div>
 
         <form action=" {{ route('order-detail.search') }}" class="form" method="Post" enctype="multipart/form-data">
             @csrf
-            <div class="form-group mb-1" >
-                <label for="start_datetime">ตั้งแต่วันที่ <i style="color: indianred" class="fas fa-star-of-life"></i></label>
-                <span><input type="date" class="form-control" id="start_datetime"
-                       name="start_datetime" required style="max-width: 20rem"
-                       aria-describedby="payment_datetimeHelp">
-                </span>
+            <div class="row">
+                <div class="col-3">
+                    <div class="form-group mb-1" >
+                        <input type="date" class="form-control" id="start_datetime"
+                                     name="start_datetime" required style="max-width: 20rem"
+                                     aria-describedby="payment_datetimeHelp">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group " >
+                        <input type="date" class="form-control" id="end_datetime"
+                               name="end_datetime" required style="max-width: 20rem"
+                               aria-describedby="payment_datetimeHelp">
+                    </div>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary"> ค้นหา </button>
+
+                </div>
             </div>
-
-            <div class="form-group " >
-                <label for="end_datetime">จนถึงวันที่ <i style="color: indianred" class="fas fa-star-of-life"></i></label>
-                <input type="date" class="form-control" id="end_datetime"
-                       name="end_datetime" required style="max-width: 20rem"
-                       aria-describedby="payment_datetimeHelp">
-                <small id="payment_datetimeHelp" class="form-text text-muted">
-                    วันเวลาและเวลาที่ชำระเงินตามสลิป จำเป็น
-                </small>
-            </div>
-
-            <br>
-            <button type="submit" class="btn btn-primary"> ค้นหา </button>
-
         </form>
 
         <br>
