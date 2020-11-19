@@ -223,15 +223,6 @@
     }
 
     function deleteDetail(id, btn) {
-        let basketBody = document.getElementById("basketBody");
-        basketBody.deleteRow(btn.parentElement.parentElement.rowIndex-1)
-
-        let rows = document.getElementsByClassName("rowNum");
-        let i = 1
-        for(row of rows) {
-            row.innerHTML = i++;
-        }
-
         $.ajax({
             url: "/order_detail/" + id,
             type:"DELETE",
@@ -239,6 +230,15 @@
                 _token: "{{ csrf_token() }}",
             },
             success:function(response){
+                let basketBody = document.getElementById("basketBody");
+                basketBody.deleteRow(btn.parentElement.parentElement.rowIndex-1)
+
+                let rows = document.getElementsByClassName("rowNum");
+                let i = 1
+                for(row of rows) {
+                    row.innerHTML = i++;
+                }
+
                 let orderDetail = response.orderDetail;
                 let product = response.product;
                 amountWeight -= orderDetail.orderdetail_quantity * product.product_weight
@@ -253,6 +253,18 @@
                 let deliFee = 30 + Math.ceil(amountWeight/1000)*15;
                 document.getElementById("deliFee").innerHTML = deliFee
                 document.getElementById("amountAll").innerHTML = deliFee + amountPrice;
+
+                let basketQty = $("#basketQty");
+
+                $.ajax({
+                    url: "/order/basket",
+                    type:"GET",
+                    success:function(response){
+                        if (response > 0) {
+                            basketQty.text(response)
+                        }
+                    }
+                });
             }
         });
     }
