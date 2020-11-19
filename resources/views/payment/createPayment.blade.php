@@ -21,29 +21,38 @@
             @csrf
             <div class="form-group">
                 <label for="payment_datetime">วันเวลาและเวลาที่ชำระเงินตามสลิป <i style="color: indianred" class="fas fa-star-of-life"></i></label>
-                <input type="datetime-local" class="form-control" id="payment_datetime"
+                <input type="datetime-local" class="form-control @error('payment_datetime') is-invalid @enderror" id="payment_datetime" style="width: 17rem"
                        name="payment_datetime" required
                        aria-describedby="payment_datetimeHelp">
                 <small id="payment_datetimeHelp" class="form-text text-muted">
                     วันเวลาและเวลาที่ชำระเงินตามสลิป จำเป็น
                 </small>
+                @error('payment_datetime')
+                <div class="alert alert-danger" style="width: 17rem" > ไม่ได้ใส่วันและเวลาหรือวันและเวลาไม่ถูกต้อง</div>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="payment_amount">จำนวนเงินที่ชำระ (บาท) <i style="color: indianred" class="fas fa-star-of-life"></i></label>
-                <input type="text" class="form-control" id="payment_amount"
+                <input type="text" class="form-control @error('payment_amount') is-invalid @enderror" id="payment_amount" style="width: 17rem"
                        name="payment_amount" required
                        aria-describedby="payment_amountHelp">
                 <small id="payment_amountHelp" class="form-text text-muted">
                     จำนวนเงินที่ชำระ จำเป็น
                 </small>
+                @error('payment_amount')
+                <div class="alert alert-danger " style="width: 17rem"> จำนวนเงินไม่ถูกต้อง </div>
+                @enderror
             </div>
 
 
             <div class="form-group">
                 <label for="img_slip">รูปภาพสลิป <i style="color: indianred" class="fas fa-star-of-life"></i></label>
-                <input type="file" class="form-control-file" required
+                <input type="file" class="form-control-file @error('img_slip') is-invalid @enderror" required style="width: 17rem"
                        id="img_slip" name="img_slip" onchange="readURL(this)">
+                @error('img_slip')
+                <div class="alert alert-danger" style="width: 17rem"> จำนวนเงินไม่ถูกต้อง </div>
+                @enderror
             </div>
 
 

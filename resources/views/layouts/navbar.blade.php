@@ -40,20 +40,20 @@
                 </li>
                 @endif
 
-                    @if(Auth::user()->role == 'Admin')
-                        <li class="nav-item">
-                            <a href="{{ route('home.report') }}" class="nav-link">
-                                รายงาน
-                            </a>
-                        </li>
-                    @endif
-
                 @endauth
             </ul>
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 @auth()
+                    @if(Auth::user()->role == 'Admin')
+                        <li class="nav-item">
+                            <a href="{{ route('home.report') }}" class="nav-link">
+                                รายงานยอดขาย
+                            </a>
+                        </li>
+                    @endif
+
                     @if(Auth::user()->role=='Customer')
                     <li class="nav-item">
                         <a href="#" class="nav-link" id="basketLink">

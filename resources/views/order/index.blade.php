@@ -85,10 +85,12 @@
 
                                 @if($order->order_status=='รอการชำระเงิน' || $order->order_status=='กรุณาตรวจสอบการชำระเงิน' )
                                 <td>
+
                                     <a href="{{ route('payment.createPayment',['id'=>$order->id]) }}">
                                         <span class="btn btn-primary" >แจ้งหลักฐาน </span>
                                     </a>
                                 </td>
+
                                 @elseif($order->order_status == 'รอรับสินค้า')
                                     <td>
                                         <a href="#" class="btn btn-success"
@@ -113,6 +115,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 @else
                                     <td> - </td>
                                 @endif

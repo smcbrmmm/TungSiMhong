@@ -18,10 +18,10 @@
     <div class="container">
 
 
-        <div>
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search" id="searchBar" >
-        </div>
-        <br>
+{{--        <div>--}}
+{{--            <input class="form-control" type="text" placeholder="Search" aria-label="Search" id="searchBar" >--}}
+{{--        </div>--}}
+{{--        <br>--}}
 
 {{--        @can('create', \App\Models\Post::class)--}}
 {{--            <a href="{{ route('posts.create') }}">สร้างโพสต์ใหม่</a>--}}
@@ -58,7 +58,7 @@
 {{--                    <th scope="col">รูปภาพสินค้า</th>--}}
                     <th scope="col">รหัสสินค้า</th>
                     <th scope="col">ชื่อสินค้า</th>
-                    <th scope="col">จำนวนสินค้า</th>
+                    <th scope="col">จำนวนสินค้าคงเหลือ</th>
 {{--                    <th scope="col">ข้อมูลสินค้า</th>--}}
                     <th scope="col">ราคา</th>
                     <th scope="col">แก้ไขข้อมูล</th>

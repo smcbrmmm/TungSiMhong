@@ -185,5 +185,45 @@ class ProductSeeder extends Seeder
         $product->product_detail ='ชุดไหว้เจ้าที่แบบจบในชุดเดียว ไม่จำเป็นต้องไปซื้ออย่างอื่นแยก';
         $product->img ='/imgProduct/5j.jpg';
         $product->save();
+
+        $product = new Product();
+        $product->product_code = "PACK201911";
+        $product->product_name = 'กิมหงิ่งเต้ามังกร';
+        $product->product_price = "55";
+        $product->product_quantity = '50';
+        $product->product_weight = '130';
+        $product->product_detail ='ิมหงิ่งเต้ามังกรเป็นของที่ไม่ค่อยเห็นในเทศกาลไหว้บรรพบุรุษในปัจจุบัน ซึ่งกิมหงิ่งเต้ามังกรนี้เปรียบเสมือนังเงินถังทองเลยที่เดียว';
+        $product->img ='/imgProduct/us.jpg';
+        $product->save();
+
+        $product = new Product();
+        $product->product_code = "SKU10052123";
+        $product->product_name = 'เทียนแดง';
+        $product->product_price = "45";
+        $product->product_quantity = '200';
+        $product->product_weight = '150';
+        $product->product_detail ='ิเทียนแดงเป็นสิ่งที่มีในทุกเทศกาลไหว้บรรพบุรุษ จนถือได้ว่าเป็นสิ่งที่จำเป็นต่อการประกอบพิธีอย่างหนึ่งเลยทีเดียว';
+        $product->img ='/imgProduct/du.jpg';
+        $product->save();
+
+        $product = new Product();
+        $product->product_code = "SKU10052128";
+        $product->product_name = 'ชุดไหว้ 3';
+        $product->product_price = "200";
+        $product->product_quantity = '40';
+        $product->product_weight = '260';
+        $product->product_detail ='ชุดไหว้แบบพิเศษที่มีเครื่องแต่งกายท่อนบนเป็นจุดเด่น';
+        $product->img ='/imgProduct/cw.jpg';
+        $product->save();
+
+        $product = new Product();
+        $product->product_code = "SKU10054128";
+        $product->product_name = 'ชุดไหว้ 4';
+        $product->product_price = "200";
+        $product->product_quantity = '50';
+        $product->product_weight = '230';
+        $product->product_detail ='ชุดไหว้แบบพิเศษที่มีนาฬิกาให้หลากหลายแบบ';
+        $product->img ='/imgProduct/nk.jpg';
+        $product->save();
     }
 }
