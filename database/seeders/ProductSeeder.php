@@ -26,12 +26,12 @@ class ProductSeeder extends Seeder
 
         $product = new Product();
         $product->product_code = "TSG1896333";
-        $product->product_name = 'ธูปมังกร 3ดอก';
+        $product->product_name = 'ธูปมังกร 3 ดอก';
         $product->product_price = "89";
         $product->product_quantity = '120';
         $product->product_weight = '30';
         $product->product_detail ='ธูปมังกร ธูปอักษร ธูปอวยพร ใส่กล่องไม้  สำหรับไหว้เจ้าขอพร  ตามเทศกาลต่างๆ ใช้ได้ทั้ง ไหว้ในบ้าน และไหว้ที่ศาลเจ้า  ไหว้ไฉ่ซิ้งเอี้ย';
-        $product->img ='/imgProduct/rr.jpg';
+        $product->img ='/imgProduct/ธูปมังกร.jpg';
         $product->save();
 
         $product = new Product();
@@ -173,7 +173,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '40';
         $product->product_weight = '550';
         $product->product_detail ='ชุดไหว้ไฉ่ซิงเอี้ยแบบจบในชุดเดียว ไม่จำเป็นต้องไปซื้ออย่างอื่นแยก';
-        $product->img ='/imgProduct/i4.jpg';
+        $product->img ='/imgProduct/6r.jpg';
         $product->save();
 
         $product = new Product();
@@ -183,7 +183,7 @@ class ProductSeeder extends Seeder
         $product->product_quantity = '50';
         $product->product_weight = '400';
         $product->product_detail ='ชุดไหว้เจ้าที่แบบจบในชุดเดียว ไม่จำเป็นต้องไปซื้ออย่างอื่นแยก';
-        $product->img ='/imgProduct/6r.jpg';
+        $product->img ='/imgProduct/5j.jpg';
         $product->save();
     }
 }
