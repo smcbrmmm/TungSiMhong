@@ -15,18 +15,32 @@
             รายงานยอดขาย
         </div>
 
-        <form method='post' action=''>
-            Start Date     <input type="date" name="begin"
-                                  placeholder="dd-mm-yyyy" value=""
-                                  min="1997-01-01" max="2030-12-31">
+        <form action="" class="form" method="POST" enctype="multipart/form-data">
+            @csrf
+            <span class="form-group" >
+                <label for="payment_datetime">Start Date <i style="color: indianred" class="fas fa-star-of-life"></i></label>
+                <span><input type="date" class="form-control" id="payment_datetime"
+                       name="payment_datetime" required style="max-width: 20rem"
+                       aria-describedby="payment_datetimeHelp">
+                </span>
+            </span>
 
-            End Date     <input type="date" name="begin"
-                                placeholder="dd-mm-yyyy" value=""
-                                min="1997-01-01" max="2030-12-31">
+            <span class="form-group " >
+                <label for="payment_datetime">End Date <i style="color: indianred" class="fas fa-star-of-life"></i></label>
+                <input type="date" class="form-control" id="payment_datetime"
+                       name="payment_datetime" required style="max-width: 20rem"
+                       aria-describedby="payment_datetimeHelp">
+{{--                <small id="payment_datetimeHelp" class="form-text text-muted">--}}
+{{--                    วันเวลาและเวลาที่ชำระเงินตามสลิป จำเป็น--}}
+{{--                </small>--}}
+            </span>
 
-            <input type='submit' name='but_search' value='Search'>
+            <br>
+            <button type="submit" class="btn btn-primary"> ค้นหา </button>
+
         </form>
 
+        <br>
         <div class="row">
             <table class="table table-hover">
                 <caption></caption>

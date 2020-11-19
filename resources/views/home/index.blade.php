@@ -12,6 +12,9 @@
             margin-bottom: 1rem;
 
         }
+        p {
+            max-width: 40ch;
+        }
     </style>
 @endsection
 
@@ -26,17 +29,24 @@
         <div id="code_prod_complex">
             <div class="row">
                 @foreach($products as $product)
-                    <div class="col-md-4 mb-3">
-                        <figure class="">
-                            <div class="text-center" style="font-size: 24px ; color: #4a5568"> {{ $product->product_name }}</div>
-                            <img class="productImg" src="storage{{ $product->img }}" alt="">
-                            <div class="text-center"> รหัสสินค้า : {{ $product->product_code }}</div>
-                            <div class="text-center"> ราคาสินค้า/ชิ้น : {{ $product->product_price }} บาท </div>
-                            <div class="text-center">(ข้อมูลของสินค้า)</div>
-                            <div class="text-center" style="color: #4a5568"> {{ $product->product_detail }} </div>
+
+                    <div class="card  col-md-4 mb-2" style="max-width: 28rem" >
+                        <img class="card-img-top mx-auto mt-3" src="storage{{ $product->img }}" style="max-width: 200px ; max-height: 200px" alt="Card image cap">
+                        <div class="card-body ">
+                            <div style="font-size: 24px"> {{ $product->product_name }}</div>
+                            <div class=""> รหัสสินค้า : {{ $product->product_code }}</div>
+                            <div class=""> ราคาสินค้า/ชิ้น : {{ $product->product_price }} บาท </div>
+                            <div class="">ข้อมูลของสินค้า : </div>
+                            <div class="">
+                                <p> {{ $product->product_detail }} </p>
+                            </div>
+                        </div>
+
+                        @if(Auth::user() && Auth::user()->role=='Customer')
+                        <div class="card-footer bg-transparent ">
                             @auth
-                            @if(Auth::user()->role=='Customer')
-                                @if($product->product_quantity > 0)
+                                @if(Auth::user()->role=='Customer')
+                                    @if($product->product_quantity > 0)
                                         <div class="text-center">
                                             <button type="button" class="btn btn-success basketBtn"
                                                     id="{{ $product->id }}" style="font-size: 16px"
@@ -44,21 +54,20 @@
                                                 <i class="fa fa-shopping-basket"></i>  เพิ่มใส่ตะกร้า
                                             </button>
                                         </div>
-                                @else
+                                    @else
                                         <div class="text-center">
                                             <button type="button" class="btn btn-secondary basketBtn"
                                                     id="{{ $product->id }}###" style="font-size: 16px"
                                                     onclick="">
-                                                  สินค้าหมดชั่วคราว
+                                                สินค้าหมดชั่วคราว
                                             </button>
                                         </div>
+                                    @endif
                                 @endif
-                            @endif
                             @endauth
-                        </figure>
-                        <br>
-
-                    </div>
+                        </div>
+                        @endauth
+                        </div>
 
                 @endforeach
             </div>
