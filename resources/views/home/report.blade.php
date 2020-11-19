@@ -15,7 +15,7 @@
             รายงานยอดขาย
         </div>
 
-        <form action="" class="form" method="POST" enctype="multipart/form-data">
+        <form action=" {{ route('order-detail.search') }}" class="form" method="GET" enctype="multipart/form-data">
             @csrf
             <div class="form-group mb-1" >
                 <label for="payment_datetime">ตั้งแต่วันที่ <i style="color: indianred" class="fas fa-star-of-life"></i></label>
@@ -30,15 +30,17 @@
                 <input type="date" class="form-control" id="payment_datetime"
                        name="payment_datetime" required style="max-width: 20rem"
                        aria-describedby="payment_datetimeHelp">
-{{--                <small id="payment_datetimeHelp" class="form-text text-muted">--}}
-{{--                    วันเวลาและเวลาที่ชำระเงินตามสลิป จำเป็น--}}
-{{--                </small>--}}
+                <small id="payment_datetimeHelp" class="form-text text-muted">
+                    วันเวลาและเวลาที่ชำระเงินตามสลิป จำเป็น
+                </small>
             </div>
 
             <br>
             <button type="submit" class="btn btn-primary"> ค้นหา </button>
 
         </form>
+
+        <a href="{{ route('order-detail.search') }}"> search </a>
 
         <br>
         <div class="row">
@@ -58,6 +60,7 @@
                 </thead>
                 <tbody>
                 @foreach($orderDetails as $orderDetail)
+                    @if($orderDetail->order->order_status=='รอรับสินค้า')
                         <tr>
                             <th>{{ $orderDetail->product->product_code }}</th>
                             <th>{{ $orderDetail->product->product_name }}</th>
@@ -65,7 +68,8 @@
                             <th>{{ $orderDetail->orderdetail_price }}</th>
                             <th>{{ $orderDetail->orderdetail_quantity}}</th>
                             <th>{{ $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price}}</th>
-                        </tr>
+                        </tr>z
+                    @endif
 
                 @endforeach
                 </tbody>

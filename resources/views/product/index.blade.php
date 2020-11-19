@@ -18,10 +18,10 @@
     <div class="container">
 
 
-        <div>
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search" id="searchBar" >
-        </div>
-        <br>
+{{--        <div>--}}
+{{--            <input class="form-control" type="text" placeholder="Search" aria-label="Search" id="searchBar" >--}}
+{{--        </div>--}}
+{{--        <br>--}}
 
 {{--        @can('create', \App\Models\Post::class)--}}
 {{--            <a href="{{ route('posts.create') }}">สร้างโพสต์ใหม่</a>--}}
