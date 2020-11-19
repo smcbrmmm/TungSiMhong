@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\ShipmentInfo;
 use Illuminate\Http\Request;
 
@@ -70,7 +71,16 @@ class ShipmentInfoController extends Controller
     public function update(Request $request, $id)
     {
         $tracking = new ShipmentInfo();
+        $tracking->order_id = $id;
+        $tracking->tracking_no = $request->input('tracking_no');
+        $tracking->send_time = $request->input('send_time');
+        $tracking->save();
 
+        $order = Order::where('id',$id)->first();
+        $order->order_status = 'รอรับสินค้า';
+        $order->save();
+
+        return redirect()->route('order.show',['order'=>$id]);
     }
 
     /**

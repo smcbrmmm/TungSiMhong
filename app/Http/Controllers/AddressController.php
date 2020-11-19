@@ -41,10 +41,16 @@ class AddressController extends Controller
     public function store(Request $request)
     {
 
-//        $img = $request->file('img_path');
-//        $input = time().'-'.$img->getClientOriginalExtension();
-//        $des = public_path('/imgProduct/');
-//        $img->move($des,$input);
+        $request->validate([
+            'place_name' => 'required',
+            'receiver_name'=>'required|min:3',
+            'receiver_tel' => 'required|regex:/[0][0-9]{9}/',
+            'house_no' => 'required',
+            'address' => 'required' ,
+            'province' => 'required' ,
+            'postal' => 'required|regex:/[0-9]{5}/'
+        ]);
+
 
         $address = new Address();
         $address->user_id = Auth::user()->id;

@@ -9,59 +9,74 @@
         @csrf
 
         <div class="form-group">
-            <label for="place_name">ตั้งชื่อสถานที่</label>
-            <input type="text" class="form-control" id="place_name"
-                   name="place_name" value="{{ old('place_name') }}"
+            <label for="place_name">ตั้งชื่อสถานที่ <i style="color: indianred" class="fas fa-star-of-life"></i></label>
+            <input type="text" class="form-control @error('place_name') is-invalid @enderror" id="place_name"
+                   name="place_name" value="{{ old('place_name') }}" placeholder="ตัวอย่าง : บ้านแม่"
                    aria-describedby="place_nameHelp">
             <small id="place_nameHelp" class="form-text text-muted">
-                ชื่อสถานที่ is required .
+                ชื่อสถานที่ จำเป็น
             </small>
+            @error('place_name')
+            <div class="alert alert-danger">ไม่ได้ใส่ชื่อสถานที่หรือชื่อสถานที่ไม่ถูกต้อง</div>
+            @enderror
         </div>
 
         <div class="form-group">
-            <label for="receiver_name">ชื่อผู้รับสินค้า</label>
-            <input type="text" class="form-control" id="receiver_name"
-                   name="receiver_name" value="{{ old('receiver_name') }}"
+            <label for="receiver_name">ชื่อผู้รับสินค้า <i style="color: indianred" class="fas fa-star-of-life"></i></label>
+            <input type="text" class="form-control @error('receiver_name') is-invalid @enderror" id="receiver_name"
+                   name="receiver_name" value="{{ old('receiver_name') }}" placeholder="ตัวอย่าง : แม่"
                    aria-describedby="receiver_nameHelp">
             <small id="receiver_nameHelp" class="form-text text-muted">
-                ชื่อผู้รับสินค้า is required .
+                ชื่อผู้รับสินค้า จำเป็น
             </small>
+            @error('receiver_name')
+            <div class="alert alert-danger"> ไม่ได้ใส่ชื่อผู้รับสินค้าหรือชื่อผู้รับไม่ถูกต้อง</div>
+            @enderror
         </div>
 
         <div class="form-group">
-            <label for="receiver_tel">เบอร์โทรศัพท์ผู้รับสินค้า</label>
-            <input type="text" class="form-control" id="receiver_tel"
-                   name="receiver_tel" value="{{ old('receiver_tel') }}"
+            <label for="receiver_tel">เบอร์โทรศัพท์ผู้รับสินค้า <i style="color: indianred" class="fas fa-star-of-life"></i></label>
+            <input type="text" class="form-control @error('receiver_tel') is-invalid @enderror" id="receiver_tel"
+                   name="receiver_tel" value="{{ old('receiver_tel') }}" placeholder="ตัวอย่าง : 0955938259"
                    aria-describedby="receiver_telHelp">
             <small id="receiver_telHelp" class="form-text text-muted">
-                เบอร์โทรศัพท์ผู้รับสินค้า is required .
+                เบอร์โทรศัพท์ผู้รับสินค้า จำเป็น
             </small>
+            @error('receiver_tel')
+            <div class="alert alert-danger"> ไม่ได้ใส่เบอร์โทรศัพท์หรือเบอร์โทรศัพท์ไม่ถูกต้อง</div>
+            @enderror
         </div>
 
         <div class="form-group">
-            <label for="house_no">บ้านเลขที่</label>
-            <input type="text" class="form-control" id="house_no"
-                   name="house_no" value="{{ old('house_no') }}"
+            <label for="house_no">บ้านเลขที่ <i style="color: indianred" class="fas fa-star-of-life"></i></label>
+            <input type="text" class="form-control @error('house_no') is-invalid @enderror" id="house_no"
+                   name="house_no" value="{{ old('house_no') }}" placeholder="ตัวอย่าง : 2103/30"
                    aria-describedby="house_noHelp">
             <small id="house_noHelp" class="form-text text-muted">
-                บ้านเลขที่ is required .
+                บ้านเลขที่ จำเป็น
             </small>
+            @error('house_no')
+            <div class="alert alert-danger"> ไม่ได้ใส่เลขที่บ้านหรือเลขที่บ้านไม่ถูกต้อง</div>
+            @enderror
         </div>
 
         <div class="form-group">
-            <label for="address">ที่อยู่</label>
-            <input type="text" class="form-control" id="address"
-                   name="address" value="{{ old('address') }}"
+            <label for="address">ที่อยู่ <i style="color: indianred" class="fas fa-star-of-life"></i></label>
+            <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
+                   name="address" value="{{ old('address') }}" placeholder="ตัวอย่าง : หอพักศุภกร ห้อง 3 ถนนพหลโยธิน เขตจตุจักร แขวงลาดยาว"
                    aria-describedby="addressHelp">
             <small id="addressHelp" class="form-text text-muted">
-                ที่อยู่ is required .
+                ที่อยู่ จำเป็น
             </small>
+            @error('address')
+            <div class="alert alert-danger">ไม่ได้ใส่ที่อยู่หรือที่อยู่ไม่ถูกต้อง</div>
+            @enderror
         </div>
 
         <div class="form-group">
-            <label for="province">จังหวัด</label>
+            <label for="province">จังหวัด <i style="color: indianred" class="fas fa-star-of-life"></i></label>
             <br>
-            <select name="province" id="province">
+            <select name="province" id="province" class="form-control @error('province') is-invalid @enderror">
                 <option disabled  selected value> -- เลือกจังหวัดที่อยู่ --</option>
                 <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
                 <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
@@ -144,30 +159,24 @@
 
             </select>
             <small id="provinceHelp" class="form-text text-muted">
-                จังหวัด is required .
+                จังหวัด จำเป็น
             </small>
+            @error('province')
+            <div class="alert alert-danger"> ไม่ได้เลือกจังหวัด</div>
+            @enderror
         </div>
 
-
-
-{{--        <div class="form-group">--}}
-{{--            <label for="province">จังหวัด</label>--}}
-{{--            <input type="text" class="form-control" id="province"--}}
-{{--                   name="province" value="{{ old('province') }}"--}}
-{{--                   aria-describedby="provinceHelp">--}}
-{{--            <small id="provinceHelp" class="form-text text-muted">--}}
-{{--                จังหวัด is required .--}}
-{{--            </small>--}}
-{{--        </div>--}}
-
         <div class="form-group">
-            <label for="postal">รหัสไปรษณีย์</label>
-            <input type="text" class="form-control" id="postal"
-                   name="postal" value="{{ old('postal') }}"
+            <label for="postal">รหัสไปรษณีย์ <i style="color: indianred" class="fas fa-star-of-life"></i></label>
+            <input type="text" class="form-control @error('postal') is-invalid @enderror" id="postal"
+                   name="postal" value="{{ old('postal') }}" placeholder="ตัวอย่าง : 10900"
                    aria-describedby="postalHelp">
             <small id="postalHelp" class="form-text text-muted">
-                รหัสไปรษณีย์ is required .
+                รหัสไปรษณีย์ จำเป็น
             </small>
+            @error('postal')
+            <div class="alert alert-danger"> ไม่ได้ใส่รหัสไปรษณีย์หรือรหัสไปรษณีย์ไม่ถูกต้อง</div>
+            @enderror
         </div>
 
         <button type="submit" class="btn btn-primary">บันทึกที่อยู่</button>

@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\PaymentInfoContoller;
+use App\Http\Controllers\ShipmentInfoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::resource('/home' , HomeController::class);
+Route::get('/report',[HomeController::class,'report'])->name('home.report');
 
 Route::get('/payment/create/{id}',[PaymentInfoContoller::class,'createPayment'])->name('payment.createPayment');
 Route::post('/payment/submit/{id}',[PaymentInfoContoller::class,'submitPayment'])->name('payment.submitPayment');
@@ -54,6 +56,8 @@ Route::resource('/order_detail', OrderDetailController::class);
 Route::resource('/user', UserController::class);
 
 Route::resource('/payment', PaymentInfoContoller::class);
+
+Route::resource('/shipment', ShipmentInfoController::class);
 
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +30,13 @@ class HomeController extends Controller
 
         return view('home.index' , [
             'products' => $products
+        ]);
+    }
+
+    public function report(){
+        $orderDetail = OrderDetail::all();
+        return view('home.report',[
+            'orderDetails' => $orderDetail
         ]);
     }
 

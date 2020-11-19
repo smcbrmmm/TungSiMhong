@@ -15,7 +15,7 @@
     <div class="container">
         <div>
             รหัสการสั่งซื้อ <span style="font-size: 20px"> {{$order->order_code}} </span>
-            {{ $order_id }}
+
         </div>
 
         <form action="{{route('payment.submitPayment',['id'=>$order_id])}}" class="form" method="POST" enctype="multipart/form-data">

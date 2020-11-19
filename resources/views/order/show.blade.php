@@ -20,7 +20,11 @@
         <div style="font-size: 20px  " class="mb-2">
             สถานะสินค้า :  <span style="color: indianred"> {{ $order->order_status }}</span>
         </div>
-
+        @if($order->order_status=='รอรับสินค้า')
+            <div style="font-size: 20px  " class="mb-2">
+                เลขส่งสินค้า :  <span style="color: indianred"> {{ $order->shipment_information->tracking_no }}</span>
+            </div>
+        @endif
         <div class="row">
             <div class="col-3">
                 <div class="address">
@@ -46,12 +50,13 @@
 
                 @if($order->order_status == 'รอจัดส่งสินค้า')
                 <div>
-                    <form action="" class="form" method="POST" >
+                    <form action="{{route('shipment.update',['shipment'=>$order->id])}}" class="form" method="POST" >
+                        @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label for="tracking#">เพิ่มหมายเลขการจัดส่งสินค้า <i style="color: indianred" class="fas fa-star-of-life"></i></label>
-                            <input type="text" class="form-control" id="tracking"
-                                   name="tracking"
+                            <label for="tracking_no">เพิ่มหมายเลขการจัดส่งสินค้า <i style="color: indianred" class="fas fa-star-of-life"></i></label>
+                            <input type="text" class="form-control" id="tracking_no"
+                                   name="tracking_no"
                                    aria-describedby="trackingHelp">
                             <small id="trackingHelp" class="form-text text-muted">
                                 หมายเลขการจัดส่ง is required .

@@ -9,36 +9,49 @@
             object-position: right;
             margin-left: auto;
             margin-right: auto;
-            margin-top: 1rem;
+            margin-bottom: 1rem;
+
         }
     </style>
 @endsection
 
 @section('content')
+    <div class="text-center mb-4">
+    <span class="text-center mb-4" style="font-size: 40px  ; color: white ; background-color: grey">
+        สินค้าภายในร้าน
+    </span>
+    </div>
 
     <div class="container">
-
-        <div style="font-size: 24px"> สินค้าในร้าน</div>
-
-            <div class="card-columns">
+        <div id="code_prod_complex">
+            <div class="row">
                 @foreach($products as $product)
+                    <div class="col-md-4 mb-3">
+                        <figure class="">
+                            <div class="text-center" style="font-size: 24px ; color: #4a5568"> {{ $product->product_name }}</div>
+                            <img class="productImg" src="storage{{ $product->img }}" alt="">
+                            <div class="text-center"> รหัสสินค้า : {{ $product->product_code }}</div>
+                            <div class="text-center"> ราคาสินค้า/ชิ้น : {{ $product->product_price }} บาท </div>
+                            <div class="text-center">(ข้อมูลของสินค้า)</div>
+                            <div class="text-center" style="color: #4a5568"> {{ $product->product_detail }} </div>
+                            @auth
+                            @if(Auth::user()->role=='Customer')
+                            <div class="text-center">
+                                <button type="button" class="btn btn-secondary basketBtn" id="{{ $product->id }}" style="font-size: 16px">
+                                    <i class="fa fa-shopping-basket"></i>  เพิ่มใส่ตะกร้า
+                                </button>
+                            </div>
+                            @endif
+                            @endauth
+                        </figure>
+                        <br>
 
-                <div class="card">
-                    <img class="card-img-top productImg" src="storage{{ $product->img }}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">ชื่อสินค้า : {{ $product->product_name }}</h5>
-                        <p class="card-text"> ข้อมูลสินค้า : {{ $product->product_detail }}</p>
-                        <p> ราคาสินค้า/ชิ้น : {{ $product->product_price }} บาท</p>
-                        <button type="button" class="btn btn-secondary basketBtn" id="{{ $product->id }}">
-                            เพิ่มใส่ตะกร้า
-                        </button>
                     </div>
-                </div>
+
                 @endforeach
             </div>
-
-
         </div>
+    </div>
     </div>
 
 
@@ -46,6 +59,12 @@
 @endsection
 
 @section('script')
+    <script>
+        $(document).ready(function(){
+
+        }
+    </script>
+
     <script>
         $(document).ready(function(){
 
@@ -79,6 +98,7 @@
                     }
                 });
                 @endauth
+
             })
         });
     </script>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -49,6 +50,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'product_name' => 'required|min:5',
+            'product_code'=>'required|unique:products|regex:/[a-zA-Z][a-zA-Z][a-zA-Z][0-9]{7}/',
+            'product_price' => 'required|integer',
+            'product_quantity' => 'required|integer',
+            'product_weight' => 'required|integer',
+            'product_detail' => 'required|max:255'
+        ]);
 
         $img = $request->file('img');
         $input = time().'.'.$img->getClientOriginalExtension();

@@ -28,7 +28,7 @@
         <br>
 
         <div class="row">
-            <div class="col-8">
+            <div class="col-8" style="margin-left: -4rem">
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
@@ -53,7 +53,7 @@
                                 @if($order->order_status != 'รอรับสินค้า')
                                     <td> - </td>
                                 @else
-                                    <td> 123456 </td>
+                                    <td> {{ $order->shipment_information->tracking_no }} </td>
                                 @endif
 
                                 @if($order->order_status=='รอการชำระเงิน' || $order->order_status=='กรุณาตรวจสอบการชำระเงิน' )
