@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class OrderDetailController extends Controller
 {
@@ -30,8 +32,28 @@ class OrderDetailController extends Controller
         //
     }
 
-    public function search($start , $end){
-        return 'samut';
+    public function search(Request  $request,$start=0 , $end=0){
+        if($request->start_datetime){
+            $start = date($request->start_datetime);
+        }
+        if($request->end_datetime){
+            $end = date(Carbon::parse($request->end_datetime)->addDays(1));
+        }
+
+        if ($start == 0){
+            $start = date(Carbon::now()->endOfMonth()->subMonth()->toDateString());
+        }
+        if( $end == 0) {
+            $end = date(Carbon::now()->addDays(1)->toDateString());
+        }
+
+        $orders = Order::whereBetween('order_datetime', [$start, $end])->get();
+
+        return view('home.report',[
+            'orders' => $orders ,
+            'start' => $start,
+            'end' => $end
+        ]);
     }
 
     /**

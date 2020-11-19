@@ -84,7 +84,7 @@
                                             ยอดเงินที่ชำระไม่ตรงกับยอดสั่งซื้อ
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">ตกลง</button>
                                         </div>
                                     </div>
                                 </div>

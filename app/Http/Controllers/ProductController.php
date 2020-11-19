@@ -16,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::orderBy('product_quantity')->get();
 
         return view('product.index', ['products' => $products]);
     }
@@ -36,7 +36,7 @@ class ProductController extends Controller
         ]);
     }
 
-    
+
 
     /**
      * Show the form for creating a new resource.

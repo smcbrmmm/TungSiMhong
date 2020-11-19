@@ -48,9 +48,14 @@
                 @auth()
                     @if(Auth::user()->role == 'Admin')
                         <li class="nav-item">
-                            <a href="{{ route('home.report') }}" class="nav-link">
+                            <form action="{{ route('order-detail.search') }}" method="POST">
+                                @method('POST')
+                                @csrf
+                            <button type="submit" class="nav-link">
                                 รายงานยอดขาย
-                            </a>
+                            </button>
+
+                            </form>
                         </li>
                     @endif
 
@@ -113,3 +118,9 @@
         </div>
     </div>
 </nav>
+<script>
+    import Button from "@/Jetstream/Button";
+    export default {
+        components: {Button}
+    }
+</script>
