@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\PaymentInformation;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -75,9 +76,12 @@ class PaymentInfoContoller extends Controller
 
 
         $order = Order::where('id',$id)->first();
+        $today = Carbon::now();
+//        return $today;
         return view('payment.createPayment',[
            'order_id' => $id,
-            'order' => $order
+            'order' => $order,
+            'today' => $today
         ]);
     }
 

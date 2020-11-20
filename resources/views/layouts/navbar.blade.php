@@ -70,26 +70,21 @@
                     @if(Auth::user()->role=='Customer')
                     <li class="nav-item" >
                         <a href="{{route('user.index')}}" class="nav-link">
-                                <i class="fas fa-user"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item" >
-                        <a href="{{route('user.index')}}" class="nav-link">
-                            {{ Auth::user()->name }}
+                                <i class="fas fa-user"></i> {{ Auth::user()->name }}
                         </a>
                     </li>
                     @endif
                     @if(Auth::user()->role=='Admin')
-                            <li class="nav-item" >
-                                <a href="" class="nav-link">
-                                    <i class="fas fa-user"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item" >
-                                <a href="" class="nav-link">
-                                    {{ Auth::user()->name }}
-                                </a>
-                            </li>
+{{--                            <li class="nav-item" >--}}
+{{--                                <a href="" class="nav-link">--}}
+{{--                                    <i class="fas fa-user"></i>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item" >--}}
+{{--                                <a href="" class="nav-link">--}}
+{{--                                    {{ Auth::user()->name }}--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 
                     @endif
 

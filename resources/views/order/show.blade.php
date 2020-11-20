@@ -265,7 +265,7 @@
                                         แก้ไขราคา :
                                     </div>
                                     <div class="col-4 text-right">
-                                        <input class="form-control" type="number" value="{{ $payment->payment_amount }}" width="100px" name="amount" min="0" >
+                                        <input class="form-control" type="number" value="{{ $payment->payment_amount }}" width="100px" name="amount" min="0" max="50000">
                                     </div>
                                     <div class="col-5">
                                         <button class="btn btn-success" type="submit">ยืนยันการแก้ไข</button>

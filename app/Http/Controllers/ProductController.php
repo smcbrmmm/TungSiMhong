@@ -65,9 +65,9 @@ class ProductController extends Controller
         $request->validate([
             'product_name' => 'required|min:5',
             'product_code'=>'required|unique:products|regex:/[a-zA-Z][a-zA-Z][a-zA-Z][0-9]{7}/',
-            'product_price' => 'required|integer',
-            'product_quantity' => 'required|integer',
-            'product_weight' => 'required|integer',
+            'product_price' => 'required|integer|min:1|max:10000',
+            'product_quantity' => 'required|integer|min:1|max:500',
+            'product_weight' => 'required|integer|min:1|max:50000',
             'product_detail' => 'required|max:255'
         ]);
 
@@ -126,9 +126,9 @@ class ProductController extends Controller
         $request->validate([
             'product_name' => 'required|min:5',
             'product_code'=>'required|regex:/[a-zA-Z][a-zA-Z][a-zA-Z][0-9]{7}/',
-            'product_price' => 'required|integer',
-            'product_quantity' => 'required|integer',
-            'product_weight' => 'required|integer',
+            'product_price' => 'required|integer|min:1|max:10000',
+            'product_quantity' => 'required|integer|min:1|max:500',
+            'product_weight' => 'required|integer|min:1|max:50000',
             'product_detail' => 'required|max:255'
         ]);
 

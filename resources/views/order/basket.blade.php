@@ -190,10 +190,10 @@
 
     function inputOnChange(input, orderDetail, product) {
         if (parseInt(input.value) > product.product_quantity) {
-            alert("invalid qty.");
+            alert("จำนวนสินค้าในคลังไม่พอ");
             input.value = product.product_quantity;
         } else if (parseInt(input.value) <= 0) {
-            alert("invalid qty.");
+            alert("จำนวนสินค้าไม่ถูกต้อง");
             input.value = 1;
         }
 

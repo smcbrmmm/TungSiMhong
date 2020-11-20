@@ -32,7 +32,8 @@ class OrderDetailController extends Controller
         //
     }
 
-    public function search(Request  $request,$start=0 , $end=0){
+    public function search(Request  $request, $start=0, $end=0){
+
         if($request->start_datetime){
             $start = date(Carbon::parse($request->start_datetime)->toDateString());
         }
@@ -42,15 +43,17 @@ class OrderDetailController extends Controller
 
         if ($start == 0){
             $start = date(Carbon::now()->endOfMonth()->subMonth()->toDateString());
+            $request->start_datetime = $start;
         }
         if( $end == 0) {
             $end = date(Carbon::now()->addDays(1)->toDateString());
+            $request->end_datetime = $end;
         }
 
         $orders = Order::whereBetween('order_datetime', [$start, $end])->get();
 
-        $start = Carbon::parse($start)->format('m/d/Y');
-        $end = Carbon::parse($end)->subDay(1)->format('m/d/Y');
+        $start = Carbon::parse($start)->format('d/m/Y');
+        $end = Carbon::parse($end)->subDay(1)->format('d/m/Y');
 
         return view('home.report',[
             'orders' => $orders ,

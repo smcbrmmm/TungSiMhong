@@ -134,11 +134,10 @@ class OrderController extends Controller
     public function submitPayment(Request $request,$id){
 
         $request->validate([
-            'payment_datetime' => 'required',
-            'payment_amount'=>'required|integer',
+            'payment_datetime' => 'required|before_or_equal:tomorrow',
+            'payment_amount'=>'required|integer|min:0|max:100000',
             'img_slip' => 'required',
         ]);
-
 
         $order = Order::where('id',$id)->first();
         $order->order_status = 'กำลังตรวจสอบการชำระเงิน';
@@ -158,11 +157,11 @@ class OrderController extends Controller
         $payment->payment_amount = $request->input('payment_amount');
 
         if ($request->file('img_slip')!=null){
-            $payment->Img_slip = '/imgProduct/'.$input;;
+            $payment->Img_slip = '/imgProduct/'.$input;
         }
         $payment->save();
 
-        return redirect()->route('order.index');;
+        return redirect()->route('order.index');
     }
 
     public function unAcceptPayment(Request $request, $id){

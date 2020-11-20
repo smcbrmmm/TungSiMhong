@@ -71,10 +71,11 @@
                         @foreach($order->orderDetails as $orderDetail)
                             <tr>
                                 <th>{{ $orderDetail->product->product_code }}</th>
-                                <th>{{ $orderDetail->product->product_name }}</th>
+                                <th class="text-left">{{ $orderDetail->product->product_name }}</th>
                                 <th>{{ $orderDetail->order->order_datetime }}</th>
                                 <th>{{ $orderDetail->orderdetail_price }}</th>
-                                <th>{{ $orderDetail->orderdetail_quantity}}</th>
+                                <th style="padding-left: 8rem">{{ $orderDetail->orderdetail_quantity}}</th>
+
                                 <th>{{ $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price}}</th>
                             </tr>
                         @endforeach

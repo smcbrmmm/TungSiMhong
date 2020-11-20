@@ -79,7 +79,6 @@
             <select name="province" id="province" class="form-control @error('province') is-invalid @enderror">
                 <option disabled  selected value> -- เลือกจังหวัดที่อยู่ --</option>
                 <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
-                <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
                 <option value="กระบี่">กระบี่</option>
                 <option value="กาญจนบุรี">กาญจนบุรี</option>
                 <option value="กาฬสินธุ์">กาฬสินธุ์</option>
