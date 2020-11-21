@@ -64,6 +64,9 @@ class OrderController extends Controller
 
     public function basketQty() {
         $order = Order::where('order_status', '=', 'ตะกร้า')->where('user_id','=', Auth::user()->id)->first();
+        if(!$order) {
+            return 0;
+        }
 
         return count($order->orderDetails);
     }

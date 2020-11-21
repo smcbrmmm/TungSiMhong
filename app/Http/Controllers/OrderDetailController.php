@@ -72,6 +72,13 @@ class OrderDetailController extends Controller
     {
 
         $order = Order::where('order_status', '=', 'ตะกร้า')->where('user_id','=', Auth::user()->id)->first();
+        if (!$order) {
+            $order = new Order();
+            $order->user_id = Auth::user()->id;
+            $order->order_code = rand(000000000,999999999);
+            $order->save();
+        }
+
         $product = Product::where('id', '=', $request->product_id)->first();
 
         $orderDetail = OrderDetail::where('order_id', $order->id)->where('product_id', $product->id)->first();

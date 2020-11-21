@@ -17,15 +17,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (Auth::user()) {
-            $order = Order::where('order_status', '=', 'ตะกร้า')->where('user_id', '=', Auth::user()->id)->get();
-            if (count($order) == 0) {
-                $order = new Order();
-                $order->user_id = Auth::user()->id;
-                $order->order_code = rand(000000000,999999999);
-                $order->save();
-            }
-        }
+//        if (Auth::user()) {
+//            $order = Order::where('order_status', '=', 'ตะกร้า')->where('user_id', '=', Auth::user()->id)->get();
+//            if (count($order) == 0) {
+//                $order = new Order();
+//                $order->user_id = Auth::user()->id;
+//                $order->order_code = rand(000000000,999999999);
+//                $order->save();
+//            }
+//        }
 
         return view('home.index');
     }

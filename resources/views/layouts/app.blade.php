@@ -43,7 +43,7 @@
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
-            <div class="modal-content">
+            <div class="modal-content text-center">
                 <div class="modal-body text-center" style="color: indianred">
                     <p id="error"></p>
                 </div>
