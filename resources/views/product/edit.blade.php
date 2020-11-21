@@ -57,7 +57,7 @@
                     ราคาสินค้า จำเป็น
                 </small>
                 @error('product_price')
-                <div class="alert alert-danger"> รหัสสินค้าซ้ำหรือรูปแบบไม่ถูกต้อง </div>
+                <div class="alert alert-danger"> ราคาสินค้าไม่ถูกต้อง </div>
                 @enderror
             </div>
 

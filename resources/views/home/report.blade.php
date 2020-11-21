@@ -61,7 +61,7 @@
                     <th scope="col">วัน/เวลาที่ขาย</th>
                     <th scope="col">ราคาสินค้า/ชิ้น</th>
                     <th scope="col">จำนวนสินค้าที่ขายได้</th>
-                    <th scope="col">ยอดรวม</th>
+                    <th scope="col" class="text-right">ยอดรวม</th>
 
                 </tr>
                 </thead>
@@ -71,12 +71,13 @@
                         @foreach($order->orderDetails as $orderDetail)
                             <tr>
                                 <th>{{ $orderDetail->product->product_code }}</th>
-                                <th class="text-left">{{ $orderDetail->product->product_name }}</th>
-                                <th>{{ $orderDetail->order->order_datetime }}</th>
-                                <th>{{ $orderDetail->orderdetail_price }}</th>
-                                <th style="padding-left: 8rem">{{ $orderDetail->orderdetail_quantity}}</th>
+                                <td class="text-left">{{ $orderDetail->product->product_name }}</td>
+                                <td>{{ \Carbon\Carbon::parse($orderDetail->order->order_datetime)->format('d/m/Y')}}
+                                {{ \Carbon\Carbon::parse($orderDetail->order->order_datetime)->format('h:i A')}}</td>
+                                <td>{{ $orderDetail->orderdetail_price }}</td>
+                                <td style="padding-left: 8rem">{{ $orderDetail->orderdetail_quantity}}</td>
 
-                                <th>{{ $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price}}</th>
+                                <td class="text-right priceNumber">{{ $orderDetail->orderdetail_quantity * $orderDetail->orderdetail_price}}</td>
                             </tr>
                         @endforeach
                     @endif
@@ -92,6 +93,22 @@
 @endsection
 
 @section('script')
+    <script>
+        window.onload = function() {
+            setAllPriceCommas();
+        };
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function setAllPriceCommas() {
+            let prices = document.getElementsByClassName('priceNumber');
+            for(price of prices) {
+                price.innerHTML = numberWithCommas(price.innerHTML);
+            }
+        }
+    </script>
     <script>
         $(document).ready(function(){
             $('.dateFilter').datepicker({

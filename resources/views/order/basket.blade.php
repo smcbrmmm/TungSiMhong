@@ -8,15 +8,16 @@
             height: 100px;
             max-width: 100px;
         }
-        th {
-            text-align: right;
-        }
         .thCenter {
             text-align: center;
         }
         td {
             text-align: center;
         }
+        .priceNumber {
+            padding-left: 30px;
+        }
+
     </style>
 @endsection
 
@@ -33,39 +34,47 @@
                         <th scope="col" class="thCenter">รหัสสินค้า</th>
                         <th scope="col" class="thCenter">ชื่อสินค้า</th>
                         <th scope="col" class="thCenter">จำนวน</th>
-                        <th scope="col" class="thCenter">รวม(บาท)</th>
+                        <th scope="col" class="text-right">รวม(บาท)</th>
                     </tr>
                     </thead>
                     <tbody id="basketBody">
                     @for($i = 0; $i < $orderDetails->count() ; $i++)
                         <tr>
-                            <th scope="row" class="rowNum">{{ $i+1 }}</th>
+                            <th scope="row" class="rowNum text-center">{{ $i+1 }}</th>
                             <td><img src="/storage/{{ $orderDetails[$i]->product->img }}" alt="{{ $orderDetails[$i]->product->product_code }}" class="productImg mx-auto"></td>
-                            <td>{{ $orderDetails[$i]->product->product_code }}</td>
-                            <td>{{ $orderDetails[$i]->product->product_name }}</td>
+                            <td >
+                                <div>
+                                    {{ $orderDetails[$i]->product->product_code }}
+                                </div>
+                                <button class="btn btn-danger text-right" style="margin-top: 20px" onclick="deleteDetail( {{ $orderDetails[$i]->id }}, this )"> นำสินค้าออก </button>
+                            </td>
+                            <td style="text-align: left">{{ $orderDetails[$i]->product->product_name }}</td>
                             <td>
-                                <input onchange="inputOnChange(this, {{ $orderDetails[$i] }}, {{ $orderDetails[$i]->product }})" class="inputQty" type="number" id="{{ $orderDetails[$i]->product->id . "qty" }}"
+                                <input style="min-width: 65px" onchange="inputOnChange(this, {{ $orderDetails[$i] }}, {{ $orderDetails[$i]->product }})" class="inputQty text-right" type="number" id="{{ $orderDetails[$i]->product->id . "qty" }}"
                                        min="1" max="{{ $orderDetails[$i]->product->product_quantity }}" value="{{ $orderDetails[$i]->orderdetail_quantity }}">
                             </td>
                             <td>
-                                <div id="product{{ $orderDetails[$i]->id }}" class="amountPrice">
+                                <div id="product{{ $orderDetails[$i]->id }}" class="amountPrice priceNumber text-right">
                                     {{ $orderDetails[$i]->orderdetail_price * $orderDetails[$i]->orderdetail_quantity }}
                                 </div>
-                                <button class="btn btn-danger" style="margin-top: 20px" onclick="deleteDetail( {{ $orderDetails[$i]->id }}, this )"> นำสินค้าออก </button>
                             </td>
                         </tr>
                     @endfor
                     <tr>
                         <th colspan="5" style="text-align: left">ราคาสินค้าทั้งหมด</th>
-                        <th id="amountPrice" style="text-align: center">{{ $amountPrice }}</th>
+                        <th id="amountPrice" style="text-align: center" class="priceNumber text-right">{{ $amountPrice }}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="5" style="text-align: left">VAT 7%</th>
+                        <th id="vatPrice" style="text-align: center" class="priceNumber text-right">{{ round($amountPrice*0.07) }}</th>
                     </tr>
                     <tr>
                         <th colspan="5" style="text-align: left">ค่าจัดส่ง</th>
-                        <th id="deliFee" style="text-align: center">{{ $deliFee }}</th>
+                        <th id="deliFee" style="text-align: center" class="priceNumber text-right">{{ $deliFee }}</th>
                     </tr>
                     <tr>
                         <th colspan="5" style="text-align: left">รวม</th>
-                        <th id="amountAll" style="text-align: center">{{ $amountPrice + $deliFee }}</th>
+                        <th id="amountAll" style="text-align: center" class="priceNumber text-right">{{ $amountPrice + $deliFee + round($amountPrice*0.07) }}</th>
                     </tr>
                     </tbody>
                 </table>
@@ -79,7 +88,7 @@
                                 <div class="col text-left">
                                     ที่อยู่ในการจัดส่ง
                                 </div>
-                                <div class="col">
+                                <div class="col text-right">
                                     <a class="btn btn-secondary" href="{{ route('address.create') }}">เพิ่มที่อยู่ใหม่</a>
                                 </div>
                             </div>
@@ -185,8 +194,24 @@
 @endsection
 
 <script>
-    var amountWeight = parseInt({{ $amountWeight }})
-    console.log(amountWeight)
+    window.onload = function() {
+        setAllPriceCommas();
+    };
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function setAllPriceCommas() {
+        let prices = document.getElementsByClassName('priceNumber');
+        for(price of prices) {
+            price.innerHTML = numberWithCommas(price.innerHTML);
+        }
+    }
+
+    var amountWeight = parseInt({{ $amountWeight }});
+    console.log(amountWeight);
+
 
     function inputOnChange(input, orderDetail, product) {
         if (parseInt(input.value) > product.product_quantity) {
@@ -212,17 +237,23 @@
 
                 let amountTag = document.getElementById("product" + orderDetail.id);
                 amountTag.innerHTML = product.product_price * parseInt(input.value);
+                amountTag.innerHTML = numberWithCommas(amountTag.innerText);
 
                 let amountPrice = 0;
                 let amounts = document.getElementsByClassName("amountPrice");
                 for (let i=0; i<amounts.length; i++) {
-                    amountPrice += parseInt(amounts[i].innerHTML);
+                    amountPrice += parseInt(amounts[i].innerHTML.replace(',',''));
                 }
                 document.getElementById("amountPrice").innerHTML = amountPrice;
 
+                let vatPrice = document.getElementById("vatPrice");
+                let vat = Math.round(amountPrice*0.07)
+                vatPrice.innerHTML = vat;
+
                 let deliFee = 30 + Math.ceil(amountWeight/1000)*15;
                 document.getElementById("deliFee").innerHTML = deliFee
-                document.getElementById("amountAll").innerHTML = deliFee + amountPrice;
+                document.getElementById("amountAll").innerHTML = deliFee + amountPrice + vat;
+                setAllPriceCommas();
 
             }
         });

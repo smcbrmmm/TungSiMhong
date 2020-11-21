@@ -29,7 +29,9 @@
                     รหัสการสั่งซื้อ :  {{ $order->order_code }}
                 </div>
                 <div style="font-size: 20px">
-                    วันที่สั่งสินค้า :  <span> {{ $order->order_datetime }}</span>
+                    วันที่สั่งสินค้า :
+                    <span>{{ \Carbon\Carbon::parse($order->order_datetime)->format('d/m/Y')}}</span>
+                    <span>{{ \Carbon\Carbon::parse($order->order_datetime)->format('h:i A')}}</span>
                 </div>
                 <div style="font-size: 20px" class="mb-2">
                     สถานะสินค้า :
@@ -48,7 +50,7 @@
                         <span style="color: darkgreen">
                             ชำระเงินแล้ว :
                         </span>
-                        <span><a href="#" data-toggle="modal" data-target="#payment{{ $payments[0]->id }}">{{ $payments[0]->payment_amount }}</a></span> บาท
+                        <span><a href="#" data-toggle="modal" data-target="#payment{{ $payments[0]->id }}" class="priceNumber">{{ $payments[0]->payment_amount }}</a></span> บาท
                     </div>
                 @else
                     <div style="font-size: 24px">
@@ -56,12 +58,12 @@
                             ชำระเงินแล้ว :
                         </span>
                         @for($i = 0, $amountPayment = 0; $i<$payments->count(); $amountPayment += $payments[$i]->payment_amount, $i++)
-                            <span><a href="#" data-toggle="modal" data-target="#payment{{ $payments[$i]->id }}">{{ $payments[$i]->payment_amount }}</a></span>
+                            <span><a href="#" data-toggle="modal" data-target="#payment{{ $payments[$i]->id }}" class="priceNumber">{{ $payments[$i]->payment_amount }}</a></span>
                             @if($i != $payments->count() - 1)
                                 +
                             @endif
                         @endfor
-                        = {{ $amountPayment }} บาท
+                        = <span class="priceNumber">{{ $amountPayment }}</span> บาท
                     </div>
                 @endif
 
@@ -203,9 +205,9 @@
                         <th scope="col" class="thCenter">รูปภาพสินค้า</th>
                         <th scope="col" class="thCenter">รหัสสินค้า</th>
                         <th scope="col" class="thCenter">ชื่อสินค้า</th>
-                        <th scope="col" class="thCenter">ราคา</th>
-                        <th scope="col" class="thCenter">จำนวน</th>
-                        <th scope="col" class="thCenter">รวม(บาท)</th>
+                        <th scope="col" class="text-right">ราคา</th>
+                        <th scope="col" class="text-right">จำนวน</th>
+                        <th scope="col" class="text-right">รวม(บาท)</th>
                     </tr>
                     </thead>
                     <tbody id="detailBody">
@@ -213,25 +215,29 @@
                         @for($i = 0; $i < $orderDetails->count() ; $i++)
                             <tr>
                                 <th scope="row">{{ $i+1 }}</th>
-                                <td><img src="/storage/{{ $orderDetails[$i]->product->img }}" alt="{{ $orderDetails[$i]->product->product_code }}" class="productImg"></td>
+                                <td><img src="/storage/{{ $orderDetails[$i]->product->img }}" alt="{{ $orderDetails[$i]->product->product_code }}" class="productImg mx-auto"></td>
                                 <td>{{ $orderDetails[$i]->product->product_code }}</td>
-                                <td>{{ $orderDetails[$i]->product->product_name }}</td>
-                                <td>{{ $orderDetails[$i]->orderdetail_price }}</td>
-                                <td>{{ $orderDetails[$i]->orderdetail_quantity }}</td>
-                                <td>{{ $orderDetails[$i]->orderdetail_price * $orderDetails[$i]->orderdetail_quantity }}</td>
+                                <td class="text-left">{{ $orderDetails[$i]->product->product_name }}</td>
+                                <td class="text-right priceNumber">{{ $orderDetails[$i]->orderdetail_price }}</td>
+                                <td class="text-right priceNumber">{{ $orderDetails[$i]->orderdetail_quantity }}</td>
+                                <td class="text-right priceNumber">{{ $orderDetails[$i]->orderdetail_price * $orderDetails[$i]->orderdetail_quantity }}</td>
                             </tr>
                         @endfor
                         <tr>
                             <th colspan="6" style="text-align: left">ราคาสินค้าทั้งหมด</th>
-                            <th style="text-align: center">{{ $amountPrice }}</th>
+                            <th style="text-align: center" class="text-right priceNumber">{{ $amountPrice }}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="6" style="text-align: left">VAT 7%</th>
+                            <th style="text-align: center" class="text-right priceNumber">{{ round($amountPrice*0.07) }}</th>
                         </tr>
                         <tr>
                             <th colspan="6" style="text-align: left">ค่าจัดส่ง</th>
-                            <th style="text-align: center">{{ $deliFee }}</th>
+                            <th style="text-align: center" class="text-right priceNumber">{{ $deliFee }}</th>
                         </tr>
                         <tr>
                             <th colspan="6" style="text-align: left">รวม</th>
-                            <th style="text-align: center">{{ $amountPrice + $deliFee }}</th>
+                            <th style="text-align: center" class="text-right priceNumber">{{ $amountPrice + $deliFee + round($amountPrice*0.07) }}</th>
                         </tr>
                     @endisset
                     </tbody>
@@ -248,7 +254,10 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" >{{ $payment->payment_datetime }}</h5>
+                            <h5 class="modal-title" >
+                                <span>{{ \Carbon\Carbon::parse($payment->payment_datetime)->format('d/m/Y')}}</span>
+                                <span>{{ \Carbon\Carbon::parse($payment->payment_datetime)->format('h:i A')}}</span>
+                            </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -285,6 +294,22 @@
 @endsection
 
 @section('script')
+    <script>
+        window.onload = function() {
+            setAllPriceCommas();
+        };
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function setAllPriceCommas() {
+            let prices = document.getElementsByClassName('priceNumber');
+            for(price of prices) {
+                price.innerHTML = numberWithCommas(price.innerHTML);
+            }
+        }
+    </script>
     <script>
         $(document).ready(function () {
             $('#myModal').on('shown.bs.modal', function () {

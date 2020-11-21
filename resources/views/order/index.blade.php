@@ -60,7 +60,7 @@
                     <tr>
                         <th scope="col">รหัสสั่งซื้อ</th>
                         <th scope="col">วัน/เวลาในการสั่ง</th>
-                        <th scope="col">สถานะ</th>
+                        <th scope="col" class="text-left">สถานะ</th>
                         <th scope="col">จัดการ</th>
                     </tr>
                     </thead>
@@ -76,11 +76,11 @@
                                 <td>{{ $order->order_code }}</td>
                                 <td>{{ $order->order_datetime }}</td>
                                 @if($order->order_status == 'สำเร็จ' || $order->order_status == 'รอรับสินค้า')
-                                    <td style="color: darkgreen">{{ $order->order_status }}</td>
+                                    <td style="color: darkgreen " class="text-left">{{ $order->order_status }}</td>
                                 @elseif($order->order_status == 'ยกเลิก' || $order->order_status == 'รอการชำระเงิน' || $order->order_status == 'กรุณาตรวจสอบการชำระเงิน')
-                                    <td style="color: red">{{ $order->order_status }}</td>
+                                    <td style="color: red" class="text-left">{{ $order->order_status }}</td>
                                 @else
-                                    <td style="color: blue">{{ $order->order_status }}</td>
+                                    <td style="color: blue" class="text-left">{{ $order->order_status }}</td>
                                 @endif
 
                                 @if($order->order_status=='รอการชำระเงิน' || $order->order_status=='กรุณาตรวจสอบการชำระเงิน' )
@@ -142,22 +142,26 @@
                         <tr data-toggle="modal" data-target="#orderDetail{{ $orderDetails[$i]->id }}">
                             <th scope="row">{{ $i+1 }}</th>
                             <td>{{ $orderDetails[$i]->product->product_code }}</td>
-                            <td>{{ $orderDetails[$i]->product->product_name }}</td>
-                            <td>{{ $orderDetails[$i]->orderdetail_quantity }}</td>
-                            <td>{{ $orderDetails[$i]->orderdetail_price * $orderDetails[$i]->orderdetail_quantity }}</td>
+                            <td class="text-left">{{ $orderDetails[$i]->product->product_name }}</td>
+                            <td class="text-right">{{ $orderDetails[$i]->orderdetail_quantity }}</td>
+                            <td class="priceNumber text-right">{{ $orderDetails[$i]->orderdetail_price * $orderDetails[$i]->orderdetail_quantity }}</td>
                         </tr>
                     @endfor
                     <tr>
                         <th colspan="4" style="text-align: left">ราคาสินค้าทั้งหมด</th>
-                        <th style="text-align: center">{{ $amountPrice }}</th>
+                        <th style="text-align: center" class="priceNumber text-right">{{ $amountPrice }}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="4" style="text-align: left">VAT 7%</th>
+                        <th style="text-align: center" class="priceNumber text-right">{{ round($amountPrice*0.07) }}</th>
                     </tr>
                     <tr>
                         <th colspan="4" style="text-align: left">ค่าจัดส่ง</th>
-                        <th style="text-align: center">{{ $deliFee }}</th>
+                        <th style="text-align: center" class="priceNumber text-right">{{ $deliFee }}</th>
                     </tr>
                     <tr>
                         <th colspan="4" style="text-align: left">รวม</th>
-                        <th style="text-align: center">{{ $amountPrice + $deliFee }}</th>
+                        <th style="text-align: center" class="priceNumber text-right">{{ $amountPrice + $deliFee + round($amountPrice*0.07) }}</th>
                     </tr>
                     @if($orders[0]->order_status == 'รอการชำระเงิน' || $orders[0]->order_status == 'กรุณาตรวจสอบการชำระเงิน')
                         <tr>
@@ -218,27 +222,32 @@
 
         <div id="modalsPayment">
             @isset($orders[0])
+
             <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" ><b id="orderCodeModal">Order #{{ $orders[0]->order_code }}</b></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body mx-auto" id="modalBodyPayment">
-                        @foreach($orders[0]->payment_informations as $payment)
-                            <div class="card mb-5" style="width: 18rem;">
-                                <img class="card-img-top" src="/storage{{ $payment->img_slip }}" alt="">
-                                <div class="card-body text-right">
-                                    <h5 class="card-title">{{ $payment->payment_datetime }}</h5>
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" ><b id="orderCodeModal">Order #{{ $orders[0]->order_code }}</b></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-auto" id="modalBodyPayment">
+                            @if($orders[0]->payment_informations->count() == 0)
+                                <div>ยังไม่มีประวัติการชำระเงิน</div>
+                            @else
+                            @foreach($orders[0]->payment_informations as $payment)
+                                <div class="card mb-5" style="width: 18rem;">
+                                    <img class="card-img-top" src="/storage{{ $payment->img_slip }}" alt="">
+                                    <div class="card-body text-right">
+                                        <h5 class="card-title">{{ $payment->payment_datetime }}</h5>
+                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                            @endif
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
             @endisset
         </div>
@@ -255,6 +264,22 @@
         })
     </script>
     <script>
+        window.onload = function() {
+            setAllPriceCommas();
+        };
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function setAllPriceCommas() {
+            let prices = document.getElementsByClassName('priceNumber');
+            for(price of prices) {
+                console.log('comma', price.innerHTML)
+                price.innerHTML = numberWithCommas(price.innerHTML);
+            }
+        }
+
          function orderOnClick(tr, order, orderDetails, payments, shipment) {
             let trSelected = document.getElementsByClassName("orderSelected")[0];
              if (tr === trSelected) {
@@ -324,14 +349,18 @@
                         let num = row.insertCell(0);
                         let pc = row.insertCell(1);
                         let name = row.insertCell(2);
+                        name.style.textAlign = "left"
                         let qty = row.insertCell(3);
+                        qty.style.textAlign = "right"
                         let amount = row.insertCell(4);
+                        amount.classList.add("priceNumber")
+                        amount.style.textAlign = "right"
 
-                        num.innerHTML = '<th scope="row"><b>' + (i+1) + '</b></th>';
-                        pc.innerHTML = '<td>' + product.product_code + '</td>';
-                        name.innerHTML = '<td>' + product.product_name + '</td>';
-                        qty.innerHTML = '<td>' + orderDetails[i].orderdetail_quantity + '</td>';
-                        amount.innerHTML = '<td>' + orderDetails[i].orderdetail_price * orderDetails[i].orderdetail_quantity + '</td>';
+                        num.innerHTML = '<b>' + (i+1) + '</b>';
+                        pc.innerHTML = product.product_code ;
+                        name.innerHTML = product.product_name;
+                        qty.innerHTML = orderDetails[i].orderdetail_quantity;
+                        amount.innerHTML = orderDetails[i].orderdetail_price * orderDetails[i].orderdetail_quantity;
 
                         amountPrice += orderDetails[i].orderdetail_price * orderDetails[i].orderdetail_quantity;
                         amountWeight += product.product_weight * orderDetails[i].orderdetail_quantity
@@ -373,25 +402,38 @@
             amountText.setAttribute('colspan', colspan);
             amountText.style.textAlign = "left";
             amountCell.innerHTML = '<b>' + amountPrice + '</b>'
-            amountCell.style.textAlign = "center";
+            amountCell.style.textAlign = "right";
+            amountCell.classList.add('priceNumber')
 
             row = new_tbody.insertRow(orderDetails.length + 1);
+            amountText = row.insertCell(0);
+            amountCell = row.insertCell(1);
+            amountText.innerHTML = '<b>VAT 7%</b>';
+            amountText.setAttribute('colspan', colspan);
+            amountText.style.textAlign = "left";
+            amountCell.innerHTML = '<b>' + Math.round(amountPrice*0.07) + '</b>'
+            amountCell.style.textAlign = "right";
+            amountCell.classList.add('priceNumber')
+
+            row = new_tbody.insertRow(orderDetails.length + 2);
             amountText = row.insertCell(0);
             amountCell = row.insertCell(1);
             amountText.innerHTML = '<b>ค่าจัดส่ง</b>';
             amountText.setAttribute('colspan', colspan);
             amountText.style.textAlign = "left";
             amountCell.innerHTML = '<b>' + deliFee + '</b>'
-            amountCell.style.textAlign = "center";
+            amountCell.style.textAlign = "right";
+            amountCell.classList.add('priceNumber')
 
-            row = new_tbody.insertRow(orderDetails.length + 2);
+            row = new_tbody.insertRow(orderDetails.length + 3);
             amountText = row.insertCell(0);
             amountCell = row.insertCell(1);
             amountText.innerHTML = '<b>รวม</b>';
             amountText.setAttribute('colspan', colspan);
             amountText.style.textAlign = "left";
-            amountCell.innerHTML = '<b>' + (amountPrice + deliFee) + '</b>'
-            amountCell.style.textAlign = "center";
+            amountCell.innerHTML = '<b>' + (amountPrice + deliFee + Math.round(amountPrice*0.07)) + '</b>'
+            amountCell.style.textAlign = "right";
+            amountCell.classList.add('priceNumber')
 
             createCancel(order, orderDetails);
         }
@@ -399,7 +441,7 @@
         function createCancel(order, orderDetails) {
             if (order.order_status == 'รอการชำระเงิน' || order.order_status == 'กรุณาตรวจสอบการชำระเงิน') {
                 let new_tbody = document.getElementById('detailBody');
-                let cancelRow = new_tbody.insertRow(orderDetails.length+3);
+                let cancelRow = new_tbody.insertRow(orderDetails.length + 4);
                 let cancelBtn = cancelRow.insertCell(0);
                 cancelBtn.setAttribute('colspan', '5')
                 cancelBtn.innerHTML = '' +
@@ -407,6 +449,7 @@
                     '   ยกเลิกคำสั่งซื้อ\n' +
                     '</button>';
             }
+            setAllPriceCommas();
         }
 
     </script>
