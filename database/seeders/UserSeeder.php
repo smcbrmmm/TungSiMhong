@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
         $user->tel = '0922489093';
         $user->email = 'samut.c@ku.th';
         $user->password = Hash::make('samut123');
-        $user->role = 'Customer';
+        $user->role = 'C';
         $user->save();
 
         $user = new User();
@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
         $user->tel = '0955938259';
         $user->email = 'jiraporn.kow@ku.th';
         $user->password = Hash::make('jiraporn123');
-        $user->role = 'Customer';
+        $user->role = 'C';
         $user->save();
 
 
@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
         $user->tel = '0955938259';
         $user->email = 'admin@admin.com';
         $user->password = Hash::make('admin123');
-        $user->role = 'Admin';
+        $user->role = 'A';
         $user->save();
 
         $user = new User();
@@ -45,7 +45,7 @@ class UserSeeder extends Seeder
         $user->tel = '0958828259';
         $user->email = 'nobnaja@nob.com';
         $user->password = Hash::make('nobnaja123');
-        $user->role = 'Customer';
+        $user->role = 'C';
         $user->save();
 
         $user = new User();
@@ -53,7 +53,7 @@ class UserSeeder extends Seeder
         $user->tel = '0651020259';
         $user->email = 'Tongridhot@hotmail.com';
         $user->password = Hash::make('123456TongRid');
-        $user->role = 'Customer';
+        $user->role = 'C';
         $user->save();
 
         $user = new User();
@@ -61,7 +61,7 @@ class UserSeeder extends Seeder
         $user->tel = '0871020251';
         $user->email = 'chaiyoK@hotmail.com';
         $user->password = Hash::make('123456789K');
-        $user->role = 'Customer';
+        $user->role = 'C';
         $user->save();
 
         $user = new User();
@@ -69,7 +69,7 @@ class UserSeeder extends Seeder
         $user->tel = '0819920658';
         $user->email = 'KarathMRT@gmail.com';
         $user->password = Hash::make('741258369K');
-        $user->role = 'Customer';
+        $user->role = 'C';
         $user->save();
     }
 }

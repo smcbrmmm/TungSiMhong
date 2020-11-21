@@ -42,10 +42,10 @@
                             </div>
                         </div>
 
-                        @if(Auth::user() && Auth::user()->role=='Customer')
+                        @if(Auth::user() && Auth::user()->role=='C')
                             <div class="card-footer bg-transparent ">
                                 @auth
-                                    @if(Auth::user()->role=='Customer')
+                                    @if(Auth::user()->role=='C')
                                         @if($product->product_quantity > 0)
                                             <div class="text-center">
                                                 <button type="button" class="btn btn-success basketBtn"

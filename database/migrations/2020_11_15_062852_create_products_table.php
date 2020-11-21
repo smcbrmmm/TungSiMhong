@@ -15,13 +15,13 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('product_code')->unique();
+            $table->string('product_code','10')->unique();
             $table->integer('product_price');
-            $table->string('product_name');
+            $table->string('product_name','40');
             $table->integer('product_quantity');
             $table->float('product_weight');
             $table->string('product_detail');
-            $table->string('img')->nullable(true);
+            $table->string('img','30')->nullable(true);
             $table->timestamps();
         });
     }

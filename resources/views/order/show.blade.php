@@ -175,6 +175,22 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="shipment_company">ช่องทางการส่งสินค้า <i style="color: indianred" class="fas fa-star-of-life"></i></label>
+                            <br>
+                            <select name="shipment_company" id="shipment_company">
+                                <option disabled value=""> -- กรุณาเลือกช่องทางการส่งสินค้า -- </option>
+                                <option value="ThailandPost">ThailandPost</option>
+                                <option value="Kerry Express">Kerry Express</option>
+                                <option value="Flash Express">Flash Express</option>
+
+
+                            </select>
+                            <small id="shipment_companyHelp" class="form-text text-muted">
+                                ช่องทางการส่งสินค้า จำเป็น
+                            </small>
+                        </div>
+
+                        <div class="form-group">
                             <label for="send_time">วันและเวลาในการจัดส่ง <i style="color: red" class="fas fa-star-of-life"></i></label>
                             <input type="datetime-local" class="form-control" id="send_time"
                                    name="send_time" required
@@ -192,6 +208,9 @@
                 @if($order->order_status=='รอรับสินค้า')
                     <div style="font-size: 20px  " class="mb-2">
                         เลขส่งสินค้า :  <span style="color: red"> {{ $order->shipment_information->tracking_no }}</span>
+                    </div>
+                    <div style="font-size: 20px  " class="mb-2">
+                        บริษัทขนส่ง :  <span style="color: red"> {{ $order->shipment_information->shipment_company }}</span>
                     </div>
                 @endif
 

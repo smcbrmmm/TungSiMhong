@@ -55,7 +55,7 @@ class OrderController extends Controller
         $orders = Order::where('order_status', '!=', 'ตะกร้า')
             ->orderByRaw("FIELD(order_status, \"กำลังตรวจสอบการชำระเงิน\", \"รอจัดส่งสินค้า\" , \"กรุณาตรวจสอบการชำระเงิน\", \"รอการชำระเงิน\", \"รอรับสินค้า\"
             , \"สำเร็จ\", \"ยกเลิก\")")->get();
-        if(Auth::user()->role == 'Admin') {
+        if(Auth::user()->role == 'A') {
             return view('order.index_admin', [
                 'orders' => $orders
             ]);

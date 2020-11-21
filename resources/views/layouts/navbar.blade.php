@@ -11,14 +11,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 @auth()
-                @if(Auth::user()->role == 'Admin')
-                <li class="nav-item">
-                    <a href="{{ route('product.index') }}" class="nav-link">
-                        สินค้า
-                    </a>
-                </li>
-                @endif
-                @if(Auth::user()->role == 'Customer')
+                @if(Auth::user()->role == 'C')
                 <li class="nav-item">
                      <a href="{{ route('product.products') }}" class="nav-link">
                           สินค้าภายในร้าน
@@ -29,16 +22,28 @@
                         ประวัติการสั่งซื้อ
                     </a>
                 </li>
-                @endif
-
-
-                @if(Auth::user()->role == 'Admin')
+                @else
+                <li class="nav-item">
+                    <a href="{{ route('product.index') }}" class="nav-link">
+                        สินค้า
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="{{ route('order.adminOrder') }}" class="nav-link">
                         การสั่งซื้อสินค้าทั้งหมด
                     </a>
                 </li>
+                <li class="nav-item">
+                    <form action="{{ route('order-detail.search') }}" method="POST">
+                        @method('POST')
+                        @csrf
+                        <button type="submit" class="nav-link">
+                            รายงานยอดขาย
+                        </button>
+                    </form>
+                </li>
                 @endif
+
 
                 @endauth
             </ul>
@@ -46,46 +51,18 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 @auth()
-                    @if(Auth::user()->role == 'Admin')
-                        <li class="nav-item">
-                            <form action="{{ route('order-detail.search') }}" method="POST">
-                                @method('POST')
-                                @csrf
-                            <button type="submit" class="nav-link">
-                                รายงานยอดขาย
-                            </button>
-
-                            </form>
-                        </li>
-                    @endif
-
-                    @if(Auth::user()->role=='Customer')
+                    @if(Auth::user()->role=='C')
                     <li class="nav-item">
                         <a href="#" class="nav-link" id="basketLink">
                             <i class="fa fa-shopping-basket"></i>
                             <span class="badge badge-pill badge-danger" id="basketQty" style="margin-left: -10px"></span>
                         </a>
                     </li>
-                    @endif
-                    @if(Auth::user()->role=='Customer')
                     <li class="nav-item" >
                         <a href="{{route('user.index')}}" class="nav-link">
                                 <i class="fas fa-user"></i> {{ Auth::user()->name }}
                         </a>
                     </li>
-                    @endif
-                    @if(Auth::user()->role=='Admin')
-{{--                            <li class="nav-item" >--}}
-{{--                                <a href="" class="nav-link">--}}
-{{--                                    <i class="fas fa-user"></i>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                            <li class="nav-item" >--}}
-{{--                                <a href="" class="nav-link">--}}
-{{--                                    {{ Auth::user()->name }}--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-
                     @endif
 
                     <li>

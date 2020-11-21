@@ -17,6 +17,7 @@ class CreateShipmentInfosTable extends Migration
             $table->id();
             $table->string('tracking_no');
             $table->string('send_time');
+            $table->enum('shipment_company',['ThailandPost','Kerry Express','Flash Express'])->nullable(true);
             $table->timestamps();
         });
     }

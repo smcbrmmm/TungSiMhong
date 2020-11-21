@@ -73,6 +73,7 @@ class ShipmentInfoController extends Controller
         $tracking = new ShipmentInfo();
         $tracking->order_id = $id;
         $tracking->tracking_no = $request->input('tracking_no');
+        $tracking->shipment_company = $request->input('shipment_company');
         $tracking->send_time = $request->input('send_time');
         $tracking->save();
 
